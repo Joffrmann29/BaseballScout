@@ -1,13 +1,13 @@
 //
-//  ViewController.h
+//  LoginViewController.h
 //  GaTechScouting
 //
-//  Created by Joffrey Mann on 9/2/14.
+//  Created by Joffrey Mann on 10/10/14.
 //  Copyright (c) 2014 JoffreyMann. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface LoginViewController : UIViewController
 
 @end
