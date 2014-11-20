@@ -10,4 +10,8 @@
 
 @interface LayerViewObjects : NSObject
 
++(CALayer*)createLabelLayer:(UILabel *)label;
++(CALayer *)createTableLayer:(UITableView *)tableView;
++(CALayer *)createTextLayer:(UITextView *)textView;
+
 @end

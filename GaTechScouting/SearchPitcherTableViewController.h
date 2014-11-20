@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SearchPitcherTableViewController : UITableViewController
+@interface SearchPitcherTableViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate>
 
 @end

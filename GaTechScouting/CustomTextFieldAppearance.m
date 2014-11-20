@@ -10,4 +10,13 @@
 
 @implementation CustomTextFieldAppearance
 
+-(UITextField *)changeTextFieldAppearance
+{
+    UITextField *textField = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, 260, 30)];
+    textField.keyboardType = UIKeyboardTypeNumberPad;
+    textField.keyboardAppearance = UIKeyboardAppearanceAlert;
+    
+    return textField;
+}
+
 @end

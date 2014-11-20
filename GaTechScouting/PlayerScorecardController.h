@@ -6,8 +6,9 @@
 //  Copyright (c) 2014 JoffreyMann. All rights reserved.
 //
 
-#import "ViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface PlayerScorecardController : ViewController
+@interface PlayerScorecardController : UIViewController<NSURLConnectionDelegate,NSURLConnectionDataDelegate>
 
+@property (nonatomic, strong) PFObject *player;
 @end

@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PlayerTableViewCell.h"
 
-@interface AddPlayerViewController : UIViewController
+@interface AddPlayerViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+
+@property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) PlayerTableViewCell *pCell;
 
 @end

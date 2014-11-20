@@ -10,4 +10,9 @@
 
 @interface Gradients : NSObject
 
+-(CAGradientLayer *)redGradient;
+-(CAGradientLayer *)blueGradient;
+-(CAGradientLayer *)blackGradient;
+-(CAGradientLayer *)accessoryGradient;
+
 @end

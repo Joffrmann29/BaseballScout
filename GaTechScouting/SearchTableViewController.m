@@ -7,32 +7,246 @@
 //
 
 #import "SearchTableViewController.h"
+#import "MBProgressHUD.h"
+#import "PlayerScorecardController.h"
+#import "SearchPitcherTableViewController.h"
 
 @interface SearchTableViewController ()
 
+@property (strong, nonatomic) NSArray *players;
+@property (strong, nonatomic) NSArray *searchedPlayers;
+@property (strong, nonatomic) NSArray *searchedPlayersByLastName;
+@property (strong, nonatomic) NSArray *searchedPlayersByPosition;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
+@property (strong, nonatomic) NSString *searchTerm;
+@property (strong, nonatomic) UIAlertView *searchByFirstAlert;
+@property (strong, nonatomic) UIAlertView *searchByLastAlert;
+@property (strong, nonatomic) UIAlertView *searchByPositionAlert;
+
+- (IBAction)searchButtonPressed:(UIBarButtonItem *)sender;
 @end
 
 @implementation SearchTableViewController
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+MBProgressHUD *hud;
+BOOL successfulSearch;
+BOOL successfulLastNameSearch;
+BOOL successfulPositionSearch;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self loadingOverlay];
+    
+    [self.navBar setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys:
+      [UIFont fontWithName:@"Helvetica" size:17],
+      NSFontAttributeName, nil]];
+    _searchedPlayers = [[NSArray alloc]init];
+    [self filterResultsByFirstName:self.searchTerm];
+    [self filterResultsByLastName:self.searchTerm];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+
+-(void)loadingOverlay
+{
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"Loading";
+}
+
+-(void) viewWillAppear:(BOOL)animated{
+    [self retieveProgress];
+}
+
+-(void)showAction
+{
+    NSString *actionSheetTitle = @"Menu Options"; //Action Sheet Title
+    NSString *searchByPlayerFirstName = @"Search By First Name";
+    NSString *searchByPlayerLastName = @"Search By Last Name";
+    NSString *searchByTeam = @"Search By Position";
+    NSString *searchPitchers = @"Search For Pitchers";
+    NSString *displayFullList = @"Display All Players";
+    NSString *cancelTitle = @"Cancel Button";
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                  initWithTitle:actionSheetTitle
+                                  delegate:self
+                                  cancelButtonTitle:cancelTitle
+                                  destructiveButtonTitle:searchByPlayerFirstName
+                                  otherButtonTitles:searchByPlayerLastName,searchByTeam, searchPitchers, displayFullList, nil];
+    [actionSheet showInView:self.view];
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 0)
+    {
+        _searchByFirstAlert = [[UIAlertView alloc] initWithTitle:@"Search By First Name"
+                                                        message:@"Please search for a player"
+                                                       delegate:self
+                                              cancelButtonTitle:@"Cancel"
+                                              otherButtonTitles:@"Go",nil];
+        _searchByFirstAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        [_searchByFirstAlert show];
+    }
+    
+    else if(buttonIndex == 1)
+    {
+        _searchByLastAlert = [[UIAlertView alloc] initWithTitle:@"Search By Last Name"
+                                                         message:@"Please search for a player"
+                                                        delegate:self
+                                               cancelButtonTitle:@"Cancel"
+                                               otherButtonTitles:@"Go",nil];
+        _searchByLastAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        [_searchByLastAlert show];
+    }
+    
+    else if(buttonIndex == 2)
+    {
+        _searchByPositionAlert = [[UIAlertView alloc] initWithTitle:@"Search By Position"
+                                                         message:@"Please search for a player"
+                                                        delegate:self
+                                               cancelButtonTitle:@"Cancel"
+                                               otherButtonTitles:@"Go",nil];
+        _searchByPositionAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        [_searchByPositionAlert show];
+    }
+    
+    else if(buttonIndex == 3){
+        [self performSegueWithIdentifier:@"toSearchPitcher" sender:nil];
+    }
+    
+    else{
+        [self retieveProgress];
+        successfulSearch = 0;
+        successfulLastNameSearch = 0;
+        successfulPositionSearch = 0;
+    }
+}
+
+-(void)filterResultsByFirstName:(NSString *)searchTerm {
+    PFQuery *query = [PFQuery queryWithClassName: @"Player"];
+    [query whereKey:@"scout" equalTo:[PFUser currentUser].username];
+    [query whereKey:@"FirstName" containsString:searchTerm];
+    query.limit = 50;
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if(!error){
+        NSLog(@"%@", objects);
+        _searchedPlayers = objects;
+        [self.tableView reloadData];
+        [hud hide:YES];
+        }
+     }];
+}
+
+-(void)filterResultsByLastName:(NSString *)searchTerm{
+    PFQuery *query = [PFQuery queryWithClassName: @"Player"];
+    [query whereKey:@"scout" equalTo:[PFUser currentUser].username];
+    [query whereKey:@"LastName" containsString:searchTerm];
+    query.limit = 50;
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if(!error){
+            NSLog(@"%@", objects);
+            _searchedPlayersByLastName = objects;
+            [self.tableView reloadData];
+            [hud hide:YES];
+        }
+    }];
+}
+
+-(void)filterResultsByPosition:(NSString *)searchTerm{
+    PFQuery *query = [PFQuery queryWithClassName: @"Player"];
+    [query whereKey:@"scout" equalTo:[PFUser currentUser].username];
+    [query whereKey:@"Position" containsString:searchTerm];
+    query.limit = 50;
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if(!error){
+            NSLog(@"%@", objects);
+            _searchedPlayersByPosition = objects;
+            [self.tableView reloadData];
+            [hud hide:YES];
+        }
+    }];
+}
+
+-(void) retieveProgress{
+    PFQuery *retrievePlayer = [PFQuery queryWithClassName:@"Player"];
+    [retrievePlayer whereKey:@"scout" equalTo:[PFUser currentUser].username];
+    [retrievePlayer findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            _players = objects;
+            NSLog(@"%@", objects);
+            [self.tableView reloadData];
+            [hud hide:YES];
+        }
+    }];
+}
+     
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+    {
+        UITextField *textField =  [alertView textFieldAtIndex: 0];
+        // NO = 0, YES = 1
+        if(buttonIndex == 0)
+        {
+        }
+        else
+        {
+            if (alertView == _searchByFirstAlert && textField.text && textField.text.length > 0)
+            {
+                NSLog(@"textfield = %@", textField.text);
+                self.searchTerm = textField.text;
+                [self filterResultsByFirstName:self.searchTerm];
+                [self loadingOverlay];
+                successfulSearch = 1;
+                successfulLastNameSearch = 0;
+                successfulPositionSearch = 0;
+            }
+            
+            else if(alertView == _searchByLastAlert && textField.text && textField.text.length > 0)
+            {
+                NSLog(@"textfield = %@", textField.text);
+                self.searchTerm = textField.text;
+                [self filterResultsByLastName:self.searchTerm];
+                [self loadingOverlay];
+                successfulLastNameSearch = 1;
+                successfulSearch = 0;
+                successfulPositionSearch = 0;
+            }
+            
+            else if(alertView == _searchByPositionAlert && textField.text && textField.text.length > 0)
+            {
+                NSLog(@"textfield = %@", textField.text);
+                self.searchTerm = textField.text;
+                [self filterResultsByPosition:self.searchTerm];
+                [self loadingOverlay];
+                successfulPositionSearch = 1;
+                successfulSearch = 0;
+                successfulLastNameSearch = 0;
+            }
+            else
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You must enter a search term"
+                                                                message:@"In order to complete the search you must enter a comic to search for in the text box!"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"Cancel"
+                                                      otherButtonTitles:@"Go",nil];
+                
+                alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+                [alert show];
+            }
+        }
+    }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -44,28 +258,108 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
+//#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
+//#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    if(successfulSearch){
+    return [_searchedPlayers count];
+    }
+    else if(successfulLastNameSearch){
+        return [_searchedPlayersByLastName count];
+    }
+    
+    else if(successfulPositionSearch){
+        return [_searchedPlayersByPosition count];
+    }
+    else{
+        return [_players count];
+    }
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+
     // Configure the cell...
+
+    if(successfulSearch){
+        PFObject *player = [self.searchedPlayers objectAtIndex:indexPath.row];
+        PFFile *file = player[@"PlayerImage"];
+        NSData *imageData = [file getData];
+        UIImage *image = [UIImage imageWithData:imageData];
+        UIImage *finalImage = [self resizeImage:image];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@",player[@"FirstName"],player[@"LastName"]];
+        cell.detailTextLabel.text = player[@"Position"];
+        cell.imageView.image = finalImage;
+    }
+    
+    else if(successfulLastNameSearch){
+        PFObject *player = [self.searchedPlayersByLastName objectAtIndex:indexPath.row];
+        PFFile *file = player[@"PlayerImage"];
+        NSData *imageData = [file getData];
+        UIImage *image = [UIImage imageWithData:imageData];
+        UIImage *finalImage = [self resizeImage:image];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@",player[@"FirstName"],player[@"LastName"]];
+        cell.detailTextLabel.text = player[@"Position"];
+        cell.imageView.image = finalImage;
+    }
+    
+    else if(successfulPositionSearch){
+        PFObject *player = [self.searchedPlayersByPosition objectAtIndex:indexPath.row];
+        PFFile *file = player[@"PlayerImage"];
+        NSData *imageData = [file getData];
+        UIImage *image = [UIImage imageWithData:imageData];
+        UIImage *finalImage = [self resizeImage:image];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@",player[@"FirstName"],player[@"LastName"]];
+        cell.detailTextLabel.text = player[@"Position"];
+        cell.imageView.image = finalImage;
+    }
+    
+    else{
+        PFObject *player = [self.players objectAtIndex:indexPath.row];
+        PFFile *file = player[@"PlayerImage"];
+        NSData *imageData = [file getData];
+        UIImage *image = [UIImage imageWithData:imageData];
+        UIImage *finalImage = [self resizeImage:image];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@",player[@"FirstName"],player[@"LastName"]];
+        cell.detailTextLabel.text = player[@"Position"];
+        cell.imageView.image = finalImage;
+    }
     
     return cell;
 }
-*/
+
+- (IBAction)searchButtonPressed:(UIBarButtonItem *)sender
+{
+    [self showAction];
+}
+
+-(UIImage *)resizeImage:(UIImage *)image
+{
+    CGRect rect = CGRectMake(0, 0, 75, 75);
+    UIGraphicsBeginImageContext(rect.size);
+    [image drawInRect:rect];
+    UIImage *transformedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    NSData *imgData = UIImagePNGRepresentation(transformedImage);
+    UIImage *finalImage = [UIImage imageWithData:imgData];
+    
+    return finalImage;
+}
+
+/* When the user taps the accessory button transition to the PlayerScorecardController */
+-(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"toScorecard" sender:indexPath];
+}
 
 /*
 // Override to support conditional editing of the table view.
@@ -105,7 +399,7 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -113,7 +407,32 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-}
-*/
+    if ([segue.destinationViewController isKindOfClass:[PlayerScorecardController class]]){
+        PlayerScorecardController *detailViewController = segue.destinationViewController;
+        NSIndexPath *path = sender;
+        PFObject *player;
+        
+        if(successfulLastNameSearch){
+            player = self.searchedPlayersByLastName[path.row];
+            detailViewController.player = player;
+        }
+        
+        else if(successfulPositionSearch){
+            player = self.searchedPlayersByPosition[path.row];
+            detailViewController.player = player;
+        }
+        
+        else if(successfulSearch){
+            player = self.searchedPlayers[path.row];
+            detailViewController.player = player;
+        }
+        
+        else{
+            player = [self.players objectAtIndex:path.row];
+            detailViewController.player = player;
+        }
+        }
+    }
+
 
 @end

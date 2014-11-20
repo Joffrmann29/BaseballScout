@@ -12,12 +12,12 @@
 
 #pragma mark - User Class
 
-extern NSString *const kCCUserTagLineKey;
+extern NSString *const positions;
 
-extern NSString *const kCCUserProfileKey;
-extern NSString *const kCCUserProfileNameKey;
-extern NSString *const kCCUserProfileFirstNameKey;
-extern NSString *const kCCUserProfileLocationKey;
+extern NSString *const pitcher;
+extern NSString *const catcher;
+extern NSString *const centerFielder;
+extern NSString *const leftFielder;
 extern NSString *const kCCUserProfileGenderKey;
 extern NSString *const kCCUserProfileBirthdayKey;
 extern NSString *const kCCUserProfileInterestedInKey;

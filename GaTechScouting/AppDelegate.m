@@ -13,6 +13,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [Parse setApplicationId:@"D244gq1szTxqSToxF34ATyZHu2JtaXDm2wY7hdWk"
+                  clientKey:@"YKrD1SZP0n6NUhGOXuZeWhaMx4cfItNlw18t2Dko"];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    // Set default ACLs
+    PFACL *defaultACL = [PFACL ACL];
+    [defaultACL setPublicReadAccess:YES];
+    [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
     return YES;
 }
 							

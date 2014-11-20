@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PlayerTableViewCell : UITableViewCell
+@interface PlayerTableViewCell : UITableViewCell<UITextFieldDelegate>
 
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PitcherScorecardController : ViewController
+@interface PitcherScorecardController : UIViewController<NSURLConnectionDelegate,NSURLConnectionDataDelegate,UITextViewDelegate>
 
+@property (nonatomic, strong) PFObject *pitcher;
 @end

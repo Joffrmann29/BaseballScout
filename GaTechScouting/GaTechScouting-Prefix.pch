@@ -10,7 +10,43 @@
 #warning "This project uses features only available in iOS SDK 5.0 and later."
 #endif
 
+#pragma mark - Position Defines
+
+#define Pitcher @"P"
+#define Catcher @"C"
+#define Centerfielder @"CF"
+#define Leftfielder @"LF"
+#define Rightfielder @"RF"
+#define ThirdBase @"3B"
+#define Shortstop @"SS"
+#define SecondBase @"2B"
+#define FirstBase @"1B"
+
+#pragma mark - Height Defines
+#define fiveFour @"5'4"
+#define fiveFive @"5'5"
+#define fiveSix @"5'6"
+#define fiveSeven @"5'7"
+#define fiveEight @"5'8"
+#define fiveNine @"5'9"
+#define fiveTen @"5'10"
+#define fiveEleven @"5'11"
+#define sixFeet @"6'0"
+#define sixOne @"6'1"
+#define sixTwo @"6'2"
+#define sixThree @"6'3"
+#define sixFour @"6'4"
+#define sixFive @"6'5"
+#define sixSix @"6'6"
+#define sixSeven @"6'7"
+#define sixEight @"6'8"
+#define sixNine @"6'9"
+#define sixTen @"6'10"
+#define sixEleven @"6'11"
+#define sevenFeet @"7'0"
+
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
 #endif

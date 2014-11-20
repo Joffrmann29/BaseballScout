@@ -10,4 +10,12 @@
 
 @interface GeneralUI : NSObject
 
++(UILabel *)drawPositionLabel;
++(UILabel *)drawThrowingLabel;
++(UILabel *)drawBattingLabel;
++(UILabel *)drawHeightLabel;
++(UISegmentedControl *)drawPositionSegmentedControl;
++(UISegmentedControl *)drawBatSegmentedControl;
++(UISegmentedControl *)drawThrowSegmentedControl;
+
 @end

@@ -54,4 +54,24 @@
                        
 }
 
+//Red gradient background
++(CAGradientLayer*) redGradient {
+    UIColor *colorOne = [UIColor colorWithRed:(250/255.0) green:(45/255.0) blue:(40/255.0) alpha:1.0];
+    UIColor *colorTwo = [UIColor colorWithRed:(160/255.0)  green:(26/255.0)  blue:(19/255.0)  alpha:1.0];
+    
+    NSArray *colors = [NSArray arrayWithObjects:(id)colorOne.CGColor, colorTwo.CGColor, nil];
+    
+    NSNumber *stopOne = [NSNumber numberWithFloat:0.0];
+    NSNumber *stopTwo = [NSNumber numberWithFloat:1.0];
+    
+    NSArray *locations = [NSArray arrayWithObjects:stopOne, stopTwo, nil];
+    
+    CAGradientLayer *headerLayer = [CAGradientLayer layer];
+    headerLayer.colors = colors;
+    headerLayer.locations = locations;
+    
+    return headerLayer;
+    
+}
+
 @end

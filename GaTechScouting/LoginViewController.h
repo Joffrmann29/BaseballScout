@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <SystemConfiguration/SystemConfiguration.h>
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : UIViewController<UITextFieldDelegate>
 
 @end

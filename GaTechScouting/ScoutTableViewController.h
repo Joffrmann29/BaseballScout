@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ScoutTableViewController : UITableViewController
+@interface ScoutTableViewController : UITableViewController<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate>
 
 @end

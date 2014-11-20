@@ -7,6 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C8C32F863D546E5B6F840F5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D86EE9F7BE04DC28700CFE3 /* libPods.a */; };
+		B44313E51A0AE79C004D8910 /* login.png in Resources */ = {isa = PBXBuildFile; fileRef = B44313E41A0AE79C004D8910 /* login.png */; };
+		B44313E71A0AE80D004D8910 /* log_in.png in Resources */ = {isa = PBXBuildFile; fileRef = B44313E61A0AE80D004D8910 /* log_in.png */; };
+		B443ECD919B751AE0050265E /* SearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B443ECD819B751AE0050265E /* SearchTableViewController.m */; };
+		B443ECDF19B757550050265E /* jason-heyward.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B443ECDE19B757550050265E /* jason-heyward.jpg */; };
+		B443ECE119B757B50050265E /* MiggyCabrera.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B443ECE019B757B50050265E /* MiggyCabrera.jpg */; };
+		B443ECE319B758800050265E /* DerekJeter.png in Resources */ = {isa = PBXBuildFile; fileRef = B443ECE219B758800050265E /* DerekJeter.png */; };
+		B443ECE519B76A5D0050265E /* home_button.png in Resources */ = {isa = PBXBuildFile; fileRef = B443ECE419B76A5D0050265E /* home_button.png */; };
+		B443ECE719B76AB70050265E /* toolbar_home.png in Resources */ = {isa = PBXBuildFile; fileRef = B443ECE619B76AB70050265E /* toolbar_home.png */; };
+		B4646F7F19C25780000E95FC /* DoneUp.png in Resources */ = {isa = PBXBuildFile; fileRef = B4646F7C19C25780000E95FC /* DoneUp.png */; };
+		B4646F8019C25780000E95FC /* DoneDown.png in Resources */ = {isa = PBXBuildFile; fileRef = B4646F7D19C25780000E95FC /* DoneDown.png */; };
+		B466C37C19BF443500051BE0 /* CCConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = B466C37B19BF443500051BE0 /* CCConstants.m */; };
+		B466C37F19BF9BA100051BE0 /* AddPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B466C37E19BF9BA100051BE0 /* AddPlayerViewController.m */; };
+		B466C38219BF9C9E00051BE0 /* PlayerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B466C38119BF9C9E00051BE0 /* PlayerTableViewCell.m */; };
+		B46B9FB31A1C0016005BB35E /* BackgroundLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B46B9FB21A1C0016005BB35E /* BackgroundLayer.m */; };
+		B47003BA1A1CF42A00B92DC2 /* PlayerRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B47003B91A1CF42A00B92DC2 /* PlayerRegistrationViewController.m */; };
+		B47003BE1A1D060000B92DC2 /* ScoutTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B47003BD1A1D060000B92DC2 /* ScoutTableViewController.m */; };
+		B47003C31A1D935400B92DC2 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = B47003C21A1D935400B92DC2 /* settings.png */; };
+		B485196919C106B600A27A1B /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B485196819C106B600A27A1B /* MBProgressHUD.m */; };
+		B49293D719D3997900422C5E /* Gradients.m in Sources */ = {isa = PBXBuildFile; fileRef = B49293D619D3997900422C5E /* Gradients.m */; };
+		B49293DA19D3A17200422C5E /* CustomTextFieldAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = B49293D919D3A17200422C5E /* CustomTextFieldAppearance.m */; };
+		B49293DD19D3A5D200422C5E /* LayerViewObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = B49293DC19D3A5D200422C5E /* LayerViewObjects.m */; };
+		B49293E319D3A97000422C5E /* GeneralUI.m in Sources */ = {isa = PBXBuildFile; fileRef = B49293E219D3A97000422C5E /* GeneralUI.m */; };
+		B495211E19E82AD8000CCF27 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B495211D19E82AD8000CCF27 /* LoginViewController.m */; };
+		B4A0034919D4AF6A00CBFE64 /* AddPitcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A0034819D4AF6A00CBFE64 /* AddPitcherViewController.m */; };
+		B4B099F219DD9229006CBDA5 /* EditPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4B099F119DD9229006CBDA5 /* EditPlayerViewController.m */; };
+		B4B85C1819BDF55200B8D3D0 /* GaTech.JPG in Resources */ = {isa = PBXBuildFile; fileRef = B4B85C1719BDF55200B8D3D0 /* GaTech.JPG */; };
+		B4C80F7319D9F6D20018166A /* SearchPitcherTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C80F7219D9F6D20018166A /* SearchPitcherTableViewController.m */; };
+		B4C80F7A19DA029B0018166A /* PitcherScorecardController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C80F7919DA029B0018166A /* PitcherScorecardController.m */; };
 		B4E9D00219B662F900445493 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4E9D00119B662F900445493 /* Foundation.framework */; };
 		B4E9D00419B662F900445493 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4E9D00319B662F900445493 /* CoreGraphics.framework */; };
 		B4E9D00619B662F900445493 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4E9D00519B662F900445493 /* UIKit.framework */; };
@@ -14,13 +43,18 @@
 		B4E9D00E19B662F900445493 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E9D00D19B662F900445493 /* main.m */; };
 		B4E9D01219B662F900445493 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E9D01119B662F900445493 /* AppDelegate.m */; };
 		B4E9D01519B662F900445493 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4E9D01319B662F900445493 /* Main.storyboard */; };
-		B4E9D01819B662F900445493 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E9D01719B662F900445493 /* ViewController.m */; };
 		B4E9D01A19B662FA00445493 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4E9D01919B662FA00445493 /* Images.xcassets */; };
 		B4E9D02119B662FA00445493 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4E9D02019B662FA00445493 /* XCTest.framework */; };
 		B4E9D02219B662FA00445493 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4E9D00119B662F900445493 /* Foundation.framework */; };
 		B4E9D02319B662FA00445493 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4E9D00519B662F900445493 /* UIKit.framework */; };
 		B4E9D02B19B662FA00445493 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B4E9D02919B662FA00445493 /* InfoPlist.strings */; };
 		B4E9D02D19B662FA00445493 /* GaTechScoutingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E9D02C19B662FA00445493 /* GaTechScoutingTests.m */; };
+		B4E9D03719B6637100445493 /* gtech.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B4E9D03619B6637100445493 /* gtech.jpg */; };
+		B4E9D03919B663F400445493 /* Gtech.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4E9D03819B663F400445493 /* Gtech.gif */; };
+		B4E9D03B19B6643500445493 /* georgia-tech.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B4E9D03A19B6643500445493 /* georgia-tech.jpg */; };
+		B4E9D03D19B666AF00445493 /* ga-letter-logo.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4E9D03C19B666AF00445493 /* ga-letter-logo.gif */; };
+		B4EBD8991A0BBD7F00A924B8 /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4EBD8981A0BBD7F00A924B8 /* RegistrationViewController.m */; };
+		B4F1F00619CA367C0075A0EA /* PlayerScorecardController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F1F00519CA367C0075A0EA /* PlayerScorecardController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +68,53 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D86EE9F7BE04DC28700CFE3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		475A6B331DC74ECFA40F0615 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		B44313E41A0AE79C004D8910 /* login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login.png; sourceTree = "<group>"; };
+		B44313E61A0AE80D004D8910 /* log_in.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = log_in.png; sourceTree = "<group>"; };
+		B443ECD719B751AE0050265E /* SearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTableViewController.h; sourceTree = "<group>"; };
+		B443ECD819B751AE0050265E /* SearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTableViewController.m; sourceTree = "<group>"; };
+		B443ECDE19B757550050265E /* jason-heyward.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "jason-heyward.jpg"; sourceTree = "<group>"; };
+		B443ECE019B757B50050265E /* MiggyCabrera.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = MiggyCabrera.jpg; sourceTree = "<group>"; };
+		B443ECE219B758800050265E /* DerekJeter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DerekJeter.png; sourceTree = "<group>"; };
+		B443ECE419B76A5D0050265E /* home_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_button.png; sourceTree = "<group>"; };
+		B443ECE619B76AB70050265E /* toolbar_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_home.png; sourceTree = "<group>"; };
+		B4646F7C19C25780000E95FC /* DoneUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoneUp.png; sourceTree = "<group>"; };
+		B4646F7D19C25780000E95FC /* DoneDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoneDown.png; sourceTree = "<group>"; };
+		B466C37A19BF443500051BE0 /* CCConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCConstants.h; sourceTree = "<group>"; };
+		B466C37B19BF443500051BE0 /* CCConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCConstants.m; sourceTree = "<group>"; };
+		B466C37D19BF9BA100051BE0 /* AddPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPlayerViewController.h; sourceTree = "<group>"; };
+		B466C37E19BF9BA100051BE0 /* AddPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPlayerViewController.m; sourceTree = "<group>"; };
+		B466C38019BF9C9E00051BE0 /* PlayerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerTableViewCell.h; sourceTree = "<group>"; };
+		B466C38119BF9C9E00051BE0 /* PlayerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerTableViewCell.m; sourceTree = "<group>"; };
+		B46B9FB11A1C0016005BB35E /* BackgroundLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundLayer.h; sourceTree = "<group>"; };
+		B46B9FB21A1C0016005BB35E /* BackgroundLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundLayer.m; sourceTree = "<group>"; };
+		B47003B81A1CF42A00B92DC2 /* PlayerRegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerRegistrationViewController.h; sourceTree = "<group>"; };
+		B47003B91A1CF42A00B92DC2 /* PlayerRegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerRegistrationViewController.m; sourceTree = "<group>"; };
+		B47003BC1A1D060000B92DC2 /* ScoutTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoutTableViewController.h; sourceTree = "<group>"; };
+		B47003BD1A1D060000B92DC2 /* ScoutTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoutTableViewController.m; sourceTree = "<group>"; };
+		B47003C21A1D935400B92DC2 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
+		B485196719C106B600A27A1B /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		B485196819C106B600A27A1B /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		B49293D519D3997900422C5E /* Gradients.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gradients.h; sourceTree = "<group>"; };
+		B49293D619D3997900422C5E /* Gradients.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Gradients.m; sourceTree = "<group>"; };
+		B49293D819D3A17200422C5E /* CustomTextFieldAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTextFieldAppearance.h; sourceTree = "<group>"; };
+		B49293D919D3A17200422C5E /* CustomTextFieldAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTextFieldAppearance.m; sourceTree = "<group>"; };
+		B49293DB19D3A5D200422C5E /* LayerViewObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerViewObjects.h; sourceTree = "<group>"; };
+		B49293DC19D3A5D200422C5E /* LayerViewObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerViewObjects.m; sourceTree = "<group>"; };
+		B49293E119D3A97000422C5E /* GeneralUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralUI.h; sourceTree = "<group>"; };
+		B49293E219D3A97000422C5E /* GeneralUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralUI.m; sourceTree = "<group>"; };
+		B495211C19E82AD8000CCF27 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		B495211D19E82AD8000CCF27 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		B4A0034719D4AF6A00CBFE64 /* AddPitcherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPitcherViewController.h; sourceTree = "<group>"; };
+		B4A0034819D4AF6A00CBFE64 /* AddPitcherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPitcherViewController.m; sourceTree = "<group>"; };
+		B4B099F019DD9229006CBDA5 /* EditPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPlayerViewController.h; sourceTree = "<group>"; };
+		B4B099F119DD9229006CBDA5 /* EditPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPlayerViewController.m; sourceTree = "<group>"; };
+		B4B85C1719BDF55200B8D3D0 /* GaTech.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = GaTech.JPG; sourceTree = "<group>"; };
+		B4C80F7119D9F6D20018166A /* SearchPitcherTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchPitcherTableViewController.h; sourceTree = "<group>"; };
+		B4C80F7219D9F6D20018166A /* SearchPitcherTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchPitcherTableViewController.m; sourceTree = "<group>"; };
+		B4C80F7819DA029B0018166A /* PitcherScorecardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitcherScorecardController.h; sourceTree = "<group>"; };
+		B4C80F7919DA029B0018166A /* PitcherScorecardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PitcherScorecardController.m; sourceTree = "<group>"; };
 		B4E9CFFE19B662F900445493 /* GaTechScouting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GaTechScouting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4E9D00119B662F900445493 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B4E9D00319B662F900445493 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -45,14 +126,20 @@
 		B4E9D01019B662F900445493 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B4E9D01119B662F900445493 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		B4E9D01419B662F900445493 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B4E9D01619B662F900445493 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		B4E9D01719B662F900445493 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		B4E9D01919B662FA00445493 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B4E9D01F19B662FA00445493 /* GaTechScoutingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GaTechScoutingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4E9D02019B662FA00445493 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		B4E9D02819B662FA00445493 /* GaTechScoutingTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GaTechScoutingTests-Info.plist"; sourceTree = "<group>"; };
 		B4E9D02A19B662FA00445493 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B4E9D02C19B662FA00445493 /* GaTechScoutingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GaTechScoutingTests.m; sourceTree = "<group>"; };
+		B4E9D03619B6637100445493 /* gtech.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = gtech.jpg; sourceTree = "<group>"; };
+		B4E9D03819B663F400445493 /* Gtech.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Gtech.gif; sourceTree = "<group>"; };
+		B4E9D03A19B6643500445493 /* georgia-tech.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "georgia-tech.jpg"; sourceTree = "<group>"; };
+		B4E9D03C19B666AF00445493 /* ga-letter-logo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "ga-letter-logo.gif"; sourceTree = "<group>"; };
+		B4EBD8971A0BBD7F00A924B8 /* RegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrationViewController.h; sourceTree = "<group>"; };
+		B4EBD8981A0BBD7F00A924B8 /* RegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationViewController.m; sourceTree = "<group>"; };
+		B4F1F00419CA367C0075A0EA /* PlayerScorecardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerScorecardController.h; sourceTree = "<group>"; };
+		B4F1F00519CA367C0075A0EA /* PlayerScorecardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerScorecardController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +150,7 @@
 				B4E9D00419B662F900445493 /* CoreGraphics.framework in Frameworks */,
 				B4E9D00619B662F900445493 /* UIKit.framework in Frameworks */,
 				B4E9D00219B662F900445493 /* Foundation.framework in Frameworks */,
+				5C8C32F863D546E5B6F840F5 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +167,99 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B46B9FAA1A1B8EE3005BB35E /* PlayerManagement */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = PlayerManagement;
+			sourceTree = "<group>";
+		};
+		B47003BB1A1D057500B92DC2 /* Scout Screens */ = {
+			isa = PBXGroup;
+			children = (
+				B47003BC1A1D060000B92DC2 /* ScoutTableViewController.h */,
+				B47003BD1A1D060000B92DC2 /* ScoutTableViewController.m */,
+			);
+			name = "Scout Screens";
+			sourceTree = "<group>";
+		};
+		B495211B19E82ABA000CCF27 /* User Management */ = {
+			isa = PBXGroup;
+			children = (
+				B495211C19E82AD8000CCF27 /* LoginViewController.h */,
+				B495211D19E82AD8000CCF27 /* LoginViewController.m */,
+				B4EBD8971A0BBD7F00A924B8 /* RegistrationViewController.h */,
+				B4EBD8981A0BBD7F00A924B8 /* RegistrationViewController.m */,
+				B47003B81A1CF42A00B92DC2 /* PlayerRegistrationViewController.h */,
+				B47003B91A1CF42A00B92DC2 /* PlayerRegistrationViewController.m */,
+			);
+			name = "User Management";
+			sourceTree = "<group>";
+		};
+		B4A0030519D47DE300CBFE64 /* UIHandling */ = {
+			isa = PBXGroup;
+			children = (
+				B46B9FB11A1C0016005BB35E /* BackgroundLayer.h */,
+				B46B9FB21A1C0016005BB35E /* BackgroundLayer.m */,
+				B49293D519D3997900422C5E /* Gradients.h */,
+				B49293D619D3997900422C5E /* Gradients.m */,
+				B49293D819D3A17200422C5E /* CustomTextFieldAppearance.h */,
+				B49293D919D3A17200422C5E /* CustomTextFieldAppearance.m */,
+				B49293DB19D3A5D200422C5E /* LayerViewObjects.h */,
+				B49293DC19D3A5D200422C5E /* LayerViewObjects.m */,
+				B49293E119D3A97000422C5E /* GeneralUI.h */,
+				B49293E219D3A97000422C5E /* GeneralUI.m */,
+			);
+			name = UIHandling;
+			sourceTree = "<group>";
+		};
+		B4C80F7419D9FE9F0018166A /* Player Screens */ = {
+			isa = PBXGroup;
+			children = (
+				B466C37D19BF9BA100051BE0 /* AddPlayerViewController.h */,
+				B466C37E19BF9BA100051BE0 /* AddPlayerViewController.m */,
+				B4B099F019DD9229006CBDA5 /* EditPlayerViewController.h */,
+				B4B099F119DD9229006CBDA5 /* EditPlayerViewController.m */,
+				B4F1F00419CA367C0075A0EA /* PlayerScorecardController.h */,
+				B4F1F00519CA367C0075A0EA /* PlayerScorecardController.m */,
+				B443ECD719B751AE0050265E /* SearchTableViewController.h */,
+				B443ECD819B751AE0050265E /* SearchTableViewController.m */,
+			);
+			name = "Player Screens";
+			sourceTree = "<group>";
+		};
+		B4C80F7519D9FEE60018166A /* Pitcher Screens */ = {
+			isa = PBXGroup;
+			children = (
+				B4C80F7119D9F6D20018166A /* SearchPitcherTableViewController.h */,
+				B4C80F7219D9F6D20018166A /* SearchPitcherTableViewController.m */,
+				B4A0034719D4AF6A00CBFE64 /* AddPitcherViewController.h */,
+				B4A0034819D4AF6A00CBFE64 /* AddPitcherViewController.m */,
+				B4C80F7819DA029B0018166A /* PitcherScorecardController.h */,
+				B4C80F7919DA029B0018166A /* PitcherScorecardController.m */,
+				B46B9FAA1A1B8EE3005BB35E /* PlayerManagement */,
+			);
+			name = "Pitcher Screens";
+			sourceTree = "<group>";
+		};
+		B4C80F7619DA02160018166A /* Player Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B466C38019BF9C9E00051BE0 /* PlayerTableViewCell.h */,
+				B466C38119BF9C9E00051BE0 /* PlayerTableViewCell.m */,
+			);
+			name = "Player Cells";
+			sourceTree = "<group>";
+		};
+		B4C80F7719DA02480018166A /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				B466C37A19BF443500051BE0 /* CCConstants.h */,
+				B466C37B19BF443500051BE0 /* CCConstants.m */,
+			);
+			name = Constants;
+			sourceTree = "<group>";
+		};
 		B4E9CFF519B662F900445493 = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +267,7 @@
 				B4E9D02619B662FA00445493 /* GaTechScoutingTests */,
 				B4E9D00019B662F900445493 /* Frameworks */,
 				B4E9CFFF19B662F900445493 /* Products */,
+				475A6B331DC74ECFA40F0615 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,6 +287,7 @@
 				B4E9D00319B662F900445493 /* CoreGraphics.framework */,
 				B4E9D00519B662F900445493 /* UIKit.framework */,
 				B4E9D02019B662FA00445493 /* XCTest.framework */,
+				1D86EE9F7BE04DC28700CFE3 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -115,9 +298,15 @@
 				B4E9D01019B662F900445493 /* AppDelegate.h */,
 				B4E9D01119B662F900445493 /* AppDelegate.m */,
 				B4E9D01319B662F900445493 /* Main.storyboard */,
-				B4E9D01619B662F900445493 /* ViewController.h */,
-				B4E9D01719B662F900445493 /* ViewController.m */,
-				B4E9D01919B662FA00445493 /* Images.xcassets */,
+				B485196719C106B600A27A1B /* MBProgressHUD.h */,
+				B485196819C106B600A27A1B /* MBProgressHUD.m */,
+				B495211B19E82ABA000CCF27 /* User Management */,
+				B4C80F7719DA02480018166A /* Constants */,
+				B4C80F7619DA02160018166A /* Player Cells */,
+				B4A0030519D47DE300CBFE64 /* UIHandling */,
+				B4C80F7419D9FE9F0018166A /* Player Screens */,
+				B4C80F7519D9FEE60018166A /* Pitcher Screens */,
+				B47003BB1A1D057500B92DC2 /* Scout Screens */,
 				B4E9D00819B662F900445493 /* Supporting Files */,
 			);
 			path = GaTechScouting;
@@ -126,9 +315,25 @@
 		B4E9D00819B662F900445493 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B44313E61A0AE80D004D8910 /* log_in.png */,
+				B44313E41A0AE79C004D8910 /* login.png */,
+				B4646F7C19C25780000E95FC /* DoneUp.png */,
+				B4646F7D19C25780000E95FC /* DoneDown.png */,
+				B4B85C1719BDF55200B8D3D0 /* GaTech.JPG */,
+				B443ECE619B76AB70050265E /* toolbar_home.png */,
+				B443ECE419B76A5D0050265E /* home_button.png */,
+				B443ECE219B758800050265E /* DerekJeter.png */,
+				B47003C21A1D935400B92DC2 /* settings.png */,
+				B443ECDE19B757550050265E /* jason-heyward.jpg */,
+				B443ECE019B757B50050265E /* MiggyCabrera.jpg */,
+				B4E9D03619B6637100445493 /* gtech.jpg */,
+				B4E9D03819B663F400445493 /* Gtech.gif */,
+				B4E9D03A19B6643500445493 /* georgia-tech.jpg */,
+				B4E9D03C19B666AF00445493 /* ga-letter-logo.gif */,
 				B4E9D00919B662F900445493 /* GaTechScouting-Info.plist */,
 				B4E9D00A19B662F900445493 /* InfoPlist.strings */,
 				B4E9D00D19B662F900445493 /* main.m */,
+				B4E9D01919B662FA00445493 /* Images.xcassets */,
 				B4E9D00F19B662F900445493 /* GaTechScouting-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -159,9 +364,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B4E9D03019B662FA00445493 /* Build configuration list for PBXNativeTarget "GaTechScouting" */;
 			buildPhases = (
+				23A8C7889CD2439BAB2630C2 /* Check Pods Manifest.lock */,
 				B4E9CFFA19B662F900445493 /* Sources */,
 				B4E9CFFB19B662F900445493 /* Frameworks */,
 				B4E9CFFC19B662F900445493 /* Resources */,
+				3649C17F23C94591A471B325 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -199,6 +406,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = JoffreyMann;
 				TargetAttributes = {
+					B4E9CFFD19B662F900445493 = {
+						DevelopmentTeam = NCUCU8Q7HZ;
+					};
 					B4E9D01E19B662FA00445493 = {
 						TestTargetID = B4E9CFFD19B662F900445493;
 					};
@@ -228,9 +438,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4646F8019C25780000E95FC /* DoneDown.png in Resources */,
+				B4E9D03919B663F400445493 /* Gtech.gif in Resources */,
 				B4E9D01A19B662FA00445493 /* Images.xcassets in Resources */,
+				B443ECE719B76AB70050265E /* toolbar_home.png in Resources */,
 				B4E9D00C19B662F900445493 /* InfoPlist.strings in Resources */,
+				B44313E51A0AE79C004D8910 /* login.png in Resources */,
+				B443ECE119B757B50050265E /* MiggyCabrera.jpg in Resources */,
 				B4E9D01519B662F900445493 /* Main.storyboard in Resources */,
+				B443ECDF19B757550050265E /* jason-heyward.jpg in Resources */,
+				B4E9D03D19B666AF00445493 /* ga-letter-logo.gif in Resources */,
+				B4E9D03B19B6643500445493 /* georgia-tech.jpg in Resources */,
+				B4B85C1819BDF55200B8D3D0 /* GaTech.JPG in Resources */,
+				B4646F7F19C25780000E95FC /* DoneUp.png in Resources */,
+				B443ECE319B758800050265E /* DerekJeter.png in Resources */,
+				B443ECE519B76A5D0050265E /* home_button.png in Resources */,
+				B44313E71A0AE80D004D8910 /* log_in.png in Resources */,
+				B4E9D03719B6637100445493 /* gtech.jpg in Resources */,
+				B47003C31A1D935400B92DC2 /* settings.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,14 +469,65 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		23A8C7889CD2439BAB2630C2 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		3649C17F23C94591A471B325 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B4E9CFFA19B662F900445493 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4E9D01819B662F900445493 /* ViewController.m in Sources */,
+				B49293DA19D3A17200422C5E /* CustomTextFieldAppearance.m in Sources */,
+				B466C38219BF9C9E00051BE0 /* PlayerTableViewCell.m in Sources */,
+				B4F1F00619CA367C0075A0EA /* PlayerScorecardController.m in Sources */,
+				B46B9FB31A1C0016005BB35E /* BackgroundLayer.m in Sources */,
+				B466C37F19BF9BA100051BE0 /* AddPlayerViewController.m in Sources */,
+				B466C37C19BF443500051BE0 /* CCConstants.m in Sources */,
+				B485196919C106B600A27A1B /* MBProgressHUD.m in Sources */,
+				B4C80F7A19DA029B0018166A /* PitcherScorecardController.m in Sources */,
+				B4EBD8991A0BBD7F00A924B8 /* RegistrationViewController.m in Sources */,
+				B495211E19E82AD8000CCF27 /* LoginViewController.m in Sources */,
+				B4B099F219DD9229006CBDA5 /* EditPlayerViewController.m in Sources */,
+				B49293D719D3997900422C5E /* Gradients.m in Sources */,
+				B49293E319D3A97000422C5E /* GeneralUI.m in Sources */,
 				B4E9D01219B662F900445493 /* AppDelegate.m in Sources */,
+				B4A0034919D4AF6A00CBFE64 /* AddPitcherViewController.m in Sources */,
 				B4E9D00E19B662F900445493 /* main.m in Sources */,
+				B47003BA1A1CF42A00B92DC2 /* PlayerRegistrationViewController.m in Sources */,
+				B4C80F7319D9F6D20018166A /* SearchPitcherTableViewController.m in Sources */,
+				B47003BE1A1D060000B92DC2 /* ScoutTableViewController.m in Sources */,
+				B443ECD919B751AE0050265E /* SearchTableViewController.m in Sources */,
+				B49293DD19D3A5D200422C5E /* LayerViewObjects.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,9 +649,11 @@
 		};
 		B4E9D03119B662FA00445493 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 475A6B331DC74ECFA40F0615 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GaTechScouting/GaTechScouting-Prefix.pch";
 				INFOPLIST_FILE = "GaTechScouting/GaTechScouting-Info.plist";
@@ -386,9 +664,11 @@
 		};
 		B4E9D03219B662FA00445493 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 475A6B331DC74ECFA40F0615 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GaTechScouting/GaTechScouting-Prefix.pch";
 				INFOPLIST_FILE = "GaTechScouting/GaTechScouting-Info.plist";
@@ -456,6 +736,7 @@
 				B4E9D03219B662FA00445493 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B4E9D03319B662FA00445493 /* Build configuration list for PBXNativeTarget "GaTechScoutingTests" */ = {
 			isa = XCConfigurationList;
@@ -464,6 +745,7 @@
 				B4E9D03519B662FA00445493 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

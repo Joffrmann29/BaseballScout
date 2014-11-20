@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CustomTextFieldAppearance : NSObject
+@interface CustomTextFieldAppearance : NSObject<UITextFieldDelegate>
 
+-(UITextField *)changeTextFieldAppearance;
 @end

@@ -8,6 +8,6 @@
 
 #import "RegistrationViewController.h"
 
-@interface PlayerRegistrationViewController : RegistrationViewController
+@interface PlayerRegistrationViewController : RegistrationViewController<UITextFieldDelegate, UIScrollViewDelegate>
 
 @end
