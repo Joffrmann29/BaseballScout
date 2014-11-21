@@ -14,4 +14,6 @@
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) PlayerTableViewCell *pCell;
 
+@property (strong, nonatomic) PFObject *player;
+
 @end

@@ -13,5 +13,7 @@
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) PlayerTableViewCell *pCell;
+@property (strong, nonatomic) NSString *firstName;
+@property (strong, nonatomic) PFObject *player;
 
 @end

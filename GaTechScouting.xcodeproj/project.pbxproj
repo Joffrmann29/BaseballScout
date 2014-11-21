@@ -34,6 +34,7 @@
 		B4A0034919D4AF6A00CBFE64 /* AddPitcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A0034819D4AF6A00CBFE64 /* AddPitcherViewController.m */; };
 		B4B099F219DD9229006CBDA5 /* EditPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4B099F119DD9229006CBDA5 /* EditPlayerViewController.m */; };
 		B4B85C1819BDF55200B8D3D0 /* GaTech.JPG in Resources */ = {isa = PBXBuildFile; fileRef = B4B85C1719BDF55200B8D3D0 /* GaTech.JPG */; };
+		B4C50A771A1FD1AF00B8B787 /* AddPitcher.png in Resources */ = {isa = PBXBuildFile; fileRef = B4C50A761A1FD1AF00B8B787 /* AddPitcher.png */; };
 		B4C80F7319D9F6D20018166A /* SearchPitcherTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C80F7219D9F6D20018166A /* SearchPitcherTableViewController.m */; };
 		B4C80F7A19DA029B0018166A /* PitcherScorecardController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C80F7919DA029B0018166A /* PitcherScorecardController.m */; };
 		B4E9D00219B662F900445493 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4E9D00119B662F900445493 /* Foundation.framework */; };
@@ -111,25 +112,26 @@
 		B4B099F019DD9229006CBDA5 /* EditPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPlayerViewController.h; sourceTree = "<group>"; };
 		B4B099F119DD9229006CBDA5 /* EditPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPlayerViewController.m; sourceTree = "<group>"; };
 		B4B85C1719BDF55200B8D3D0 /* GaTech.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = GaTech.JPG; sourceTree = "<group>"; };
+		B4C50A761A1FD1AF00B8B787 /* AddPitcher.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddPitcher.png; sourceTree = "<group>"; };
 		B4C80F7119D9F6D20018166A /* SearchPitcherTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchPitcherTableViewController.h; sourceTree = "<group>"; };
 		B4C80F7219D9F6D20018166A /* SearchPitcherTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchPitcherTableViewController.m; sourceTree = "<group>"; };
 		B4C80F7819DA029B0018166A /* PitcherScorecardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitcherScorecardController.h; sourceTree = "<group>"; };
 		B4C80F7919DA029B0018166A /* PitcherScorecardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PitcherScorecardController.m; sourceTree = "<group>"; };
-		B4E9CFFE19B662F900445493 /* GaTechScouting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GaTechScouting.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4E9CFFE19B662F900445493 /* GaTechGaTechScouting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GaTechGaTechScouting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4E9D00119B662F900445493 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B4E9D00319B662F900445493 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		B4E9D00519B662F900445493 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		B4E9D00919B662F900445493 /* GaTechScouting-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GaTechScouting-Info.plist"; sourceTree = "<group>"; };
+		B4E9D00919B662F900445493 /* GaTechGaTechScouting-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GaTechGaTechScouting-Info.plist"; sourceTree = "<group>"; };
 		B4E9D00B19B662F900445493 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B4E9D00D19B662F900445493 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		B4E9D00F19B662F900445493 /* GaTechScouting-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GaTechScouting-Prefix.pch"; sourceTree = "<group>"; };
+		B4E9D00F19B662F900445493 /* GaTechGaTechScouting-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GaTechGaTechScouting-Prefix.pch"; sourceTree = "<group>"; };
 		B4E9D01019B662F900445493 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B4E9D01119B662F900445493 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		B4E9D01419B662F900445493 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B4E9D01919B662FA00445493 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		B4E9D01F19B662FA00445493 /* GaTechScoutingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GaTechScoutingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4E9D01F19B662FA00445493 /* GaTechGaTechScoutingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GaTechGaTechScoutingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4E9D02019B662FA00445493 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		B4E9D02819B662FA00445493 /* GaTechScoutingTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GaTechScoutingTests-Info.plist"; sourceTree = "<group>"; };
+		B4E9D02819B662FA00445493 /* GaTechGaTechScoutingTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GaTechGaTechScoutingTests-Info.plist"; sourceTree = "<group>"; };
 		B4E9D02A19B662FA00445493 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B4E9D02C19B662FA00445493 /* GaTechScoutingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GaTechScoutingTests.m; sourceTree = "<group>"; };
 		B4E9D03619B6637100445493 /* gtech.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = gtech.jpg; sourceTree = "<group>"; };
@@ -274,8 +276,8 @@
 		B4E9CFFF19B662F900445493 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B4E9CFFE19B662F900445493 /* GaTechScouting.app */,
-				B4E9D01F19B662FA00445493 /* GaTechScoutingTests.xctest */,
+				B4E9CFFE19B662F900445493 /* GaTechGaTechScouting.app */,
+				B4E9D01F19B662FA00445493 /* GaTechGaTechScoutingTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -317,6 +319,7 @@
 			children = (
 				B44313E61A0AE80D004D8910 /* log_in.png */,
 				B44313E41A0AE79C004D8910 /* login.png */,
+				B4C50A761A1FD1AF00B8B787 /* AddPitcher.png */,
 				B4646F7C19C25780000E95FC /* DoneUp.png */,
 				B4646F7D19C25780000E95FC /* DoneDown.png */,
 				B4B85C1719BDF55200B8D3D0 /* GaTech.JPG */,
@@ -330,11 +333,11 @@
 				B4E9D03819B663F400445493 /* Gtech.gif */,
 				B4E9D03A19B6643500445493 /* georgia-tech.jpg */,
 				B4E9D03C19B666AF00445493 /* ga-letter-logo.gif */,
-				B4E9D00919B662F900445493 /* GaTechScouting-Info.plist */,
+				B4E9D00919B662F900445493 /* GaTechGaTechScouting-Info.plist */,
 				B4E9D00A19B662F900445493 /* InfoPlist.strings */,
 				B4E9D00D19B662F900445493 /* main.m */,
 				B4E9D01919B662FA00445493 /* Images.xcassets */,
-				B4E9D00F19B662F900445493 /* GaTechScouting-Prefix.pch */,
+				B4E9D00F19B662F900445493 /* GaTechGaTechScouting-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -351,7 +354,7 @@
 		B4E9D02719B662FA00445493 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B4E9D02819B662FA00445493 /* GaTechScoutingTests-Info.plist */,
+				B4E9D02819B662FA00445493 /* GaTechGaTechScoutingTests-Info.plist */,
 				B4E9D02919B662FA00445493 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -360,9 +363,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B4E9CFFD19B662F900445493 /* GaTechScouting */ = {
+		B4E9CFFD19B662F900445493 /* GaTechGaTechScouting */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B4E9D03019B662FA00445493 /* Build configuration list for PBXNativeTarget "GaTechScouting" */;
+			buildConfigurationList = B4E9D03019B662FA00445493 /* Build configuration list for PBXNativeTarget "GaTechGaTechScouting" */;
 			buildPhases = (
 				23A8C7889CD2439BAB2630C2 /* Check Pods Manifest.lock */,
 				B4E9CFFA19B662F900445493 /* Sources */,
@@ -374,14 +377,14 @@
 			);
 			dependencies = (
 			);
-			name = GaTechScouting;
+			name = GaTechGaTechScouting;
 			productName = GaTechScouting;
-			productReference = B4E9CFFE19B662F900445493 /* GaTechScouting.app */;
+			productReference = B4E9CFFE19B662F900445493 /* GaTechGaTechScouting.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B4E9D01E19B662FA00445493 /* GaTechScoutingTests */ = {
+		B4E9D01E19B662FA00445493 /* GaTechGaTechScoutingTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B4E9D03319B662FA00445493 /* Build configuration list for PBXNativeTarget "GaTechScoutingTests" */;
+			buildConfigurationList = B4E9D03319B662FA00445493 /* Build configuration list for PBXNativeTarget "GaTechGaTechScoutingTests" */;
 			buildPhases = (
 				B4E9D01B19B662FA00445493 /* Sources */,
 				B4E9D01C19B662FA00445493 /* Frameworks */,
@@ -392,9 +395,9 @@
 			dependencies = (
 				B4E9D02519B662FA00445493 /* PBXTargetDependency */,
 			);
-			name = GaTechScoutingTests;
+			name = GaTechGaTechScoutingTests;
 			productName = GaTechScoutingTests;
-			productReference = B4E9D01F19B662FA00445493 /* GaTechScoutingTests.xctest */;
+			productReference = B4E9D01F19B662FA00445493 /* GaTechGaTechScoutingTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -427,8 +430,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B4E9CFFD19B662F900445493 /* GaTechScouting */,
-				B4E9D01E19B662FA00445493 /* GaTechScoutingTests */,
+				B4E9CFFD19B662F900445493 /* GaTechGaTechScouting */,
+				B4E9D01E19B662FA00445493 /* GaTechGaTechScoutingTests */,
 			);
 		};
 /* End PBXProject section */
@@ -441,6 +444,7 @@
 				B4646F8019C25780000E95FC /* DoneDown.png in Resources */,
 				B4E9D03919B663F400445493 /* Gtech.gif in Resources */,
 				B4E9D01A19B662FA00445493 /* Images.xcassets in Resources */,
+				B4C50A771A1FD1AF00B8B787 /* AddPitcher.png in Resources */,
 				B443ECE719B76AB70050265E /* toolbar_home.png in Resources */,
 				B4E9D00C19B662F900445493 /* InfoPlist.strings in Resources */,
 				B44313E51A0AE79C004D8910 /* login.png in Resources */,
@@ -544,7 +548,7 @@
 /* Begin PBXTargetDependency section */
 		B4E9D02519B662FA00445493 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B4E9CFFD19B662F900445493 /* GaTechScouting */;
+			target = B4E9CFFD19B662F900445493 /* GaTechGaTechScouting */;
 			targetProxy = B4E9D02419B662FA00445493 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -654,10 +658,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "GaTechScouting/GaTechScouting-Prefix.pch";
-				INFOPLIST_FILE = "GaTechScouting/GaTechScouting-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "GaTechScouting/GaTechGaTechScouting-Prefix.pch";
+				INFOPLIST_FILE = "GaTechScouting/GaTechGaTechScouting-Info.plist";
+				PRODUCT_NAME = GaTechGaTechScouting;
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -669,10 +675,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "GaTechScouting/GaTechScouting-Prefix.pch";
-				INFOPLIST_FILE = "GaTechScouting/GaTechScouting-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "GaTechScouting/GaTechGaTechScouting-Prefix.pch";
+				INFOPLIST_FILE = "GaTechScouting/GaTechGaTechScouting-Info.plist";
+				PRODUCT_NAME = GaTechGaTechScouting;
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -692,8 +700,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "GaTechScoutingTests/GaTechScoutingTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "GaTechScoutingTests/GaTechGaTechScoutingTests-Info.plist";
+				PRODUCT_NAME = GaTechGaTechScoutingTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -710,8 +718,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GaTechScouting/GaTechScouting-Prefix.pch";
-				INFOPLIST_FILE = "GaTechScoutingTests/GaTechScoutingTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "GaTechScoutingTests/GaTechGaTechScoutingTests-Info.plist";
+				PRODUCT_NAME = GaTechGaTechScoutingTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -729,7 +737,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B4E9D03019B662FA00445493 /* Build configuration list for PBXNativeTarget "GaTechScouting" */ = {
+		B4E9D03019B662FA00445493 /* Build configuration list for PBXNativeTarget "GaTechGaTechScouting" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B4E9D03119B662FA00445493 /* Debug */,
@@ -738,7 +746,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B4E9D03319B662FA00445493 /* Build configuration list for PBXNativeTarget "GaTechScoutingTests" */ = {
+		B4E9D03319B662FA00445493 /* Build configuration list for PBXNativeTarget "GaTechGaTechScoutingTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B4E9D03419B662FA00445493 /* Debug */,

@@ -36,6 +36,8 @@
 @property (strong, nonatomic) UILabel *heightLabel;
 @property (strong, nonatomic) UILabel *commentsLabel;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
+@property (strong, nonatomic) IBOutlet UIView *containerView;
+
 - (IBAction)addPitcher:(UIBarButtonItem *)sender;
 
 @end
@@ -112,6 +114,15 @@ MBProgressHUD *hud;
     [self.navBar addGestureRecognizer:singleTap];
     
     self.navBar.userInteractionEnabled = YES; //disabled by default
+    
+    CALayer *viewLayer = [self gradientBGLayerForBounds:self.scroll.bounds];
+    [self.scroll.layer insertSublayer:viewLayer atIndex:0];
+    
+    CALayer *containerLayer = [self gradientBGLayerForBounds:self.view.bounds];
+    [self.view.layer insertSublayer:containerLayer atIndex:0];
+    
+    CALayer *containLayer = [self gradientBGLayerForBounds:self.containerView.bounds];
+    [self.containerView.layer insertSublayer:containLayer atIndex:0];
 }
 
 -(void)addSubviewsToScroll
@@ -233,6 +244,22 @@ MBProgressHUD *hud;
         return _pickerInchesArray[row];
     }
     else return nil;
+}
+
+- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    NSString *title;
+    if(component == 0){
+        title = [NSString stringWithFormat:@"%@", _pickerFeetArray[row]];
+    }
+    
+    else{
+        title = [NSString stringWithFormat:@"%@", _pickerInchesArray[row]];
+    }
+    NSAttributedString *attString = [[NSAttributedString alloc] initWithString:title attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
+    return attString;
+    
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
@@ -505,6 +532,17 @@ MBProgressHUD *hud;
         return NO;
     }
     else return YES;
+}
+
+- (CALayer *)gradientBGLayerForBounds:(CGRect)bounds
+{
+    CAGradientLayer * gradientBG = [CAGradientLayer layer];
+    gradientBG.frame = bounds;
+    gradientBG.colors = [NSArray arrayWithObjects:
+                         (id)[[UIColor colorWithRed:252.0f / 255.0f green:31.0f / 255.0f blue:10.0f / 255.0f alpha:1.0f] CGColor],
+                         (id)[[UIColor colorWithRed:101.0f / 255.0f green:17.0f / 255.0f blue:3.0f / 255.0f alpha:1.0f] CGColor],
+                         nil];
+    return gradientBG;
 }
 
 /*

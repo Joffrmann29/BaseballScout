@@ -10,6 +10,7 @@
 #import "MBProgressHUD.h"
 #import "PlayerScorecardController.h"
 #import "SearchPitcherTableViewController.h"
+#import "EditPlayerViewController.h"
 
 @interface SearchTableViewController ()
 
@@ -23,6 +24,8 @@
 @property (strong, nonatomic) UIAlertView *searchByFirstAlert;
 @property (strong, nonatomic) UIAlertView *searchByLastAlert;
 @property (strong, nonatomic) UIAlertView *searchByPositionAlert;
+@property (strong, nonatomic) UIAlertView *playerOptions;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 - (IBAction)searchButtonPressed:(UIBarButtonItem *)sender;
 @end
@@ -37,22 +40,31 @@ BOOL successfulPositionSearch;
 {
     [super viewDidLoad];
     
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc]init];
+    [self.tableView addSubview:refreshControl];
+    [refreshControl addTarget:self action:@selector(reloadTable) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshControl;
+    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self loadingOverlay];
     
-    [self.navBar setTitleTextAttributes:
-     [NSDictionary dictionaryWithObjectsAndKeys:
-      [UIFont fontWithName:@"Helvetica" size:17],
-      NSFontAttributeName, nil]];
-    _searchedPlayers = [[NSArray alloc]init];
-    [self filterResultsByFirstName:self.searchTerm];
-    [self filterResultsByLastName:self.searchTerm];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    NSShadow *shadow = [[NSShadow alloc] init];
+    shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
+    shadow.shadowOffset = CGSizeMake(0, 1);
+    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                           [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
+                                                           shadow, NSShadowAttributeName,
+                                                           [UIFont fontWithName:@"Arial" size:17.0], NSFontAttributeName, nil]];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.view.backgroundColor = [UIColor colorWithRed:252.0f / 255.0f green:31.0f / 255.0f blue:10.0f / 255.0f alpha:1.0f];
+}
+
+- (void)reloadTable {
+    //TODO: refresh your data
+    [self.refreshControl endRefreshing];
+    [self.tableView reloadData];
 }
 
 -(void)loadingOverlay
@@ -189,6 +201,9 @@ BOOL successfulPositionSearch;
             [self.tableView reloadData];
             [hud hide:YES];
         }
+        else{
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
     }];
 }
      
@@ -232,6 +247,18 @@ BOOL successfulPositionSearch;
                 successfulPositionSearch = 1;
                 successfulSearch = 0;
                 successfulLastNameSearch = 0;
+            }
+            
+            else if(alertView == _playerOptions)
+            {
+                if(buttonIndex == 0)
+                {
+                    [self performSegueWithIdentifier:@"toScorecard" sender:nil];
+                }
+                else
+                {
+                    [self performSegueWithIdentifier:@"toEdit" sender:nil];
+                }
             }
             else
             {
@@ -286,9 +313,7 @@ BOOL successfulPositionSearch;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-
     // Configure the cell...
-
     if(successfulSearch){
         PFObject *player = [self.searchedPlayers objectAtIndex:indexPath.row];
         PFFile *file = player[@"PlayerImage"];
@@ -336,6 +361,39 @@ BOOL successfulPositionSearch;
     return cell;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 55;
+}
+
+/* Allow the user to edit tableViewCells for deletion */
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+/* Method called when the users swipes and presses the delete key */
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+//    if (editingStyle == UITableViewCellEditingStyleDelete && indexPath.section == 0){
+//        /* If a user deletes the row remove the task at that row from the tasksArray */
+//        [self.players removeObjectAtIndex:indexPath.row];
+//    }
+//    
+//    /* With the updated array of task objects iterate over them and convert them to plists. Save the plists in the newTaskObjectsData NSMutableArray. Save this array to NSUserDefaults. */
+//    NSMutableArray *newGoalObjectsData = [[NSMutableArray alloc] init];
+//    
+//    for (FitnessGoal *goal in self.goalObjects){
+//        [newGoalObjectsData addObject:[self goalObjectsAsAPropertyList:goal]];
+//    }
+//    
+//    [[NSUserDefaults standardUserDefaults] setObject:newGoalObjectsData forKey:GOAL_OBJECTS_KEY];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    /* Animate the deletion of the cell */
+    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+}
+
 - (IBAction)searchButtonPressed:(UIBarButtonItem *)sender
 {
     [self showAction];
@@ -357,6 +415,11 @@ BOOL successfulPositionSearch;
 
 /* When the user taps the accessory button transition to the PlayerScorecardController */
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"toEdit" sender:indexPath];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self performSegueWithIdentifier:@"toScorecard" sender:indexPath];
 }
@@ -399,6 +462,16 @@ BOOL successfulPositionSearch;
 }
 */
 
+- (CALayer *)gradientBGLayerForBounds:(CGRect)bounds
+{
+    CAGradientLayer * gradientBG = [CAGradientLayer layer];
+    gradientBG.frame = bounds;
+    gradientBG.colors = [NSArray arrayWithObjects:
+                         (id)[[UIColor colorWithRed:252.0f / 255.0f green:31.0f / 255.0f blue:10.0f / 255.0f alpha:1.0f] CGColor],
+                         (id)[[UIColor colorWithRed:101.0f / 255.0f green:17.0f / 255.0f blue:3.0f / 255.0f alpha:1.0f] CGColor],
+                         nil];
+    return gradientBG;
+}
 
 #pragma mark - Navigation
 
@@ -407,7 +480,35 @@ BOOL successfulPositionSearch;
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    if ([segue.destinationViewController isKindOfClass:[PlayerScorecardController class]]){
+    
+    if([segue.destinationViewController isKindOfClass:[EditPlayerViewController class]])
+    {
+        EditPlayerViewController *editController = segue.destinationViewController;
+        NSIndexPath *indexPath = sender;
+        PFObject *player;
+        
+        if(successfulLastNameSearch){
+            player = self.searchedPlayersByLastName[indexPath.row];
+            editController.player = player;
+        }
+        
+        else if(successfulPositionSearch){
+            player = self.searchedPlayersByPosition[indexPath.row];
+            editController.player = player;
+        }
+        
+        else if(successfulSearch){
+            player = self.searchedPlayers[indexPath.row];
+            editController.player = player;
+        }
+        
+        else{
+            player = [self.players objectAtIndex:indexPath.row];
+            editController.player = player;
+        }
+    }
+    
+    else if ([segue.destinationViewController isKindOfClass:[PlayerScorecardController class]]){
         PlayerScorecardController *detailViewController = segue.destinationViewController;
         NSIndexPath *path = sender;
         PFObject *player;
@@ -431,8 +532,8 @@ BOOL successfulPositionSearch;
             player = [self.players objectAtIndex:path.row];
             detailViewController.player = player;
         }
-        }
     }
+}
 
 
 @end

@@ -37,8 +37,10 @@
 @property (strong, nonatomic) UILabel *batLabel;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (strong, nonatomic) UILabel *heightLabel;
+@property (strong, nonatomic) IBOutlet UIView *containerView;
 
-- (IBAction)add:(UIBarButtonItem *)sender;
+- (IBAction)back:(UIBarButtonItem *)sender;
+- (IBAction)saveEdit:(UIBarButtonItem *)sender;
 
 @end
 
@@ -49,6 +51,8 @@ PFObject *player;
 UIImage *chosenImage;
 UIImage *finalImage;
 MBProgressHUD *hud;
+PFObject *localPlayer;
+NSString *initialHeightString;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -67,7 +71,6 @@ MBProgressHUD *hud;
     self.pickerFeetArray = [[NSArray alloc]initWithObjects:@"5", @"6", @"7", nil];
     self.pickerInchesArray = [[NSArray alloc]initWithObjects:@"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"11", nil];
     
-    player = [PFObject objectWithClassName:@"Player"];
     [self drawTextFields];
     _scroll.delegate = self;
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(30, 0, 260, 273)];
@@ -76,10 +79,6 @@ MBProgressHUD *hud;
     self.pickerView = [[UIPickerView alloc]initWithFrame:CGRectMake(0, 483, 320, 162)];
     self.pickerView.delegate = self;
     self.pickerView.dataSource = self;
-    
-    //[self changeTextFieldAppearance];
-    
-    
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapNavBar:)];
     singleTap.numberOfTapsRequired = 1;
     singleTap.numberOfTouchesRequired = 1;
@@ -87,18 +86,151 @@ MBProgressHUD *hud;
     [self.navBar addGestureRecognizer:singleTap];
     
     self.navBar.userInteractionEnabled = YES; //disabled by default
-    
-    [self drawLabels];
+    [self drawUI];
     [self addLayerObjects];
     [self addSubviewsToScroll];
-    _scroll.contentSize = CGSizeMake(320, 1000);
+    _scroll.contentSize = CGSizeMake(320, 700);
     _scroll.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_scroll];
     
-    [self.navBar setTitleTextAttributes:
-     [NSDictionary dictionaryWithObjectsAndKeys:
-      [UIFont fontWithName:@"Helvetica" size:17],
-      NSFontAttributeName, nil]];
+    self.view.backgroundColor = [UIColor colorWithRed:252.0f / 255.0f green:31.0f / 255.0f blue:10.0f / 255.0f alpha:1.0f];
+    self.containerView.backgroundColor = [UIColor colorWithRed:252.0f / 255.0f green:31.0f / 255.0f blue:10.0f / 255.0f alpha:1.0f];
+    
+    CALayer * bgGradientLayer = [self gradientBGLayerForBounds:self.navBar.bounds];
+    UIGraphicsBeginImageContext(bgGradientLayer.bounds.size);
+    [bgGradientLayer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage * bgAsImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    
+    if (bgAsImage != nil)
+    {
+        [[UINavigationBar appearance] setBackgroundImage:bgAsImage
+                                           forBarMetrics:UIBarMetricsDefault];
+    }
+    else
+    {
+        NSLog(@"Failded to create gradient bg image, user will see standard tint color gradient.");
+    }
+    
+    NSShadow *shadow = [[NSShadow alloc] init];
+    shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
+    shadow.shadowOffset = CGSizeMake(0, 1);
+    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                           [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
+                                                           shadow, NSShadowAttributeName,
+                                                           [UIFont fontWithName:@"Arial" size:17.0], NSFontAttributeName, nil]];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    
+    CALayer *containerLayer = [self gradientBGLayerForBounds:self.containerView.bounds];
+    [self.containerView.layer insertSublayer:containerLayer atIndex:0];
+    
+    self.firstNameField.textColor = [UIColor blueColor];
+    self.lastNameField.textColor = [UIColor blueColor];
+    self.weightField.textColor = [UIColor blueColor];
+    self.hittingField.textColor = [UIColor blueColor];
+    self.fieldingPctField.textColor = [UIColor blueColor];
+    self.armStrengthField.textColor = [UIColor blueColor];
+    self.armAccuracyField.textColor = [UIColor blueColor];
+    self.powerField.textColor = [UIColor blueColor];
+    
+    [self handleSegmentedControlValues];
+    [self handleBatSegmentedControl];
+    [self handleThrowSegmentedControl];
+    
+    NSArray *separatedStrings = [self.player[@"height"] componentsSeparatedByCharactersInSet:
+    [NSCharacterSet characterSetWithCharactersInString:@"'"]];
+    NSLog(@"%@", separatedStrings);
+    NSString *retrievedHeight = separatedStrings[0];
+    NSString *retrievedInches = separatedStrings[1];
+    initialHeightString = [NSString stringWithFormat:@"%@'%@", retrievedHeight, retrievedInches];
+    
+    int height = [retrievedHeight intValue];
+    int inches = [retrievedInches intValue];
+    
+    [self.pickerView selectRow:height-5 inComponent:0 animated:YES];
+    [self.pickerView selectRow:inches inComponent:1 animated:YES];
+    
+    localPlayer = [PFObject objectWithClassName:@"Player"];
+}
+
+-(void)handleSegmentedControlValues
+{
+    if([_player[@"Position"] isEqualToString:@"P"])
+    {
+        _positionSegControl.selectedSegmentIndex = 0;
+    }
+    
+    else if([_player[@"Position"] isEqualToString:@"C"])
+    {
+        _positionSegControl.selectedSegmentIndex = 1;
+    }
+    
+    else if([_player[@"Position"] isEqualToString:@"1B"])
+    {
+        _positionSegControl.selectedSegmentIndex = 2;
+    }
+    
+    else if([_player[@"Position"] isEqualToString:@"2B"])
+    {
+        _positionSegControl.selectedSegmentIndex = 3;
+    }
+    
+    else if([_player[@"Position"] isEqualToString:@"SS"])
+    {
+        _positionSegControl.selectedSegmentIndex = 4;
+    }
+    
+    else if([_player[@"Position"] isEqualToString:@"3B"])
+    {
+        _positionSegControl.selectedSegmentIndex = 5;
+    }
+    
+    else if([_player[@"Position"] isEqualToString:@"RF"])
+    {
+        _positionSegControl.selectedSegmentIndex = 6;
+    }
+    
+    else if([_player[@"Position"] isEqualToString:@"CF"])
+    {
+        _positionSegControl.selectedSegmentIndex = 7;
+    }
+    
+    else
+    {
+        _positionSegControl.selectedSegmentIndex = 8;
+    }
+}
+
+-(void)handleThrowSegmentedControl
+{
+    if([_player[@"Throws"] isEqualToString:@"R"])
+    {
+        _throwSegmentedControl.selectedSegmentIndex = 0;
+    }
+    
+    else
+    {
+        _throwSegmentedControl.selectedSegmentIndex = 1;
+    }
+}
+
+-(void)handleBatSegmentedControl
+{
+    if([_player[@"Bats"] isEqualToString:@"R"])
+    {
+        _batSegmentedControl.selectedSegmentIndex = 0;
+    }
+    
+    else if([_player[@"Bats"] isEqualToString:@"L"])
+    {
+        _batSegmentedControl.selectedSegmentIndex = 1;
+    }
+    
+    else
+    {
+        _batSegmentedControl.selectedSegmentIndex = 2;
+    }
 }
 
 -(void)addLayerObjects
@@ -114,21 +246,24 @@ MBProgressHUD *hud;
 {
     [_scroll addSubview:_tableView];
     [_scroll addSubview:self.pickerView];
+    [_scroll addSubview:_positionSegControl];
     [_scroll addSubview:_batSegmentedControl];
     [_scroll addSubview:_throwSegmentedControl];
-    [_scroll addSubview:_positionSegControl];
     [_scroll addSubview:_positionLabel];
     [_scroll addSubview:_throwLabel];
     [_scroll addSubview:_batLabel];
     [_scroll addSubview:_heightLabel];
 }
 
--(void)drawLabels
+-(void)drawUI
 {
     _positionLabel = [GeneralUI drawPositionLabel];
     _throwLabel = [GeneralUI drawThrowingLabel];
     _batLabel = [GeneralUI drawBattingLabel];
     _heightLabel = [GeneralUI drawHeightLabel];
+    _positionSegControl = [GeneralUI drawPositionSegmentedControl];
+    _batSegmentedControl = [GeneralUI drawBatSegmentedControl];
+    _throwSegmentedControl = [GeneralUI drawThrowSegmentedControl];
 }
 
 - (void)tapNavBar:(UITapGestureRecognizer *)recognizer {
@@ -138,6 +273,11 @@ MBProgressHUD *hud;
     [self textFieldShouldReturn:self.fieldingPctField];
     [self textFieldShouldReturn:self.hittingField];
     [self textFieldShouldReturn:self.powerField];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
 }
 
 - (void)addPicture
@@ -163,14 +303,13 @@ MBProgressHUD *hud;
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     chosenImage = info[UIImagePickerControllerOriginalImage];
-    UIImageWriteToSavedPhotosAlbum(chosenImage, nil, nil, nil);
     [picker dismissViewControllerAnimated:YES completion:NULL];
 }
 
 -(void)showAction
 {
     NSString *actionSheetTitle = @"Menu Options"; //Action Sheet Title
-    NSString *addPlayer = @"Add Player";
+    NSString *addPlayer = @"Edit Player";
     NSString *selectPhoto = @"Select Photo";
     NSString *takePicture = @"Take Picture";
     NSString *cancelTitle = @"Cancel Button";
@@ -214,114 +353,128 @@ MBProgressHUD *hud;
     }
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    NSLog(@"Scrolling");
-}
-
 -(void)didAddPlayer
 {
-    player[@"FirstName"] = self.firstNameField.text;
-    player[@"LastName"] = self.lastNameField.text;
-    player[@"height"] = heightString;
-    player[@"Weight"] = [NSNumber numberWithInt:[self.weightField.text intValue]];
-    player[@"ArmStrength"] = [NSNumber numberWithInt:[self.armStrengthField.text intValue]];
-    player[@"ArmAccuracy"] = [NSNumber numberWithInt:[self.armAccuracyField.text intValue]];
-    player[@"Fielding"] = [NSNumber numberWithInt:[self.fieldingPctField.text intValue]];
-    player[@"Hitting"] = [NSNumber numberWithInt:[self.hittingField.text intValue]];
-    player[@"Power"] = [NSNumber numberWithInt:[self.powerField.text intValue]];
+    PFQuery *query = [PFQuery queryWithClassName:@"Player"];
+    [query whereKey:@"FirstName" equalTo:self.firstNameField.text];
+    [query whereKey:@"LastName" equalTo:self.lastNameField.text];
     
-    
-    if(_batSegmentedControl.selectedSegmentIndex == 0)
-    {
-        player[@"Bats"] = [_batSegmentedControl titleForSegmentAtIndex:0];
-    }
-    
-    else if(_batSegmentedControl.selectedSegmentIndex == 1)
-    {
-        player[@"Bats"] = [_batSegmentedControl titleForSegmentAtIndex:1];
-    }
-    
-    if(_throwSegmentedControl.selectedSegmentIndex == 0)
-    {
-        player[@"Throws"] = [_throwSegmentedControl titleForSegmentAtIndex:0];
-    }
-    
-    else if(_throwSegmentedControl.selectedSegmentIndex == 1)
-    {
-        player[@"Throws"] = [_throwSegmentedControl titleForSegmentAtIndex:1];
-    }
-    
-    if(_positionSegControl.selectedSegmentIndex == 0)
-    {
-        player[@"Position"] = [_positionSegControl titleForSegmentAtIndex:0];
-    }
-    
-    else if(_positionSegControl.selectedSegmentIndex == 1)
-    {
-        player[@"Position"] = [_positionSegControl titleForSegmentAtIndex:1];
-    }
-    
-    else if(_positionSegControl.selectedSegmentIndex == 2)
-    {
-        player[@"Position"] = [_positionSegControl titleForSegmentAtIndex:2];
-    }
-    
-    else if(_positionSegControl.selectedSegmentIndex == 3)
-    {
-        player[@"Position"] = [_positionSegControl titleForSegmentAtIndex:3];
-    }
-    
-    else if(_positionSegControl.selectedSegmentIndex == 3)
-    {
-        player[@"Position"] = [_positionSegControl titleForSegmentAtIndex:3];
-    }
-    
-    else if(_positionSegControl.selectedSegmentIndex == 4)
-    {
-        player[@"Position"] = [_positionSegControl titleForSegmentAtIndex:4];
-    }
-    
-    else if(_positionSegControl.selectedSegmentIndex == 5)
-    {
-        player[@"Position"] = [_positionSegControl titleForSegmentAtIndex:5];
-    }
-    
-    else if(_positionSegControl.selectedSegmentIndex == 6)
-    {
-        player[@"Position"] = [_positionSegControl titleForSegmentAtIndex:6];
-    }
-    
-    else if(_positionSegControl.selectedSegmentIndex == 7)
-    {
-        player[@"Position"] = [_positionSegControl titleForSegmentAtIndex:7];
-    }
-    
-    else if(_positionSegControl.selectedSegmentIndex == 8)
-    {
-        player[@"Position"] = [_positionSegControl titleForSegmentAtIndex:8];
-    }
-    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"Loading";
-    NSData *imageData = UIImageJPEGRepresentation(chosenImage, 1.0);
-    player[@"PlayerImage"] = [self uploadImage:imageData];
-    [player saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded)
-        {
-            [hud hide:YES];
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Player Added" message:@"The player has been successfuly added to your scouting list." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-            [alertView show];
-        }
-        else if(!succeeded)
-        {
-            [hud hide:YES];
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Player cannot be added at this time." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-            [alertView show];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject * playerObject, NSError *error) {
+        if (!error) {
+            // Found UserStats
+            [playerObject setObject:self.firstNameField.text forKey:@"FirstName"];
+            [playerObject setObject:self.lastNameField.text forKey:@"LastName"];
+            if([heightString isEqual:[NSNull null]]){
+                [playerObject setObject:initialHeightString forKey:@"height"];
+            }
+            [playerObject setObject:[NSNumber numberWithInt:[self.weightField.text intValue]] forKey:@"Weight"];
+            [playerObject setObject:[NSNumber numberWithInt:[self.armStrengthField.text intValue]] forKey:@"ArmStrength"];
+            [playerObject setObject:[NSNumber numberWithInt:[self.armStrengthField.text intValue]] forKey:@"ArmAccuracy"];
+            [playerObject setObject:[NSNumber numberWithInt:[self.fieldingPctField.text intValue]] forKey:@"Fielding"];
+            [playerObject setObject:[NSNumber numberWithInt:[self.hittingField.text intValue]] forKey:@"Hitting"];
+            [playerObject setObject:[NSNumber numberWithInt:[self.powerField.text intValue]] forKey:@"Power"];
+            NSString *user = [PFUser currentUser].username;
+            [playerObject setObject:user forKey:@"scout"];
+            
+            if(_batSegmentedControl.selectedSegmentIndex == 0)
+            {
+                playerObject[@"Bats"] = [_batSegmentedControl titleForSegmentAtIndex:0];
+            }
+            
+            else if(_batSegmentedControl.selectedSegmentIndex == 1)
+            {
+                playerObject[@"Bats"] = [_batSegmentedControl titleForSegmentAtIndex:1];
+            }
+            
+            if(_throwSegmentedControl.selectedSegmentIndex == 0)
+            {
+                playerObject[@"Throws"] = [_throwSegmentedControl titleForSegmentAtIndex:0];
+            }
+            
+            else if(_throwSegmentedControl.selectedSegmentIndex == 1)
+            {
+                playerObject[@"Throws"] = [_throwSegmentedControl titleForSegmentAtIndex:1];
+            }
+            
+            if(_positionSegControl.selectedSegmentIndex == 0)
+            {
+                playerObject[@"Position"] = [_positionSegControl titleForSegmentAtIndex:0];
+            }
+            
+            else if(_positionSegControl.selectedSegmentIndex == 1)
+            {
+                playerObject[@"Position"] = [_positionSegControl titleForSegmentAtIndex:1];
+            }
+            
+            else if(_positionSegControl.selectedSegmentIndex == 2)
+            {
+                playerObject[@"Position"] = [_positionSegControl titleForSegmentAtIndex:2];
+            }
+            
+            else if(_positionSegControl.selectedSegmentIndex == 3)
+            {
+                playerObject[@"Position"] = [_positionSegControl titleForSegmentAtIndex:3];
+            }
+            
+            else if(_positionSegControl.selectedSegmentIndex == 3)
+            {
+                playerObject[@"Position"] = [_positionSegControl titleForSegmentAtIndex:3];
+            }
+            
+            else if(_positionSegControl.selectedSegmentIndex == 4)
+            {
+                playerObject[@"Position"] = [_positionSegControl titleForSegmentAtIndex:4];
+            }
+            
+            else if(_positionSegControl.selectedSegmentIndex == 5)
+            {
+                playerObject[@"Position"] = [_positionSegControl titleForSegmentAtIndex:5];
+            }
+            
+            else if(_positionSegControl.selectedSegmentIndex == 6)
+            {
+                playerObject[@"Position"] = [_positionSegControl titleForSegmentAtIndex:6];
+            }
+            
+            else if(_positionSegControl.selectedSegmentIndex == 7)
+            {
+                playerObject[@"Position"] = [_positionSegControl titleForSegmentAtIndex:7];
+            }
+            
+            else if(_positionSegControl.selectedSegmentIndex == 8)
+            {
+                playerObject[@"Position"] = [_positionSegControl titleForSegmentAtIndex:8];
+            }
+            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.labelText = @"Loading";
+            NSData *imageData = UIImageJPEGRepresentation(chosenImage, 1.0);
+            playerObject[@"PlayerImage"] = [self uploadImage:imageData withObject:playerObject];
+            [playerObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded)
+                {
+                    [hud hide:YES];
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Player Added" message:@"The player has been successfuly edited within your scouting list." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+                    [alertView show];
+                }
+                else if(!succeeded)
+                {
+                    [hud hide:YES];
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Player cannot be edited at this time." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+                    [alertView show];
+                }
+            }];
         }
     }];
+//            // Save
+//            [userStats saveInBackground];
+//        } else {
+//            // Did not find any UserStats for the current user
+//            NSLog(@"Error: %@", error);
+//        }
+//    }];
 }
 
--(PFFile *)uploadImage:(NSData *)imageData
+-(PFFile *)uploadImage:(NSData *)imageData withObject:(PFObject *)player
 {
     PFFile *imageFile = [PFFile fileWithName:@"file.jpg" data:imageData];
     
@@ -331,18 +484,6 @@ MBProgressHUD *hud;
         {
             // Create a PFObject around a PFFile and associate it with the current user
             [player setObject:imageFile forKey:@"PlayerImage"];
-            
-            /*[player saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-             if (!error)
-             {
-             //[self refresh:nil];
-             }
-             else
-             {
-             // Log details of the failure
-             NSLog(@"Error: %@ %@", error, [error userInfo]);
-             }
-             }];*/
         }
         else
         {
@@ -384,6 +525,22 @@ MBProgressHUD *hud;
     else return nil;
 }
 
+- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    NSString *title;
+    if(component == 0){
+        title = [NSString stringWithFormat:@"%@", _pickerFeetArray[row]];
+    }
+    
+    else{
+        title = [NSString stringWithFormat:@"%@", _pickerInchesArray[row]];
+    }
+    NSAttributedString *attString = [[NSAttributedString alloc] initWithString:title attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
+    return attString;
+    
+}
+
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     heightString = [NSString stringWithFormat: @"%@'%@", [_pickerFeetArray objectAtIndex:[_pickerView selectedRowInComponent:0]],[_pickerInchesArray objectAtIndex:[_pickerView selectedRowInComponent:1]]];
 }
@@ -417,7 +574,6 @@ MBProgressHUD *hud;
     return  YES;
 }
 
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -445,6 +601,7 @@ MBProgressHUD *hud;
 {
     static NSString *cellIdentifier = @"PlayerCell";
     PlayerTableViewCell *cell = [[PlayerTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    
     // Configure the cell...
     NSString *attribute = self.recordArray[indexPath.row];
     
@@ -454,6 +611,7 @@ MBProgressHUD *hud;
         _firstNameField.textAlignment = NSTextAlignmentCenter;
         _firstNameField.borderStyle = UITextBorderStyleNone;
         [_firstNameField setBackgroundColor:[UIColor clearColor]];
+        _firstNameField.text = self.player[@"FirstName"];
     }
     
     else if(indexPath.row == 1){
@@ -462,6 +620,7 @@ MBProgressHUD *hud;
         _lastNameField.textAlignment = NSTextAlignmentCenter;
         _lastNameField.borderStyle = UITextBorderStyleNone;
         [_lastNameField setBackgroundColor:[UIColor clearColor]];
+        _lastNameField.text = self.player[@"LastName"];
     }
     
     else if(indexPath.row == 2){
@@ -470,6 +629,7 @@ MBProgressHUD *hud;
         _weightField.textAlignment = NSTextAlignmentCenter;
         _weightField.borderStyle = UITextBorderStyleNone;
         [_weightField setBackgroundColor:[UIColor clearColor]];
+        _weightField.text = [NSString stringWithFormat:@"%i", [self.player[@"Weight"]intValue]];
     }
     
     else if(indexPath.row == 3){
@@ -478,6 +638,7 @@ MBProgressHUD *hud;
         _armStrengthField.textAlignment = NSTextAlignmentCenter;
         _armStrengthField.borderStyle = UITextBorderStyleNone;
         [_armStrengthField setBackgroundColor:[UIColor clearColor]];
+        _armStrengthField.text = [NSString stringWithFormat:@"%i", [self.player[@"ArmStrength"]intValue]];
     }
     
     else if(indexPath.row == 4){
@@ -486,6 +647,7 @@ MBProgressHUD *hud;
         _armAccuracyField.textAlignment = NSTextAlignmentCenter;
         _armAccuracyField.borderStyle = UITextBorderStyleNone;
         [_armAccuracyField setBackgroundColor:[UIColor clearColor]];
+        _armAccuracyField.text = [NSString stringWithFormat:@"%i", [self.player[@"ArmAccuracy"]intValue]];
     }
     
     else if(indexPath.row == 5){
@@ -494,6 +656,7 @@ MBProgressHUD *hud;
         _fieldingPctField.textAlignment = NSTextAlignmentCenter;
         _fieldingPctField.borderStyle = UITextBorderStyleNone;
         [_fieldingPctField setBackgroundColor:[UIColor clearColor]];
+        _fieldingPctField.text = [NSString stringWithFormat:@"%i", [self.player[@"Fielding"]intValue]];
     }
     
     else if(indexPath.row == 6){
@@ -502,6 +665,7 @@ MBProgressHUD *hud;
         _hittingField.textAlignment = NSTextAlignmentCenter;
         _hittingField.borderStyle = UITextBorderStyleNone;
         [_hittingField setBackgroundColor:[UIColor clearColor]];
+        _hittingField.text = [NSString stringWithFormat:@"%i", [self.player[@"Hitting"]intValue]];
     }
     
     else if(indexPath.row == 7){
@@ -510,6 +674,7 @@ MBProgressHUD *hud;
         _powerField.textAlignment = NSTextAlignmentCenter;
         _powerField.borderStyle = UITextBorderStyleNone;
         [_powerField setBackgroundColor:[UIColor clearColor]];
+        _powerField.text = [NSString stringWithFormat:@"%i", [self.player[@"Power"]intValue]];
     }
     
     textfieldPlaceholderColor = [UIColor colorWithRed:252.0/255.0 green:14.0/255.0 blue:0 alpha:1.0];
@@ -536,20 +701,24 @@ MBProgressHUD *hud;
     [cell setSelected:NO];
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (CALayer *)gradientBGLayerForBounds:(CGRect)bounds
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    CAGradientLayer * gradientBG = [CAGradientLayer layer];
+    gradientBG.frame = bounds;
+    gradientBG.colors = [NSArray arrayWithObjects:
+                         (id)[[UIColor colorWithRed:252.0f / 255.0f green:31.0f / 255.0f blue:10.0f / 255.0f alpha:1.0f] CGColor],
+                         (id)[[UIColor colorWithRed:101.0f / 255.0f green:17.0f / 255.0f blue:3.0f / 255.0f alpha:1.0f] CGColor],
+                         nil];
+    return gradientBG;
 }
-*/
 
-- (IBAction)add:(UIBarButtonItem *)sender {
+- (IBAction)saveEdit:(UIBarButtonItem *)sender
+{
     [self showAction];
 }
 
+-(IBAction)back:(UIBarButtonItem *)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end
