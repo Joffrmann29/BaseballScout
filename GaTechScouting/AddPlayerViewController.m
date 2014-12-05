@@ -12,6 +12,7 @@
 #import "CustomTextFieldAppearance.h"
 #import "LayerViewObjects.h"
 #import "GeneralUI.h"
+#import "BackgroundLayer.h"
 
 @interface AddPlayerViewController ()<UIPickerViewDelegate,UIPickerViewDataSource,UIScrollViewDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIGestureRecognizerDelegate>
 
@@ -62,7 +63,7 @@ MBProgressHUD *hud;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.recordArray = [[NSArray alloc]initWithObjects:@"First Name", @"Last Name", @"Weight", @"Arm Strength", @"Arm Accuracy", @"Fielding", @"Hitting", @"Power", nil];
-    self.pickerFeetArray = [[NSArray alloc]initWithObjects:@"5", @"6", @"7", nil];
+    self.pickerFeetArray = [[NSArray alloc]initWithObjects:@"5'", @"6'", @"7'", nil];
     self.pickerInchesArray = [[NSArray alloc]initWithObjects:@"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"11", nil];
     
     if(!_player) self.player = [PFObject objectWithClassName:@"Player"];
@@ -106,14 +107,12 @@ MBProgressHUD *hud;
         NSLog(@"Failded to create gradient bg image, user will see standard tint color gradient.");
     }
     
-    CALayer *viewLayer = [self gradientBGLayerForBounds:self.scroll.bounds];
-    [self.scroll.layer insertSublayer:viewLayer atIndex:0];
+    CAGradientLayer *scrollLayer = [BackgroundLayer greyGradient];
+    scrollLayer.frame = self.scroll.bounds;
+    [self.scroll.layer insertSublayer:scrollLayer atIndex:0];
     
     CALayer *containerLayer = [self gradientBGLayerForBounds:self.view.bounds];
     [self.view.layer insertSublayer:containerLayer atIndex:0];
-    
-    CALayer *scrollContainer = [self gradientBGLayerForBounds:self.containerView.bounds];
-    [self.containerView.layer insertSublayer:scrollContainer atIndex:0];
     
     CAGradientLayer *tabLayer = [CAGradientLayer layer];
     tabLayer.frame = self.tabBarController.tabBar.bounds;
@@ -131,14 +130,14 @@ MBProgressHUD *hud;
                                                            shadow, NSShadowAttributeName,
                                                            [UIFont fontWithName:@"Arial" size:17.0], NSFontAttributeName, nil]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    self.firstNameField.textColor = [UIColor blueColor];
-    self.lastNameField.textColor = [UIColor blueColor];
-    self.weightField.textColor = [UIColor blueColor];
-    self.hittingField.textColor = [UIColor blueColor];
-    self.fieldingPctField.textColor = [UIColor blueColor];
-    self.armStrengthField.textColor = [UIColor blueColor];
-    self.armAccuracyField.textColor = [UIColor blueColor];
-    self.powerField.textColor = [UIColor blueColor];
+    self.firstNameField.textColor = [UIColor redColor];
+    self.lastNameField.textColor = [UIColor redColor];
+    self.weightField.textColor = [UIColor redColor];
+    self.hittingField.textColor = [UIColor redColor];
+    self.fieldingPctField.textColor = [UIColor redColor];
+    self.armStrengthField.textColor = [UIColor redColor];
+    self.armAccuracyField.textColor = [UIColor redColor];
+    self.powerField.textColor = [UIColor redColor];
 }
 
 -(void)addLayerObjects
@@ -407,7 +406,7 @@ MBProgressHUD *hud;
 // The data to return for the row and component (column) that's being passed in
 - (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    [pickerView setTintColor:[UIColor whiteColor]];
+    [pickerView setTintColor:[UIColor blueColor]];
     if(component == 0){
         return _pickerFeetArray[row];
     }
@@ -419,7 +418,7 @@ MBProgressHUD *hud;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    heightString = [NSString stringWithFormat: @"%@'%@", [_pickerFeetArray objectAtIndex:[_pickerView selectedRowInComponent:0]],[_pickerInchesArray objectAtIndex:[_pickerView selectedRowInComponent:1]]];
+    heightString = [NSString stringWithFormat: @"%@%@", [_pickerFeetArray objectAtIndex:[_pickerView selectedRowInComponent:0]],[_pickerInchesArray objectAtIndex:[_pickerView selectedRowInComponent:1]]];
 }
 
 - (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component
@@ -592,8 +591,8 @@ MBProgressHUD *hud;
     CAGradientLayer * gradientBG = [CAGradientLayer layer];
     gradientBG.frame = bounds;
     gradientBG.colors = [NSArray arrayWithObjects:
-                         (id)[[UIColor colorWithRed:252.0f / 255.0f green:31.0f / 255.0f blue:10.0f / 255.0f alpha:1.0f] CGColor],
-                         (id)[[UIColor colorWithRed:101.0f / 255.0f green:17.0f / 255.0f blue:3.0f / 255.0f alpha:1.0f] CGColor],
+                         (id)[[UIColor colorWithRed:42.0f / 255.0f green:92.0f / 255.0f blue:252.0f / 255.0f alpha:1.0f] CGColor],
+                         (id)[[UIColor colorWithRed:11.0f / 255.0f green:51.0f / 255.0f blue:101.0f / 255.0f alpha:1.0f] CGColor],
                          nil];
     return gradientBG;
 }

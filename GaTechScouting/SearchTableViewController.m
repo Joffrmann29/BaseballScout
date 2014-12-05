@@ -11,10 +11,11 @@
 #import "PlayerScorecardController.h"
 #import "SearchPitcherTableViewController.h"
 #import "EditPlayerViewController.h"
+#import "LoginViewController.h"
 
 @interface SearchTableViewController ()
 
-@property (strong, nonatomic) NSArray *players;
+@property (strong, nonatomic) NSMutableArray *players;
 @property (strong, nonatomic) NSArray *searchedPlayers;
 @property (strong, nonatomic) NSArray *searchedPlayersByLastName;
 @property (strong, nonatomic) NSArray *searchedPlayersByPosition;
@@ -28,6 +29,7 @@
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 - (IBAction)searchButtonPressed:(UIBarButtonItem *)sender;
+- (IBAction)logout:(UIBarButtonItem *)sender;
 @end
 
 @implementation SearchTableViewController
@@ -35,6 +37,8 @@ MBProgressHUD *hud;
 BOOL successfulSearch;
 BOOL successfulLastNameSearch;
 BOOL successfulPositionSearch;
+UIAlertView *logalert;
+UIAlertView *errorAlert;
 
 - (void)viewDidLoad
 {
@@ -58,7 +62,7 @@ BOOL successfulPositionSearch;
                                                            [UIFont fontWithName:@"Arial" size:17.0], NSFontAttributeName, nil]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
-    self.view.backgroundColor = [UIColor colorWithRed:252.0f / 255.0f green:31.0f / 255.0f blue:10.0f / 255.0f alpha:1.0f];
+    self.view.backgroundColor = [UIColor colorWithRed:42.0f / 255.0f green:92.0f / 255.0f blue:252.0f / 255.0f alpha:1.0f];
 }
 
 - (void)reloadTable {
@@ -83,7 +87,6 @@ BOOL successfulPositionSearch;
     NSString *searchByPlayerFirstName = @"Search By First Name";
     NSString *searchByPlayerLastName = @"Search By Last Name";
     NSString *searchByTeam = @"Search By Position";
-    NSString *searchPitchers = @"Search For Pitchers";
     NSString *displayFullList = @"Display All Players";
     NSString *cancelTitle = @"Cancel Button";
     
@@ -92,7 +95,7 @@ BOOL successfulPositionSearch;
                                   delegate:self
                                   cancelButtonTitle:cancelTitle
                                   destructiveButtonTitle:searchByPlayerFirstName
-                                  otherButtonTitles:searchByPlayerLastName,searchByTeam, searchPitchers, displayFullList, nil];
+                                  otherButtonTitles:searchByPlayerLastName,searchByTeam, displayFullList, nil];
     [actionSheet showInView:self.view];
 }
 
@@ -129,10 +132,6 @@ BOOL successfulPositionSearch;
                                                otherButtonTitles:@"Go",nil];
         _searchByPositionAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
         [_searchByPositionAlert show];
-    }
-    
-    else if(buttonIndex == 3){
-        [self performSegueWithIdentifier:@"toSearchPitcher" sender:nil];
     }
     
     else{
@@ -196,7 +195,7 @@ BOOL successfulPositionSearch;
     [retrievePlayer whereKey:@"scout" equalTo:[PFUser currentUser].username];
     [retrievePlayer findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            _players = objects;
+            _players = [objects mutableCopy];
             NSLog(@"%@", objects);
             [self.tableView reloadData];
             [hud hide:YES];
@@ -249,30 +248,29 @@ BOOL successfulPositionSearch;
                 successfulLastNameSearch = 0;
             }
             
-            else if(alertView == _playerOptions)
+            else if(alertView == logalert == buttonIndex == 1)
             {
-                if(buttonIndex == 0)
-                {
-                    [self performSegueWithIdentifier:@"toScorecard" sender:nil];
-                }
-                else
-                {
-                    [self performSegueWithIdentifier:@"toEdit" sender:nil];
-                }
+                LoginViewController *lController = [[LoginViewController alloc]init];
+                lController = [self.storyboard instantiateViewControllerWithIdentifier:@"Login"];
+                [self presentViewController:lController animated:YES completion:nil];
+                [PFUser logOut];
             }
-            else
+            
+            else if(alertView == _searchByFirstAlert || alertView == _searchByLastAlert || alertView == _searchByPositionAlert || alertView == errorAlert)
             {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You must enter a search term"
-                                                                message:@"In order to complete the search you must enter a comic to search for in the text box!"
-                                                               delegate:self
-                                                      cancelButtonTitle:@"Cancel"
-                                                      otherButtonTitles:@"Go",nil];
-                
-                alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-                [alert show];
+                if(textField.text.length == 0){
+                    errorAlert = [[UIAlertView alloc] initWithTitle:@"You must enter a search term"
+                                                            message:@"In order to complete the search you must enter player info."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Cancel"
+                                                  otherButtonTitles:@"Go",nil];
+                    
+                    errorAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+                    [errorAlert show];
+                }
             }
         }
-    }
+}
 
 
 - (void)didReceiveMemoryWarning
@@ -314,51 +312,55 @@ BOOL successfulPositionSearch;
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     // Configure the cell...
+    
+    PFObject *player;
+    
     if(successfulSearch){
-        PFObject *player = [self.searchedPlayers objectAtIndex:indexPath.row];
-        PFFile *file = player[@"PlayerImage"];
-        NSData *imageData = [file getData];
-        UIImage *image = [UIImage imageWithData:imageData];
-        UIImage *finalImage = [self resizeImage:image];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@",player[@"FirstName"],player[@"LastName"]];
-        cell.detailTextLabel.text = player[@"Position"];
-        cell.imageView.image = finalImage;
+        player = [self.searchedPlayers objectAtIndex:indexPath.row];
     }
     
     else if(successfulLastNameSearch){
-        PFObject *player = [self.searchedPlayersByLastName objectAtIndex:indexPath.row];
-        PFFile *file = player[@"PlayerImage"];
-        NSData *imageData = [file getData];
-        UIImage *image = [UIImage imageWithData:imageData];
-        UIImage *finalImage = [self resizeImage:image];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@",player[@"FirstName"],player[@"LastName"]];
-        cell.detailTextLabel.text = player[@"Position"];
-        cell.imageView.image = finalImage;
+        player = [self.searchedPlayersByLastName objectAtIndex:indexPath.row];
     }
     
     else if(successfulPositionSearch){
-        PFObject *player = [self.searchedPlayersByPosition objectAtIndex:indexPath.row];
-        PFFile *file = player[@"PlayerImage"];
-        NSData *imageData = [file getData];
-        UIImage *image = [UIImage imageWithData:imageData];
-        UIImage *finalImage = [self resizeImage:image];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@",player[@"FirstName"],player[@"LastName"]];
-        cell.detailTextLabel.text = player[@"Position"];
-        cell.imageView.image = finalImage;
+        player = [self.searchedPlayersByPosition objectAtIndex:indexPath.row];
     }
     
     else{
-        PFObject *player = [self.players objectAtIndex:indexPath.row];
-        PFFile *file = player[@"PlayerImage"];
-        NSData *imageData = [file getData];
-        UIImage *image = [UIImage imageWithData:imageData];
-        UIImage *finalImage = [self resizeImage:image];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@",player[@"FirstName"],player[@"LastName"]];
-        cell.detailTextLabel.text = player[@"Position"];
-        cell.imageView.image = finalImage;
+        player = [self.players objectAtIndex:indexPath.row];
     }
     
+    PFFile *file = player[@"PlayerImage"];
+    NSData *imageData = [file getData];
+    UIImage *image = [UIImage imageWithData:imageData];
+    UIImage *finalImage = [self resizeImage:image];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@",player[@"FirstName"],player[@"LastName"]];
+    cell.detailTextLabel.text = player[@"Position"];
+    cell.imageView.image = finalImage;
+    cell.imageView.layer.cornerRadius = cell.frame.size.height/2;
+    cell.imageView.clipsToBounds = YES;
+    cell.selectionStyle = UITableViewCellEditingStyleNone;
+    
     return cell;
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Add your Colour.
+    UITableViewCell *cell = (UITableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    [self setCellColor:[UIColor blackColor] ForCell:cell];  //highlight colour
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.detailTextLabel.textColor = [UIColor whiteColor];
+    cell.tintColor = [UIColor whiteColor];
+}
+
+- (void)setCellColor:(UIColor *)color ForCell:(UITableViewCell *)cell {
+    cell.contentView.backgroundColor = color;
+    cell.backgroundColor = color;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -375,20 +377,17 @@ BOOL successfulPositionSearch;
 /* Method called when the users swipes and presses the delete key */
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    if (editingStyle == UITableViewCellEditingStyleDelete && indexPath.section == 0){
-//        /* If a user deletes the row remove the task at that row from the tasksArray */
-//        [self.players removeObjectAtIndex:indexPath.row];
-//    }
-//    
-//    /* With the updated array of task objects iterate over them and convert them to plists. Save the plists in the newTaskObjectsData NSMutableArray. Save this array to NSUserDefaults. */
-//    NSMutableArray *newGoalObjectsData = [[NSMutableArray alloc] init];
-//    
-//    for (FitnessGoal *goal in self.goalObjects){
-//        [newGoalObjectsData addObject:[self goalObjectsAsAPropertyList:goal]];
-//    }
-//    
-//    [[NSUserDefaults standardUserDefaults] setObject:newGoalObjectsData forKey:GOAL_OBJECTS_KEY];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
+    PFACL *defaultACL = [PFACL ACL];
+    [defaultACL setPublicReadAccess:YES];
+    [defaultACL setPublicWriteAccess:YES];
+    [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
+    PFObject *player = self.players[indexPath.row];
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete && indexPath.section == 0){
+        /* If a user deletes the row remove the task at that row from the tasksArray */
+        [self.players removeObjectAtIndex:indexPath.row];
+        [player deleteInBackground];
+    }
     
     /* Animate the deletion of the cell */
     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -424,51 +423,13 @@ BOOL successfulPositionSearch;
     [self performSegueWithIdentifier:@"toScorecard" sender:indexPath];
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 - (CALayer *)gradientBGLayerForBounds:(CGRect)bounds
 {
     CAGradientLayer * gradientBG = [CAGradientLayer layer];
     gradientBG.frame = bounds;
     gradientBG.colors = [NSArray arrayWithObjects:
-                         (id)[[UIColor colorWithRed:252.0f / 255.0f green:31.0f / 255.0f blue:10.0f / 255.0f alpha:1.0f] CGColor],
-                         (id)[[UIColor colorWithRed:101.0f / 255.0f green:17.0f / 255.0f blue:3.0f / 255.0f alpha:1.0f] CGColor],
+                         (id)[[UIColor colorWithRed:42.0f / 255.0f green:92.0f / 255.0f blue:252.0f / 255.0f alpha:1.0f] CGColor],
+                         (id)[[UIColor colorWithRed:11.0f / 255.0f green:51.0f / 255.0f blue:101.0f / 255.0f alpha:1.0f] CGColor],
                          nil];
     return gradientBG;
 }
@@ -535,5 +496,10 @@ BOOL successfulPositionSearch;
     }
 }
 
+- (IBAction)logout:(UIBarButtonItem *)sender
+{
+    logalert = [[UIAlertView alloc]initWithTitle:@"Log Out" message:@"Are you sure you want to log out? "delegate:self cancelButtonTitle:nil otherButtonTitles:@"No", @"Yes", nil];
+    [logalert show];
+}
 
 @end

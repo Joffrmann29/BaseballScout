@@ -23,7 +23,6 @@
 		B466C38219BF9C9E00051BE0 /* PlayerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B466C38119BF9C9E00051BE0 /* PlayerTableViewCell.m */; };
 		B46B9FB31A1C0016005BB35E /* BackgroundLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B46B9FB21A1C0016005BB35E /* BackgroundLayer.m */; };
 		B47003BA1A1CF42A00B92DC2 /* PlayerRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B47003B91A1CF42A00B92DC2 /* PlayerRegistrationViewController.m */; };
-		B47003BE1A1D060000B92DC2 /* ScoutTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B47003BD1A1D060000B92DC2 /* ScoutTableViewController.m */; };
 		B47003C31A1D935400B92DC2 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = B47003C21A1D935400B92DC2 /* settings.png */; };
 		B485196919C106B600A27A1B /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B485196819C106B600A27A1B /* MBProgressHUD.m */; };
 		B49293D719D3997900422C5E /* Gradients.m in Sources */ = {isa = PBXBuildFile; fileRef = B49293D619D3997900422C5E /* Gradients.m */; };
@@ -31,12 +30,16 @@
 		B49293DD19D3A5D200422C5E /* LayerViewObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = B49293DC19D3A5D200422C5E /* LayerViewObjects.m */; };
 		B49293E319D3A97000422C5E /* GeneralUI.m in Sources */ = {isa = PBXBuildFile; fileRef = B49293E219D3A97000422C5E /* GeneralUI.m */; };
 		B495211E19E82AD8000CCF27 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B495211D19E82AD8000CCF27 /* LoginViewController.m */; };
-		B4A0034919D4AF6A00CBFE64 /* AddPitcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A0034819D4AF6A00CBFE64 /* AddPitcherViewController.m */; };
 		B4B099F219DD9229006CBDA5 /* EditPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4B099F119DD9229006CBDA5 /* EditPlayerViewController.m */; };
 		B4B85C1819BDF55200B8D3D0 /* GaTech.JPG in Resources */ = {isa = PBXBuildFile; fileRef = B4B85C1719BDF55200B8D3D0 /* GaTech.JPG */; };
+		B4BB4EB21A23AEB600F2ABA8 /* GoMobileScout iPhone6.png in Resources */ = {isa = PBXBuildFile; fileRef = B4BB4EB11A23AEB600F2ABA8 /* GoMobileScout iPhone6.png */; };
+		B4BB4EB41A23AF8700F2ABA8 /* GoMobileScout login screen.png in Resources */ = {isa = PBXBuildFile; fileRef = B4BB4EB31A23AF8700F2ABA8 /* GoMobileScout login screen.png */; };
 		B4C50A771A1FD1AF00B8B787 /* AddPitcher.png in Resources */ = {isa = PBXBuildFile; fileRef = B4C50A761A1FD1AF00B8B787 /* AddPitcher.png */; };
-		B4C80F7319D9F6D20018166A /* SearchPitcherTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C80F7219D9F6D20018166A /* SearchPitcherTableViewController.m */; };
-		B4C80F7A19DA029B0018166A /* PitcherScorecardController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C80F7919DA029B0018166A /* PitcherScorecardController.m */; };
+		B4C50B011A23A2BF00B8B787 /* EditPitcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C50B001A23A2BF00B8B787 /* EditPitcherViewController.m */; };
+		B4C50B041A23A2FA00B8B787 /* ScoutTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C50B021A23A2FA00B8B787 /* ScoutTableViewController.m */; };
+		B4C50B071A23A34000B8B787 /* SearchPitcherTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C50B061A23A34000B8B787 /* SearchPitcherTableViewController.m */; };
+		B4C50B0A1A23A35600B8B787 /* PitcherScorecardController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C50B091A23A35600B8B787 /* PitcherScorecardController.m */; };
+		B4C50B131A23A43900B8B787 /* AddPitcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C50B121A23A43900B8B787 /* AddPitcherViewController.m */; };
 		B4E9D00219B662F900445493 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4E9D00119B662F900445493 /* Foundation.framework */; };
 		B4E9D00419B662F900445493 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4E9D00319B662F900445493 /* CoreGraphics.framework */; };
 		B4E9D00619B662F900445493 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4E9D00519B662F900445493 /* UIKit.framework */; };
@@ -56,6 +59,8 @@
 		B4E9D03D19B666AF00445493 /* ga-letter-logo.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4E9D03C19B666AF00445493 /* ga-letter-logo.gif */; };
 		B4EBD8991A0BBD7F00A924B8 /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4EBD8981A0BBD7F00A924B8 /* RegistrationViewController.m */; };
 		B4F1F00619CA367C0075A0EA /* PlayerScorecardController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F1F00519CA367C0075A0EA /* PlayerScorecardController.m */; };
+		B4F2D7011A23DC490025EE40 /* logout.png in Resources */ = {isa = PBXBuildFile; fileRef = B4F2D7001A23DC490025EE40 /* logout.png */; };
+		B4F2D7051A2420560025EE40 /* Search.png in Resources */ = {isa = PBXBuildFile; fileRef = B4F2D7041A2420560025EE40 /* Search.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,8 +97,6 @@
 		B46B9FB21A1C0016005BB35E /* BackgroundLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundLayer.m; sourceTree = "<group>"; };
 		B47003B81A1CF42A00B92DC2 /* PlayerRegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerRegistrationViewController.h; sourceTree = "<group>"; };
 		B47003B91A1CF42A00B92DC2 /* PlayerRegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerRegistrationViewController.m; sourceTree = "<group>"; };
-		B47003BC1A1D060000B92DC2 /* ScoutTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoutTableViewController.h; sourceTree = "<group>"; };
-		B47003BD1A1D060000B92DC2 /* ScoutTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoutTableViewController.m; sourceTree = "<group>"; };
 		B47003C21A1D935400B92DC2 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		B485196719C106B600A27A1B /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		B485196819C106B600A27A1B /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
@@ -107,16 +110,23 @@
 		B49293E219D3A97000422C5E /* GeneralUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralUI.m; sourceTree = "<group>"; };
 		B495211C19E82AD8000CCF27 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		B495211D19E82AD8000CCF27 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		B4A0034719D4AF6A00CBFE64 /* AddPitcherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPitcherViewController.h; sourceTree = "<group>"; };
-		B4A0034819D4AF6A00CBFE64 /* AddPitcherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPitcherViewController.m; sourceTree = "<group>"; };
 		B4B099F019DD9229006CBDA5 /* EditPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPlayerViewController.h; sourceTree = "<group>"; };
 		B4B099F119DD9229006CBDA5 /* EditPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPlayerViewController.m; sourceTree = "<group>"; };
 		B4B85C1719BDF55200B8D3D0 /* GaTech.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = GaTech.JPG; sourceTree = "<group>"; };
+		B4BB4EB11A23AEB600F2ABA8 /* GoMobileScout iPhone6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GoMobileScout iPhone6.png"; sourceTree = "<group>"; };
+		B4BB4EB31A23AF8700F2ABA8 /* GoMobileScout login screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GoMobileScout login screen.png"; sourceTree = "<group>"; };
 		B4C50A761A1FD1AF00B8B787 /* AddPitcher.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddPitcher.png; sourceTree = "<group>"; };
-		B4C80F7119D9F6D20018166A /* SearchPitcherTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchPitcherTableViewController.h; sourceTree = "<group>"; };
-		B4C80F7219D9F6D20018166A /* SearchPitcherTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchPitcherTableViewController.m; sourceTree = "<group>"; };
-		B4C80F7819DA029B0018166A /* PitcherScorecardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitcherScorecardController.h; sourceTree = "<group>"; };
-		B4C80F7919DA029B0018166A /* PitcherScorecardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PitcherScorecardController.m; sourceTree = "<group>"; };
+		B4C50AFE1A23A25F00B8B787 /* EditPitcherViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditPitcherViewController.h; sourceTree = "<group>"; };
+		B4C50AFF1A23A29B00B8B787 /* EditPitcherViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditPitcherViewController.h; sourceTree = "<group>"; };
+		B4C50B001A23A2BF00B8B787 /* EditPitcherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPitcherViewController.m; sourceTree = "<group>"; };
+		B4C50B021A23A2FA00B8B787 /* ScoutTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoutTableViewController.m; sourceTree = "<group>"; };
+		B4C50B031A23A2FA00B8B787 /* ScoutTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoutTableViewController.h; sourceTree = "<group>"; };
+		B4C50B051A23A32B00B8B787 /* SearchPitcherTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchPitcherTableViewController.h; sourceTree = "<group>"; };
+		B4C50B061A23A34000B8B787 /* SearchPitcherTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchPitcherTableViewController.m; sourceTree = "<group>"; };
+		B4C50B081A23A34D00B8B787 /* PitcherScorecardController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PitcherScorecardController.h; sourceTree = "<group>"; };
+		B4C50B091A23A35600B8B787 /* PitcherScorecardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PitcherScorecardController.m; sourceTree = "<group>"; };
+		B4C50B111A23A42900B8B787 /* AddPitcherViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddPitcherViewController.h; sourceTree = "<group>"; };
+		B4C50B121A23A43900B8B787 /* AddPitcherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPitcherViewController.m; sourceTree = "<group>"; };
 		B4E9CFFE19B662F900445493 /* GaTechGaTechScouting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GaTechGaTechScouting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4E9D00119B662F900445493 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B4E9D00319B662F900445493 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -142,6 +152,8 @@
 		B4EBD8981A0BBD7F00A924B8 /* RegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationViewController.m; sourceTree = "<group>"; };
 		B4F1F00419CA367C0075A0EA /* PlayerScorecardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerScorecardController.h; sourceTree = "<group>"; };
 		B4F1F00519CA367C0075A0EA /* PlayerScorecardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerScorecardController.m; sourceTree = "<group>"; };
+		B4F2D7001A23DC490025EE40 /* logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logout.png; sourceTree = "<group>"; };
+		B4F2D7041A2420560025EE40 /* Search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Search.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,8 +191,6 @@
 		B47003BB1A1D057500B92DC2 /* Scout Screens */ = {
 			isa = PBXGroup;
 			children = (
-				B47003BC1A1D060000B92DC2 /* ScoutTableViewController.h */,
-				B47003BD1A1D060000B92DC2 /* ScoutTableViewController.m */,
 			);
 			name = "Scout Screens";
 			sourceTree = "<group>";
@@ -233,12 +243,17 @@
 		B4C80F7519D9FEE60018166A /* Pitcher Screens */ = {
 			isa = PBXGroup;
 			children = (
-				B4C80F7119D9F6D20018166A /* SearchPitcherTableViewController.h */,
-				B4C80F7219D9F6D20018166A /* SearchPitcherTableViewController.m */,
-				B4A0034719D4AF6A00CBFE64 /* AddPitcherViewController.h */,
-				B4A0034819D4AF6A00CBFE64 /* AddPitcherViewController.m */,
-				B4C80F7819DA029B0018166A /* PitcherScorecardController.h */,
-				B4C80F7919DA029B0018166A /* PitcherScorecardController.m */,
+				B4C50AFF1A23A29B00B8B787 /* EditPitcherViewController.h */,
+				B4C50AFE1A23A25F00B8B787 /* EditPitcherViewController.h */,
+				B4C50B001A23A2BF00B8B787 /* EditPitcherViewController.m */,
+				B4C50B031A23A2FA00B8B787 /* ScoutTableViewController.h */,
+				B4C50B021A23A2FA00B8B787 /* ScoutTableViewController.m */,
+				B4C50B051A23A32B00B8B787 /* SearchPitcherTableViewController.h */,
+				B4C50B061A23A34000B8B787 /* SearchPitcherTableViewController.m */,
+				B4C50B081A23A34D00B8B787 /* PitcherScorecardController.h */,
+				B4C50B091A23A35600B8B787 /* PitcherScorecardController.m */,
+				B4C50B111A23A42900B8B787 /* AddPitcherViewController.h */,
+				B4C50B121A23A43900B8B787 /* AddPitcherViewController.m */,
 				B46B9FAA1A1B8EE3005BB35E /* PlayerManagement */,
 			);
 			name = "Pitcher Screens";
@@ -317,13 +332,17 @@
 		B4E9D00819B662F900445493 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B4BB4EB31A23AF8700F2ABA8 /* GoMobileScout login screen.png */,
 				B44313E61A0AE80D004D8910 /* log_in.png */,
 				B44313E41A0AE79C004D8910 /* login.png */,
 				B4C50A761A1FD1AF00B8B787 /* AddPitcher.png */,
+				B4F2D7041A2420560025EE40 /* Search.png */,
 				B4646F7C19C25780000E95FC /* DoneUp.png */,
 				B4646F7D19C25780000E95FC /* DoneDown.png */,
+				B4BB4EB11A23AEB600F2ABA8 /* GoMobileScout iPhone6.png */,
 				B4B85C1719BDF55200B8D3D0 /* GaTech.JPG */,
 				B443ECE619B76AB70050265E /* toolbar_home.png */,
+				B4F2D7001A23DC490025EE40 /* logout.png */,
 				B443ECE419B76A5D0050265E /* home_button.png */,
 				B443ECE219B758800050265E /* DerekJeter.png */,
 				B47003C21A1D935400B92DC2 /* settings.png */,
@@ -444,14 +463,18 @@
 				B4646F8019C25780000E95FC /* DoneDown.png in Resources */,
 				B4E9D03919B663F400445493 /* Gtech.gif in Resources */,
 				B4E9D01A19B662FA00445493 /* Images.xcassets in Resources */,
+				B4F2D7011A23DC490025EE40 /* logout.png in Resources */,
 				B4C50A771A1FD1AF00B8B787 /* AddPitcher.png in Resources */,
 				B443ECE719B76AB70050265E /* toolbar_home.png in Resources */,
 				B4E9D00C19B662F900445493 /* InfoPlist.strings in Resources */,
 				B44313E51A0AE79C004D8910 /* login.png in Resources */,
 				B443ECE119B757B50050265E /* MiggyCabrera.jpg in Resources */,
 				B4E9D01519B662F900445493 /* Main.storyboard in Resources */,
+				B4BB4EB21A23AEB600F2ABA8 /* GoMobileScout iPhone6.png in Resources */,
 				B443ECDF19B757550050265E /* jason-heyward.jpg in Resources */,
+				B4F2D7051A2420560025EE40 /* Search.png in Resources */,
 				B4E9D03D19B666AF00445493 /* ga-letter-logo.gif in Resources */,
+				B4BB4EB41A23AF8700F2ABA8 /* GoMobileScout login screen.png in Resources */,
 				B4E9D03B19B6643500445493 /* georgia-tech.jpg in Resources */,
 				B4B85C1819BDF55200B8D3D0 /* GaTech.JPG in Resources */,
 				B4646F7F19C25780000E95FC /* DoneUp.png in Resources */,
@@ -511,26 +534,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4C50B0A1A23A35600B8B787 /* PitcherScorecardController.m in Sources */,
+				B4C50B011A23A2BF00B8B787 /* EditPitcherViewController.m in Sources */,
+				B4C50B071A23A34000B8B787 /* SearchPitcherTableViewController.m in Sources */,
 				B49293DA19D3A17200422C5E /* CustomTextFieldAppearance.m in Sources */,
 				B466C38219BF9C9E00051BE0 /* PlayerTableViewCell.m in Sources */,
 				B4F1F00619CA367C0075A0EA /* PlayerScorecardController.m in Sources */,
 				B46B9FB31A1C0016005BB35E /* BackgroundLayer.m in Sources */,
+				B4C50B041A23A2FA00B8B787 /* ScoutTableViewController.m in Sources */,
 				B466C37F19BF9BA100051BE0 /* AddPlayerViewController.m in Sources */,
 				B466C37C19BF443500051BE0 /* CCConstants.m in Sources */,
 				B485196919C106B600A27A1B /* MBProgressHUD.m in Sources */,
-				B4C80F7A19DA029B0018166A /* PitcherScorecardController.m in Sources */,
 				B4EBD8991A0BBD7F00A924B8 /* RegistrationViewController.m in Sources */,
 				B495211E19E82AD8000CCF27 /* LoginViewController.m in Sources */,
 				B4B099F219DD9229006CBDA5 /* EditPlayerViewController.m in Sources */,
 				B49293D719D3997900422C5E /* Gradients.m in Sources */,
 				B49293E319D3A97000422C5E /* GeneralUI.m in Sources */,
 				B4E9D01219B662F900445493 /* AppDelegate.m in Sources */,
-				B4A0034919D4AF6A00CBFE64 /* AddPitcherViewController.m in Sources */,
 				B4E9D00E19B662F900445493 /* main.m in Sources */,
 				B47003BA1A1CF42A00B92DC2 /* PlayerRegistrationViewController.m in Sources */,
-				B4C80F7319D9F6D20018166A /* SearchPitcherTableViewController.m in Sources */,
-				B47003BE1A1D060000B92DC2 /* ScoutTableViewController.m in Sources */,
 				B443ECD919B751AE0050265E /* SearchTableViewController.m in Sources */,
+				B4C50B131A23A43900B8B787 /* AddPitcherViewController.m in Sources */,
 				B49293DD19D3A5D200422C5E /* LayerViewObjects.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

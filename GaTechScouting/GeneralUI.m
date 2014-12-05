@@ -52,7 +52,7 @@
 
 +(UISegmentedControl *)drawPositionSegmentedControl
 {
-    UISegmentedControl *positionSegControl = [[UISegmentedControl alloc]initWithItems:[NSArray arrayWithObjects:@"P", @"C", @"1B", @"2B", @"SS",@"3B", @"RF", @"CF", @"LF", nil]];
+    UISegmentedControl *positionSegControl = [[UISegmentedControl alloc]initWithItems:[NSArray arrayWithObjects:@"C", @"1B", @"2B", @"SS",@"3B", @"RF", @"CF", @"LF", nil]];
 
     positionSegControl.frame = CGRectMake(30, 328, 260, 29);
     [positionSegControl setTintColor:[UIColor whiteColor]];

@@ -1,21 +1,21 @@
 //
-//  AddPitcherViewController.m
+//  EditPitcherViewController.m
 //  GaTechScouting
 //
-//  Created by Joffrey Mann on 9/25/14.
+//  Created by Joffrey Mann on 11/22/14.
 //  Copyright (c) 2014 JoffreyMann. All rights reserved.
 //
 
-#import "AddPitcherViewController.h"
+#define kOFFSET_FOR_KEYBOARD 80.0
+#import "EditPitcherViewController.h"
 #import "MBProgressHUD.h"
 #import "Gradients.h"
 #import "CustomTextFieldAppearance.h"
 #import "LayerViewObjects.h"
-#import "GeneralUI.h"
 #import "BackgroundLayer.h"
-#import <Parse/Parse.h>
+#import "GeneralUI.h"
 
-@interface AddPitcherViewController ()<UIGestureRecognizerDelegate,UIPickerViewDelegate,UIPickerViewDataSource, UITextViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIGestureRecognizerDelegate>
+@interface EditPitcherViewController ()<UIPickerViewDelegate,UIPickerViewDataSource,UIScrollViewDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIGestureRecognizerDelegate, UITextViewDelegate>
 
 @property (strong, nonatomic) UITextField *firstNameField;
 @property (strong, nonatomic) UITextField *lastNameField;
@@ -41,28 +41,20 @@
 @property (strong, nonatomic) IBOutlet UIView *containerView;
 
 - (IBAction)addPitcher:(UIBarButtonItem *)sender;
+- (IBAction)back:(UIBarButtonItem *)sender;
 
 @end
 
-@implementation AddPitcherViewController
+@implementation EditPitcherViewController
 UIColor *textfieldPlaceholderColor;
 NSString *heightString;
 PFObject *pitcher;
 UIImage *chosenImage;
 UIImage *finalImage;
 MBProgressHUD *hud;
+NSString *initialHeightString;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
@@ -71,6 +63,7 @@ MBProgressHUD *hud;
     self.pickerInchesArray = [[NSArray alloc]initWithObjects:@"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"11", nil];
     
     pitcher = [PFObject objectWithClassName:@"Pitcher"];
+    NSLog(@"%@", [_pitcher objectId]);
     [self drawTextFields];
     _scroll.delegate = self;
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(30, 0, 260, 273)];
@@ -82,6 +75,7 @@ MBProgressHUD *hud;
     
     self.commentsView = [[UITextView alloc]initWithFrame:CGRectMake(20, 485, 280, 200)];
     self.commentsView.delegate = self;
+    self.commentsView.text = _pitcher[@"Comments"];
     
     _heightLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 303, 320, 25)];
     _heightLabel.backgroundColor = [UIColor clearColor];
@@ -145,6 +139,76 @@ MBProgressHUD *hud;
     self.otherField.textColor = [UIColor blueColor];
     self.movementField.textColor = [UIColor blueColor];
     self.controlField.textColor = [UIColor blueColor];
+    
+    NSArray *separatedStrings = [self.pitcher[@"Height"] componentsSeparatedByCharactersInSet:
+                                 [NSCharacterSet characterSetWithCharactersInString:@"'"]];
+    NSLog(@"%@", separatedStrings);
+    NSString *retrievedHeight = separatedStrings[0];
+    NSString *retrievedInches = separatedStrings[1];
+    initialHeightString = [NSString stringWithFormat:@"%@'%@", retrievedHeight, retrievedInches];
+    
+    int height = [retrievedHeight intValue];
+    int inches = [retrievedInches intValue];
+    
+    [self.pickerView selectRow:height-5 inComponent:0 animated:YES];
+    [self.pickerView selectRow:inches inComponent:1 animated:YES];
+}
+
+-(void)keyboardWillShow {
+    // Animate the current view out of the way
+    if (self.view.frame.origin.y >= 0)
+    {
+        [self setViewMovedUp:YES];
+    }
+    else if (self.view.frame.origin.y < 0)
+    {
+        [self setViewMovedUp:NO];
+    }
+}
+
+-(void)keyboardWillHide {
+    if (self.view.frame.origin.y >= 0)
+    {
+        [self setViewMovedUp:YES];
+    }
+    else if (self.view.frame.origin.y < 0)
+    {
+        [self setViewMovedUp:NO];
+    }
+}
+
+-(void)textFieldDidChange
+{
+    //move the main view, so that the keyboard does not hide it.
+    if  (self.view.frame.origin.y >= 0)
+    {
+        [self setViewMovedUp:YES];
+    }
+}
+
+//method to move the view up/down whenever the keyboard is shown/dismissed
+-(void)setViewMovedUp:(BOOL)movedUp
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3]; // if you want to slide up the view
+    
+    CGRect rect = self.view.frame;
+    if (movedUp)
+    {
+        // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
+        // 2. increase the size of the view so that the area behind the keyboard is covered up.
+        rect.origin.y -= kOFFSET_FOR_KEYBOARD;
+        rect.size.height += kOFFSET_FOR_KEYBOARD;
+    }
+    else
+    {
+        // revert back to the normal state.
+        rect.origin.y += kOFFSET_FOR_KEYBOARD;
+        rect.size.height -= kOFFSET_FOR_KEYBOARD;
+    }
+    self.view.frame = rect;
+    
+    [UIView commitAnimations];
 }
 
 -(void)addSubviewsToScroll
@@ -165,40 +229,56 @@ MBProgressHUD *hud;
 
 -(void)didAddPlayer
 {
-    pitcher[@"FirstName"] = self.firstNameField.text;
-    pitcher[@"LastName"] = self.lastNameField.text;
-    pitcher[@"Height"] = heightString;
-    pitcher[@"Weight"] = [NSNumber numberWithInt:[self.weightField.text intValue]];
-    pitcher[@"SchoolClass"] = [NSNumber numberWithInt:[self.classField.text intValue]];
-    pitcher[@"ArmSlot"] = self.armSlotField.text;
-    pitcher[@"Fastball"] = [NSNumber numberWithInt:[self.fastballField.text intValue]];
-    pitcher[@"Curveball"] = [NSNumber numberWithInt:[self.curveballField.text intValue]];
-    pitcher[@"Changeup"] = [NSNumber numberWithInt:[self.changeupField.text intValue]];
-    pitcher[@"Slider"] = [NSNumber numberWithInt:[self.sliderField.text intValue]];
-    pitcher[@"Other"] = self.otherField.text;
-    pitcher[@"Control"] = [NSNumber numberWithInt:[self.controlField.text intValue]];
-    pitcher[@"Movement"] = [NSNumber numberWithInt:[self.movementField.text intValue]];
-    pitcher[@"Comments"] = self.commentsView.text;
+    PFQuery *query = [PFQuery queryWithClassName:@"Pitcher"];
+    [query whereKey:@"objectId" equalTo:[_pitcher objectId]];
     
-    NSString *user = [PFUser currentUser].username;
-    [pitcher setObject:user forKey:@"scout"];
- 
-    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"Loading";
-    NSData *imageData = UIImageJPEGRepresentation(chosenImage, 1.0);
-    pitcher[@"PlayerImage"] = [self uploadImage:imageData];
-    [pitcher saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded)
-        {
-            [hud hide:YES];
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Player Added" message:@"The player has been successfuly added to your scouting list." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-            [alertView show];
-        }
-        else if(!succeeded)
-        {
-            [hud hide:YES];
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Player cannot be added at this time." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-            [alertView show];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject * pitcherObject, NSError *error) {
+        if (!error) {
+            // Found UserStats
+            [pitcherObject setObject:self.firstNameField.text forKey:@"FirstName"];
+            [pitcherObject setObject:self.lastNameField.text forKey:@"LastName"];
+            if([heightString isEqual:[NSNull null]]){
+                [pitcherObject setObject:initialHeightString forKey:@"Height"];
+            }
+            [pitcherObject setObject:[NSNumber numberWithInt:[self.weightField.text intValue]] forKey:@"Weight"];
+            [pitcherObject setObject:self.armSlotField.text forKey:@"ArmSlot"];
+            [pitcherObject setObject:[NSNumber numberWithInt:[self.fastballField.text intValue]] forKey:@"Fastball"];
+            [pitcherObject setObject:[NSNumber numberWithInt:[self.curveballField.text intValue]] forKey:@"Curveball"];
+            [pitcherObject setObject:[NSNumber numberWithInt:[self.sliderField.text intValue]] forKey:@"Slider"];
+            [pitcherObject setObject:self.otherField.text forKey:@"Other"];
+            [pitcherObject setObject:[NSNumber numberWithInt:[self.controlField.text intValue]] forKey:@"Control"];
+            [pitcherObject setObject:[NSNumber numberWithInt:[self.movementField.text intValue]] forKey:@"Movement"];
+            [pitcherObject setObject:[NSNumber numberWithInt:[self.changeupField.text intValue]] forKey:@"Changeup"];
+            [pitcherObject setObject:self.commentsView.text forKey:@"Comments"];
+            NSString *user = [PFUser currentUser].username;
+            [pitcherObject setObject:user forKey:@"scout"];
+            
+            
+            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.labelText = @"Loading";
+            if(chosenImage){
+            NSData *imageData = UIImageJPEGRepresentation(chosenImage, 1.0);
+            pitcherObject[@"PlayerImage"] = [self uploadImage:imageData withObject:pitcherObject];
+            }
+            
+            else{
+                pitcherObject[@"PlayerImage"] = _pitcher[@"PlayerImage"];
+            }
+            [pitcherObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded)
+                {
+                    [hud hide:YES];
+                    NSString *fullName = [NSString stringWithFormat:@"%@ %@ has been successfully edited within your scouting list.", _pitcher[@"FirstName"], _pitcher[@"LastName"]];
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Pitcher Edited" message:fullName delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+                    [alertView show];
+                }
+                else if(!succeeded)
+                {
+                    [hud hide:YES];
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Player cannot be edited at this time." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+                    [alertView show];
+                }
+            }];
         }
     }];
 }
@@ -214,7 +294,7 @@ MBProgressHUD *hud;
     [self textFieldShouldReturn:self.otherField];
 }
 
--(PFFile *)uploadImage:(NSData *)imageData
+-(PFFile *)uploadImage:(NSData *)imageData withObject:(PFObject *)pitcher
 {
     PFFile *imageFile = [PFFile fileWithName:@"file.jpg" data:imageData];
     
@@ -222,7 +302,7 @@ MBProgressHUD *hud;
     [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error)
         {
-            
+            [pitcher setObject:imageFile forKey:@"PlayerImage"];
         }
         else
         {
@@ -234,8 +314,7 @@ MBProgressHUD *hud;
 }
 
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -288,7 +367,7 @@ MBProgressHUD *hud;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    heightString = [NSString stringWithFormat: @"%@'%@", [_pickerFeetArray objectAtIndex:[_pickerView selectedRowInComponent:0]],[_pickerInchesArray objectAtIndex:[_pickerView selectedRowInComponent:1]]];
+    heightString = [NSString stringWithFormat: @"%@%@", [_pickerFeetArray objectAtIndex:[_pickerView selectedRowInComponent:0]],[_pickerInchesArray objectAtIndex:[_pickerView selectedRowInComponent:1]]];
 }
 
 
@@ -322,6 +401,7 @@ MBProgressHUD *hud;
         _firstNameField.textAlignment = NSTextAlignmentCenter;
         _firstNameField.borderStyle = UITextBorderStyleNone;
         [_firstNameField setBackgroundColor:[UIColor clearColor]];
+        _firstNameField.text = _pitcher[@"FirstName"];
     }
     
     else if(indexPath.row == 1){
@@ -330,6 +410,7 @@ MBProgressHUD *hud;
         _lastNameField.textAlignment = NSTextAlignmentCenter;
         _lastNameField.borderStyle = UITextBorderStyleNone;
         [_lastNameField setBackgroundColor:[UIColor clearColor]];
+        _lastNameField.text = _pitcher[@"LastName"];
     }
     
     else if(indexPath.row == 2){
@@ -338,6 +419,7 @@ MBProgressHUD *hud;
         _weightField.textAlignment = NSTextAlignmentCenter;
         _weightField.borderStyle = UITextBorderStyleNone;
         [_weightField setBackgroundColor:[UIColor clearColor]];
+        _weightField.text = [NSString stringWithFormat:@"%@",_pitcher[@"Weight"]];
     }
     
     else if(indexPath.row == 3){
@@ -346,6 +428,7 @@ MBProgressHUD *hud;
         _classField.textAlignment = NSTextAlignmentCenter;
         _classField.borderStyle = UITextBorderStyleNone;
         [_classField setBackgroundColor:[UIColor clearColor]];
+        _classField.text = [NSString stringWithFormat:@"%@",_pitcher[@"SchoolClass"]];
     }
     
     else if(indexPath.row == 4){
@@ -354,6 +437,7 @@ MBProgressHUD *hud;
         _armSlotField.textAlignment = NSTextAlignmentCenter;
         _armSlotField.borderStyle = UITextBorderStyleNone;
         [_armSlotField setBackgroundColor:[UIColor clearColor]];
+        _armSlotField.text = [NSString stringWithFormat:@"%@",_pitcher[@"ArmSlot"]];
     }
     
     else if(indexPath.row == 5){
@@ -362,6 +446,7 @@ MBProgressHUD *hud;
         _fastballField.textAlignment = NSTextAlignmentCenter;
         _fastballField.borderStyle = UITextBorderStyleNone;
         [_fastballField setBackgroundColor:[UIColor clearColor]];
+        _fastballField.text = [NSString stringWithFormat:@"%@", _pitcher[@"Fastball"]];
     }
     
     else if(indexPath.row == 6){
@@ -370,6 +455,7 @@ MBProgressHUD *hud;
         _curveballField.textAlignment = NSTextAlignmentCenter;
         _curveballField.borderStyle = UITextBorderStyleNone;
         [_curveballField setBackgroundColor:[UIColor clearColor]];
+        _curveballField.text = [NSString stringWithFormat:@"%@", _pitcher[@"Curveball"]];
     }
     
     else if(indexPath.row == 7){
@@ -378,6 +464,7 @@ MBProgressHUD *hud;
         _sliderField.textAlignment = NSTextAlignmentCenter;
         _sliderField.borderStyle = UITextBorderStyleNone;
         [_sliderField setBackgroundColor:[UIColor clearColor]];
+        _sliderField.text = [NSString stringWithFormat:@"%@", _pitcher[@"Slider"]];
     }
     
     else if(indexPath.row == 8){
@@ -386,6 +473,7 @@ MBProgressHUD *hud;
         _changeupField.textAlignment = NSTextAlignmentCenter;
         _changeupField.borderStyle = UITextBorderStyleNone;
         [_changeupField setBackgroundColor:[UIColor clearColor]];
+        _changeupField.text = [NSString stringWithFormat:@"%@", _pitcher[@"Changeup"]];
     }
     
     else if(indexPath.row == 9){
@@ -394,6 +482,7 @@ MBProgressHUD *hud;
         _otherField.textAlignment = NSTextAlignmentCenter;
         _otherField.borderStyle = UITextBorderStyleNone;
         [_otherField setBackgroundColor:[UIColor clearColor]];
+        _otherField.text = _pitcher[@"Other"];
     }
     
     else if(indexPath.row == 10){
@@ -402,6 +491,7 @@ MBProgressHUD *hud;
         _controlField.textAlignment = NSTextAlignmentCenter;
         _controlField.borderStyle = UITextBorderStyleNone;
         [_controlField setBackgroundColor:[UIColor clearColor]];
+        _controlField.text = [NSString stringWithFormat:@"%@", _pitcher[@"Control"]];
     }
     
     else if(indexPath.row == 11){
@@ -410,6 +500,7 @@ MBProgressHUD *hud;
         _movementField.textAlignment = NSTextAlignmentCenter;
         _movementField.borderStyle = UITextBorderStyleNone;
         [_movementField setBackgroundColor:[UIColor clearColor]];
+        _movementField.text = [NSString stringWithFormat:@"%@", _pitcher[@"Movement"]];
     }
     
     textfieldPlaceholderColor = [UIColor colorWithRed:42.0f / 255.0f green:92.0f / 255.0f blue:252.0f / 255.0f alpha:1.0f];
@@ -432,6 +523,12 @@ MBProgressHUD *hud;
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 34;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+    [cell setSelected:NO];
 }
 
 -(void)drawTextFields
@@ -466,7 +563,7 @@ MBProgressHUD *hud;
 -(void)showAction
 {
     NSString *actionSheetTitle = @"Menu Options"; //Action Sheet Title
-    NSString *addPlayer = @"Add Pitcher";
+    NSString *addPlayer = @"Edit Pitcher";
     NSString *selectPhoto = @"Select Photo";
     NSString *takePicture = @"Take Picture";
     NSString *cancelTitle = @"Cancel Button";
@@ -484,7 +581,7 @@ MBProgressHUD *hud;
 {
     if(buttonIndex == 0)
     {
-        if(chosenImage)
+        if(chosenImage || _pitcher[@"PlayerImage"])
         {
             [self didAddPlayer];
         }
@@ -532,7 +629,6 @@ MBProgressHUD *hud;
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     chosenImage = info[UIImagePickerControllerOriginalImage];
-    //UIImageWriteToSavedPhotosAlbum(chosenImage, nil, nil, nil);
     [picker dismissViewControllerAnimated:YES completion:NULL];
 }
 
@@ -548,9 +644,22 @@ MBProgressHUD *hud;
     /* Test if the entered text is a return. If it is we tell textView to dismiss the keyboard and then we stop the textView from entering in additional information as text. This is not a perfect solution because users cannot enter returns in their text and if they paste text with a return items after the return will not be added. For the functionality required in this project this solution works just fine. */
     if ([text isEqualToString:@"\n"]){
         [self.commentsView resignFirstResponder];
+        
+        if  (self.view.frame.origin.y <= 0)
+        {
+            [self setViewMovedUp:NO];
+        }
         return NO;
     }
     else return YES;
+}
+
+-(void)textViewDidBeginEditing:(UITextView *)textView
+{
+    if  (self.view.frame.origin.y >= 0)
+    {
+        [self setViewMovedUp:YES];
+    }
 }
 
 - (CALayer *)gradientBGLayerForBounds:(CGRect)bounds
@@ -564,18 +673,22 @@ MBProgressHUD *hud;
     return gradientBG;
 }
 
+- (IBAction)addPitcher:(UIBarButtonItem *)sender {
+    [self showAction];
+}
+
+- (IBAction)back:(UIBarButtonItem *)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 /*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
 */
 
-- (IBAction)addPitcher:(UIBarButtonItem *)sender {
-    [self showAction];
-}
 @end

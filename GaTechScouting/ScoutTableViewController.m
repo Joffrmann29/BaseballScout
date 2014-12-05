@@ -9,15 +9,18 @@
 #import "ScoutTableViewController.h"
 #import "MBProgressHUD.h"
 #import <MessageUI/MessageUI.h>
+#import "LoginViewController.h"
 
-@interface ScoutTableViewController ()<MFMailComposeViewControllerDelegate>
+@interface ScoutTableViewController ()<MFMailComposeViewControllerDelegate,UINavigationControllerDelegate,UIAlertViewDelegate>
 
 @property (strong, nonatomic) NSArray *scouts;
 
+- (IBAction)logout:(UIBarButtonItem *)sender;
 @end
 
 @implementation ScoutTableViewController
 MBProgressHUD *hud;
+UIAlertView *alert;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -142,7 +145,7 @@ MBProgressHUD *hud;
     [mc setToRecipients:toRecipents];
         
     // Present mail view controller on screen
-    [self.navigationController presentViewController:mc animated:YES completion:^{
+    [self presentViewController:mc animated:YES completion:^{
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
         [self setNeedsStatusBarAppearanceUpdate];
         [[UINavigationBar appearance]setTintColor:[UIColor whiteColor]];
@@ -153,18 +156,30 @@ MBProgressHUD *hud;
 {
     switch (result)
     {
-        case MFMailComposeResultCancelled:
+        case MFMailComposeResultCancelled:{
             NSLog(@"Mail cancelled");
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Mail cancelled" message:@"Your e-mail has been canceled." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alertView show];
             break;
-        case MFMailComposeResultSaved:
+        }
+        case MFMailComposeResultSaved:{
             NSLog(@"Mail saved");
+            UIAlertView *saveAlert = [[UIAlertView alloc]initWithTitle:@"Mail Saved" message:@"Your e-mail has been saved." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [saveAlert show];
             break;
-        case MFMailComposeResultSent:
+        }
+        case MFMailComposeResultSent:{
             NSLog(@"Mail sent");
+            UIAlertView *sentAlert = [[UIAlertView alloc]initWithTitle:@"Mail Sent" message:@"Your e-mail has been sent." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [sentAlert show];
             break;
-        case MFMailComposeResultFailed:
+        }
+        case MFMailComposeResultFailed:{
             NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            UIAlertView *sentAlert = [[UIAlertView alloc]initWithTitle:@"Mail sent failure" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [sentAlert show];
             break;
+        }
         default:
             break;
     }
@@ -253,4 +268,20 @@ MBProgressHUD *hud;
 }
 */
 
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 0)
+    {
+        LoginViewController *lController = [[LoginViewController alloc]init];
+        lController = [self.storyboard instantiateViewControllerWithIdentifier:@"Login"];
+        [self presentViewController:lController animated:YES completion:nil];
+        [PFUser logOut];
+    }
+}
+
+- (IBAction)logout:(UIBarButtonItem *)sender
+{
+    alert = [[UIAlertView alloc]initWithTitle:@"Log Out" message:@"Are you sure you want to log out? "delegate:self cancelButtonTitle:nil otherButtonTitles:@"Yes", @"No", nil];
+    [alert show];
+}
 @end

@@ -42,16 +42,16 @@ MBProgressHUD *hud;
     self.emailField.delegate = self;
     self.teamField.delegate = self;
     
-    CGRect titleRect = CGRectMake(0, 40, 320, 30);
-    CGRect firstNameRect = CGRectMake(50, 90, 210, 30);
-    CGRect lastNameRect = CGRectMake(50, 140, 210, 30);
-    CGRect userRect = CGRectMake(50, 190, 210, 30);
-    CGRect passRect = CGRectMake(50, 240, 210, 30);
-    CGRect confirmRect = CGRectMake(50, 290, 210, 30);
-    CGRect emailRect = CGRectMake(50, 340, 210, 30);
+    CGRect titleRect = CGRectMake(110, 40, 100, 100);
+    CGRect firstNameRect = CGRectMake(50, 160, 210, 30);
+    CGRect lastNameRect = CGRectMake(50, 200, 210, 30);
+    CGRect userRect = CGRectMake(50, 240, 210, 30);
+    CGRect passRect = CGRectMake(50, 280, 210, 30);
+    CGRect confirmRect = CGRectMake(50, 320, 210, 30);
+    CGRect emailRect = CGRectMake(50, 360, 210, 30);
     CGRect teamRect = CGRectMake(50, 400, 210, 30);
     CGRect registrationRect = CGRectMake(30, 460, 260, 30);
-    CGRect backRect = CGRectMake(50, 520, 210, 30);
+    CGRect backRect = CGRectMake(50, 500, 210, 30);
     
     self.titleLabel = [[UILabel alloc]initWithFrame:titleRect];
     self.firstNameField = [[UITextField alloc]initWithFrame:firstNameRect];
@@ -83,14 +83,9 @@ MBProgressHUD *hud;
     self.registrationButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.backToLoginButton.frame = backRect;
     
-    CAGradientLayer *viewGradient = [BackgroundLayer redGradient];
-    viewGradient.frame = self.view.bounds;
-    [self.view.layer insertSublayer:viewGradient atIndex:0];
-    
-    CAGradientLayer *regLayer = [BackgroundLayer blueGradient];
-    regLayer.frame = self.registrationButton.bounds;
-    [self.registrationButton.layer insertSublayer:regLayer atIndex:0];
-    self.registrationButton.layer.cornerRadius = 10;
+    UIImageView *playerView = [[UIImageView alloc]initWithFrame:titleRect];
+    playerView.image = [UIImage imageNamed:@"GoMobileScout login screen.png"];
+    [self.view addSubview:playerView];
     
     CALayer *btnRegLayer = [_registrationButton layer];
     [btnRegLayer setMasksToBounds:YES];
@@ -98,10 +93,21 @@ MBProgressHUD *hud;
     [btnRegLayer setBorderWidth:1.0f];
     [btnRegLayer setBorderColor:[[UIColor whiteColor]CGColor]];
     
-    CAGradientLayer *logLayer = [BackgroundLayer blueGradient];
-    logLayer.frame = self.backToLoginButton.bounds;
-    [self.backToLoginButton.layer insertSublayer:logLayer atIndex:0];
-    self.backToLoginButton.layer.cornerRadius = 10;
+    CAGradientLayer *blueLayer = [CAGradientLayer layer];
+    blueLayer.frame = self.backToLoginButton.bounds;
+    blueLayer.colors = [NSArray arrayWithObjects:
+                        (id)[[UIColor colorWithRed:42.0f / 255.0f green:92.0f / 255.0f blue:252.0f / 255.0f alpha:1.0f] CGColor],
+                        (id)[[UIColor colorWithRed:11.0f / 255.0f green:51.0f / 255.0f blue:101.0f / 255.0f alpha:1.0f] CGColor],
+                        nil];
+    [self.backToLoginButton.layer insertSublayer:blueLayer atIndex:0];
+    
+    CAGradientLayer *blueRegLayer = [CAGradientLayer layer];
+    blueRegLayer.frame = self.registrationButton.bounds;
+    blueRegLayer.colors = [NSArray arrayWithObjects:
+                           (id)[[UIColor colorWithRed:42.0f / 255.0f green:92.0f / 255.0f blue:252.0f / 255.0f alpha:1.0f] CGColor],
+                           (id)[[UIColor colorWithRed:11.0f / 255.0f green:51.0f / 255.0f blue:101.0f / 255.0f alpha:1.0f] CGColor],
+                           nil];
+    [self.registrationButton.layer insertSublayer:blueRegLayer atIndex:0];
     
     CALayer *btnLogLayer = [_backToLoginButton layer];
     [btnLogLayer setMasksToBounds:YES];

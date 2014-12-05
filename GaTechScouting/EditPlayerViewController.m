@@ -12,6 +12,7 @@
 #import "CustomTextFieldAppearance.h"
 #import "LayerViewObjects.h"
 #import "GeneralUI.h"
+#import "BackgroundLayer.h"
 
 @interface EditPlayerViewController ()<UIPickerViewDelegate,UIPickerViewDataSource,UIScrollViewDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIGestureRecognizerDelegate>
 
@@ -28,9 +29,9 @@
 @property (strong, nonatomic) UITextField *armAccuracyField;
 @property (strong, nonatomic) UITextField *weightField;
 @property (strong, nonatomic) UIPickerView *pickerView;
-@property (strong, nonatomic) IBOutlet UISegmentedControl *positionSegControl;
-@property (strong, nonatomic) IBOutlet UISegmentedControl *batSegmentedControl;
-@property (strong, nonatomic) IBOutlet UISegmentedControl *throwSegmentedControl;
+@property (strong, nonatomic) UISegmentedControl *positionSegControl;
+@property (strong, nonatomic) UISegmentedControl *batSegmentedControl;
+@property (strong, nonatomic) UISegmentedControl *throwSegmentedControl;
 @property (strong, nonatomic) IBOutlet UIScrollView *scroll;
 @property (strong, nonatomic) UILabel *positionLabel;
 @property (strong, nonatomic) UILabel *throwLabel;
@@ -68,7 +69,7 @@ NSString *initialHeightString;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.recordArray = [[NSArray alloc]initWithObjects:@"First Name", @"Last Name", @"Weight", @"Arm Strength", @"Arm Accuracy", @"Fielding", @"Hitting", @"Power", nil];
-    self.pickerFeetArray = [[NSArray alloc]initWithObjects:@"5", @"6", @"7", nil];
+    self.pickerFeetArray = [[NSArray alloc]initWithObjects:@"5'", @"6'", @"7'", nil];
     self.pickerInchesArray = [[NSArray alloc]initWithObjects:@"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"11", nil];
     
     [self drawTextFields];
@@ -89,12 +90,11 @@ NSString *initialHeightString;
     [self drawUI];
     [self addLayerObjects];
     [self addSubviewsToScroll];
-    _scroll.contentSize = CGSizeMake(320, 700);
+    _scroll.contentSize = CGSizeMake(320, 768);
     _scroll.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_scroll];
     
-    self.view.backgroundColor = [UIColor colorWithRed:252.0f / 255.0f green:31.0f / 255.0f blue:10.0f / 255.0f alpha:1.0f];
-    self.containerView.backgroundColor = [UIColor colorWithRed:252.0f / 255.0f green:31.0f / 255.0f blue:10.0f / 255.0f alpha:1.0f];
+    self.view.backgroundColor = [UIColor colorWithRed:42.0f / 255.0f green:92.0f / 255.0f blue:252.0f / 255.0f alpha:1.0f];
     
     CALayer * bgGradientLayer = [self gradientBGLayerForBounds:self.navBar.bounds];
     UIGraphicsBeginImageContext(bgGradientLayer.bounds.size);
@@ -122,8 +122,9 @@ NSString *initialHeightString;
                                                            [UIFont fontWithName:@"Arial" size:17.0], NSFontAttributeName, nil]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
-    CALayer *containerLayer = [self gradientBGLayerForBounds:self.containerView.bounds];
-    [self.containerView.layer insertSublayer:containerLayer atIndex:0];
+    CAGradientLayer *scrollLayer = [BackgroundLayer greyGradient];
+    scrollLayer.frame = self.scroll.bounds;
+    [self.scroll.layer insertSublayer:scrollLayer atIndex:0];
     
     self.firstNameField.textColor = [UIColor blueColor];
     self.lastNameField.textColor = [UIColor blueColor];
@@ -156,49 +157,45 @@ NSString *initialHeightString;
 
 -(void)handleSegmentedControlValues
 {
-    if([_player[@"Position"] isEqualToString:@"P"])
+    
+    if([_player[@"Position"] isEqualToString:@"C"])
     {
         _positionSegControl.selectedSegmentIndex = 0;
     }
     
-    else if([_player[@"Position"] isEqualToString:@"C"])
+    else if([_player[@"Position"] isEqualToString:@"1B"])
     {
         _positionSegControl.selectedSegmentIndex = 1;
     }
     
-    else if([_player[@"Position"] isEqualToString:@"1B"])
+    else if([_player[@"Position"] isEqualToString:@"2B"])
     {
         _positionSegControl.selectedSegmentIndex = 2;
     }
     
-    else if([_player[@"Position"] isEqualToString:@"2B"])
+    else if([_player[@"Position"] isEqualToString:@"SS"])
     {
         _positionSegControl.selectedSegmentIndex = 3;
     }
     
-    else if([_player[@"Position"] isEqualToString:@"SS"])
+    else if([_player[@"Position"] isEqualToString:@"3B"])
     {
         _positionSegControl.selectedSegmentIndex = 4;
     }
     
-    else if([_player[@"Position"] isEqualToString:@"3B"])
+    else if([_player[@"Position"] isEqualToString:@"RF"])
     {
         _positionSegControl.selectedSegmentIndex = 5;
     }
     
-    else if([_player[@"Position"] isEqualToString:@"RF"])
+    else if([_player[@"Position"] isEqualToString:@"CF"])
     {
         _positionSegControl.selectedSegmentIndex = 6;
     }
     
-    else if([_player[@"Position"] isEqualToString:@"CF"])
+    else if([_player[@"Position"] isEqualToString:@"LF"])
     {
         _positionSegControl.selectedSegmentIndex = 7;
-    }
-    
-    else
-    {
-        _positionSegControl.selectedSegmentIndex = 8;
     }
 }
 
@@ -327,7 +324,7 @@ NSString *initialHeightString;
 {
     if(buttonIndex == 0)
     {
-        if(chosenImage)
+        if(chosenImage || _player[@"PlayerImage"])
         {
             if(self.firstNameField.text.length != 0 || self.lastNameField.text.length != 0 || self.weightField.text.length != 0 || self.armStrengthField.text.length != 0 || self.armAccuracyField.text.length != 0 || self.fieldingPctField.text.length != 0 || self.hittingField.text.length != 0 || self.powerField.text.length != 0)
             {
@@ -356,8 +353,7 @@ NSString *initialHeightString;
 -(void)didAddPlayer
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Player"];
-    [query whereKey:@"FirstName" equalTo:self.firstNameField.text];
-    [query whereKey:@"LastName" equalTo:self.lastNameField.text];
+    [query whereKey:@"objectId" equalTo:[_player objectId]];
     
     [query getFirstObjectInBackgroundWithBlock:^(PFObject * playerObject, NSError *error) {
         if (!error) {
@@ -447,13 +443,21 @@ NSString *initialHeightString;
             }
             hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.labelText = @"Loading";
-            NSData *imageData = UIImageJPEGRepresentation(chosenImage, 1.0);
-            playerObject[@"PlayerImage"] = [self uploadImage:imageData withObject:playerObject];
+            if(chosenImage){
+                NSData *imageData = UIImageJPEGRepresentation(chosenImage, 1.0);
+                playerObject[@"PlayerImage"] = [self uploadImage:imageData withObject:playerObject];
+            }
+            
+            else{
+                playerObject[@"PlayerImage"] = _player[@"PlayerImage"];
+            }
+            
             [playerObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded)
                 {
                     [hud hide:YES];
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Player Added" message:@"The player has been successfuly edited within your scouting list." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+                    NSString *fullName = [NSString stringWithFormat:@"%@ %@ has been successfuly edited within your scouting list.", _player[@"FirstName"], _player[@"LastName"]];
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Player Added" message:fullName delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
                     [alertView show];
                 }
                 else if(!succeeded)
@@ -465,13 +469,6 @@ NSString *initialHeightString;
             }];
         }
     }];
-//            // Save
-//            [userStats saveInBackground];
-//        } else {
-//            // Did not find any UserStats for the current user
-//            NSLog(@"Error: %@", error);
-//        }
-//    }];
 }
 
 -(PFFile *)uploadImage:(NSData *)imageData withObject:(PFObject *)player
@@ -542,7 +539,7 @@ NSString *initialHeightString;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    heightString = [NSString stringWithFormat: @"%@'%@", [_pickerFeetArray objectAtIndex:[_pickerView selectedRowInComponent:0]],[_pickerInchesArray objectAtIndex:[_pickerView selectedRowInComponent:1]]];
+    heightString = [NSString stringWithFormat: @"%@         %@", [_pickerFeetArray objectAtIndex:[_pickerView selectedRowInComponent:0]],[_pickerInchesArray objectAtIndex:[_pickerView selectedRowInComponent:1]]];
 }
 
 -(void)drawTextFields
@@ -677,7 +674,7 @@ NSString *initialHeightString;
         _powerField.text = [NSString stringWithFormat:@"%i", [self.player[@"Power"]intValue]];
     }
     
-    textfieldPlaceholderColor = [UIColor colorWithRed:252.0/255.0 green:14.0/255.0 blue:0 alpha:1.0];
+    textfieldPlaceholderColor = [UIColor colorWithRed:42.0f / 255.0f green:92.0f / 255.0f blue:252.0f / 255.0f alpha:1.0f];
     [_firstNameField setValue:textfieldPlaceholderColor forKeyPath:@"_placeholderLabel.textColor"];
     [_lastNameField setValue:textfieldPlaceholderColor forKeyPath:@"_placeholderLabel.textColor"];
     [_weightField setValue:textfieldPlaceholderColor forKeyPath:@"_placeholderLabel.textColor"];
@@ -706,8 +703,8 @@ NSString *initialHeightString;
     CAGradientLayer * gradientBG = [CAGradientLayer layer];
     gradientBG.frame = bounds;
     gradientBG.colors = [NSArray arrayWithObjects:
-                         (id)[[UIColor colorWithRed:252.0f / 255.0f green:31.0f / 255.0f blue:10.0f / 255.0f alpha:1.0f] CGColor],
-                         (id)[[UIColor colorWithRed:101.0f / 255.0f green:17.0f / 255.0f blue:3.0f / 255.0f alpha:1.0f] CGColor],
+                         (id)[[UIColor colorWithRed:42.0f / 255.0f green:92.0f / 255.0f blue:252.0f / 255.0f alpha:1.0f] CGColor],
+                         (id)[[UIColor colorWithRed:11.0f / 255.0f green:51.0f / 255.0f blue:101.0f / 255.0f alpha:1.0f] CGColor],
                          nil];
     return gradientBG;
 }

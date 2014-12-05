@@ -9,6 +9,8 @@
 #import "SearchPitcherTableViewController.h"
 #import "MBProgressHUD.h"
 #import "PitcherScorecardController.h"
+#import "EditPitcherViewController.h"
+#import "LoginViewController.h"
 
 @interface SearchPitcherTableViewController ()
 
@@ -22,9 +24,10 @@
 @property (strong, nonatomic) UIAlertView *searchByFirstAlert;
 @property (strong, nonatomic) UIAlertView *searchByLastAlert;
 @property (strong, nonatomic) UIAlertView *searchByPositionAlert;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 - (IBAction)searchButtonPressed:(UIBarButtonItem *)sender;
-- (IBAction)back:(UIBarButtonItem *)sender;
+- (IBAction)logout:(UIBarButtonItem *)sender;
 @end
 
 @implementation SearchPitcherTableViewController
@@ -32,29 +35,39 @@ MBProgressHUD *hud;
 BOOL successfulSearch;
 BOOL successfulLastNameSearch;
 BOOL successfulPositionSearch;
+UIAlertView *logalert;
+UIAlertView *errorAlert;
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc]init];
+    [self.tableView addSubview:refreshControl];
+    [refreshControl addTarget:self action:@selector(reloadTable) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshControl;
+    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self loadingOverlay];
     
-    [self.navBar setTitleTextAttributes:
-     [NSDictionary dictionaryWithObjectsAndKeys:
-      [UIFont fontWithName:@"Helvetica" size:17],
-      NSFontAttributeName, nil]];
     _searchedPitchers = [[NSArray alloc]init];
     [self filterResultsByFirstName:self.searchTerm];
     [self filterResultsByLastName:self.searchTerm];
     
+    self.view.backgroundColor = [UIColor colorWithRed:42.0f / 255.0f green:92.0f / 255.0f blue:252.0f / 255.0f alpha:1.0f];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)reloadTable {
+    //TODO: refresh your data
+    [self.refreshControl endRefreshing];
+    [self.tableView reloadData];
 }
 
 -(void)loadingOverlay
@@ -114,7 +127,7 @@ BOOL successfulPositionSearch;
 
 -(void) retieveProgress{
     PFQuery *retrievePlayer = [PFQuery queryWithClassName:@"Pitcher"];
-    
+    [retrievePlayer whereKey:@"scout" equalTo:[PFUser currentUser].username];
     [retrievePlayer findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             _pitchers = objects;
@@ -173,16 +186,26 @@ BOOL successfulPositionSearch;
             successfulSearch = 0;
             successfulLastNameSearch = 0;
         }
-        else
+        else if(alertView == logalert == buttonIndex == 1)
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You must enter a search term"
-                                                            message:@"In order to complete the search you must enter a comic to search for in the text box!"
+            LoginViewController *lController = [[LoginViewController alloc]init];
+            lController = [self.storyboard instantiateViewControllerWithIdentifier:@"Login"];
+            [self presentViewController:lController animated:YES completion:nil];
+            [PFUser logOut];
+        }
+        
+        else if(alertView == _searchByFirstAlert || alertView == _searchByLastAlert || alertView == _searchByPositionAlert || alertView == errorAlert)
+        {
+            if(textField.text.length == 0){
+            errorAlert = [[UIAlertView alloc] initWithTitle:@"You must enter a search term"
+                                                            message:@"In order to complete the search you must enter player info."
                                                            delegate:self
                                                   cancelButtonTitle:@"Cancel"
                                                   otherButtonTitles:@"Go",nil];
             
-            alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-            [alert show];
+            errorAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+            [errorAlert show];
+            }
         }
     }
 }
@@ -282,51 +305,55 @@ BOOL successfulPositionSearch;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     // Configure the cell...
+    PFObject *pitcher;
     if(successfulSearch){
-        PFObject *player = [self.searchedPitchers objectAtIndex:indexPath.row];
-        PFFile *file = player[@"PlayerImage"];
-        NSData *imageData = [file getData];
-        UIImage *image = [UIImage imageWithData:imageData];
-        UIImage *finalImage = [self resizeImage:image];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@",player[@"FirstName"],player[@"LastName"]];
-        cell.detailTextLabel.text = player[@"Position"];
-        cell.imageView.image = finalImage;
+        pitcher = [self.searchedPitchers objectAtIndex:indexPath.row];
     }
     
     else if(successfulLastNameSearch){
-        PFObject *player = [self.searchedPitchersByLastName objectAtIndex:indexPath.row];
-        PFFile *file = player[@"PlayerImage"];
-        NSData *imageData = [file getData];
-        UIImage *image = [UIImage imageWithData:imageData];
-        UIImage *finalImage = [self resizeImage:image];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@",player[@"FirstName"],player[@"LastName"]];
-        cell.detailTextLabel.text = player[@"Position"];
-        cell.imageView.image = finalImage;
+        pitcher = [self.searchedPitchersByLastName objectAtIndex:indexPath.row];
     }
     
     else if(successfulPositionSearch){
-        PFObject *pitcher = [self.searchedPitchersByPosition objectAtIndex:indexPath.row];
-        PFFile *file = pitcher[@"PlayerImage"];
-        NSData *imageData = [file getData];
-        UIImage *image = [UIImage imageWithData:imageData];
-        UIImage *finalImage = [self resizeImage:image];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@",pitcher[@"FirstName"],pitcher[@"LastName"]];
-        cell.detailTextLabel.text = pitcher[@"Position"];
-        cell.imageView.image = finalImage;
+        pitcher = [self.searchedPitchersByPosition objectAtIndex:indexPath.row];
     }
     
     else{
-        PFObject *pitcher = [self.pitchers objectAtIndex:indexPath.row];
-        PFFile *file = pitcher[@"PlayerImage"];
-        NSData *imageData = [file getData];
-        UIImage *image = [UIImage imageWithData:imageData];
-        UIImage *finalImage = [self resizeImage:image];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@",pitcher[@"FirstName"],pitcher[@"LastName"]];
-        cell.detailTextLabel.text = pitcher[@"Pitcher"];
-        cell.imageView.image = finalImage;
+        pitcher = [self.pitchers objectAtIndex:indexPath.row];
     }
+    
+    PFFile *file = pitcher[@"PlayerImage"];
+    NSData *imageData = [file getData];
+    UIImage *image = [UIImage imageWithData:imageData];
+    UIImage *finalImage = [self resizeImage:image];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@",pitcher[@"FirstName"],pitcher[@"LastName"]];
+    int class = [pitcher[@"SchoolClass"]intValue];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", class];
+    cell.imageView.image = finalImage;
+    cell.imageView.layer.cornerRadius = cell.frame.size.height/2;
+    cell.imageView.clipsToBounds = YES;
+    cell.selectionStyle = UITableViewCellEditingStyleNone;
 
     return cell;
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Add your Colour.
+    UITableViewCell *cell = (UITableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    [self setCellColor:[UIColor blackColor] ForCell:cell];  //highlight colour
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.detailTextLabel.textColor = [UIColor whiteColor];
+    cell.tintColor = [UIColor whiteColor];
+}
+
+- (void)setCellColor:(UIColor *)color ForCell:(UITableViewCell *)cell {
+    cell.contentView.backgroundColor = color;
+    cell.backgroundColor = color;
+    cell.tintColor = color;
 }
 
 -(UIImage *)resizeImage:(UIImage *)image
@@ -350,6 +377,11 @@ BOOL successfulPositionSearch;
 
 /* When the user taps the accessory button transition to the PlayerScorecardController */
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"toEditPlayer" sender:indexPath];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self performSegueWithIdentifier:@"toScorecard" sender:indexPath];
 }
@@ -425,11 +457,39 @@ BOOL successfulPositionSearch;
             detailViewController.pitcher = pitcher;
         }
     }
+    
+    else if([segue.destinationViewController isKindOfClass:[EditPitcherViewController class]])
+    {
+        EditPitcherViewController *editController = segue.destinationViewController;
+        NSIndexPath *indexPath = sender;
+        PFObject *pitcher;
+        
+        if(successfulLastNameSearch){
+            pitcher = self.searchedPitchersByLastName[indexPath.row];
+            editController.pitcher = pitcher;
+        }
+        
+        else if(successfulPositionSearch){
+            pitcher = self.searchedPitchersByPosition[indexPath.row];
+            editController.pitcher = pitcher;
+        }
+        
+        else if(successfulSearch){
+            pitcher = self.searchedPitchers[indexPath.row];
+            editController.pitcher = pitcher;
+        }
+        
+        else{
+            pitcher = [self.pitchers objectAtIndex:indexPath.row];
+            editController.pitcher = pitcher;
+        }
+    }
 }
 
--(IBAction)back:(UIBarButtonItem *)sender
+- (IBAction)logout:(UIBarButtonItem *)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    logalert = [[UIAlertView alloc]initWithTitle:@"Log Out" message:@"Are you sure you want to log out? "delegate:self cancelButtonTitle:nil otherButtonTitles:@"No", @"Yes", nil];
+    [logalert show];
 }
 
 @end

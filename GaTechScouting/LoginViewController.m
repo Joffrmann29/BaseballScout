@@ -102,7 +102,6 @@
     
     self.userField.placeholder = @"Username";
     self.passField.placeholder = @"Password";
-    self.headLabel.text = @"ScoutOnTheGo";
     
     self.userField.textAlignment = NSTextAlignmentCenter;
     self.passField.textAlignment = NSTextAlignmentCenter;
@@ -111,21 +110,39 @@
     [self.userField setValue:textfieldPlaceholderColor forKeyPath:@"_placeholderLabel.textColor"];
     [self.passField setValue:textfieldPlaceholderColor forKeyPath:@"_placeholderLabel.textColor"];
     
-    CAGradientLayer * gradientBG = [CAGradientLayer layer];
-    gradientBG.frame = self.view.bounds;
-    gradientBG.colors = [NSArray arrayWithObjects:
-                         (id)[[UIColor colorWithRed:252.0f / 255.0f green:31.0f / 255.0f blue:10.0f / 255.0f alpha:1.0f] CGColor],
-                         (id)[[UIColor colorWithRed:195.0f / 255.0f green:17.0f / 255.0f blue:3.0f / 255.0f alpha:1.0f] CGColor],
-                         (id)[[UIColor colorWithRed:195.0f / 255.0f green:17.0f / 255.0f blue:3.0f / 255.0f alpha:1.0f] CGColor],
-                         (id)[[UIColor colorWithRed:252.0f / 255.0f green:31.0f / 255.0f blue:10.0f / 255.0f alpha:1.0f] CGColor],
-                         (id)[[UIColor colorWithRed:252.0f / 255.0f green:31.0f / 255.0f blue:10.0f / 255.0f alpha:1.0f] CGColor],
-                         (id)[[UIColor colorWithRed:195.0f / 255.0f green:17.0f / 255.0f blue:3.0f / 255.0f alpha:1.0f] CGColor],
-                         nil];
-    [self.view.layer insertSublayer:gradientBG atIndex:0];
+    CAGradientLayer *viewLayer = [BackgroundLayer greyGradient];
+    viewLayer.frame = self.view.bounds;
+    [self.view.layer insertSublayer:viewLayer atIndex:0];
     
-    CAGradientLayer *bgLayer = [BackgroundLayer blueGradient];
-    bgLayer.frame = self.loginButton.bounds;
-    [self.loginButton.layer insertSublayer:bgLayer atIndex:0];
+    UIImageView *playerView = [[UIImageView alloc]initWithFrame:CGRectMake(110, 40, 100, 100)];
+    playerView.image = [UIImage imageNamed:@"GoMobileScout login screen.png"];
+    [self.view addSubview:playerView];
+    
+    CAGradientLayer *blueLayer = [CAGradientLayer layer];
+    blueLayer.frame = self.loginButton.bounds;
+    blueLayer.colors = [NSArray arrayWithObjects:
+                         (id)[[UIColor colorWithRed:42.0f / 255.0f green:92.0f / 255.0f blue:252.0f / 255.0f alpha:1.0f] CGColor],
+                         (id)[[UIColor colorWithRed:11.0f / 255.0f green:51.0f / 255.0f blue:101.0f / 255.0f alpha:1.0f] CGColor],
+                         nil];
+    [self.loginButton.layer insertSublayer:blueLayer atIndex:0];
+    
+    CAGradientLayer *blueRegLayer = [CAGradientLayer layer];
+    blueRegLayer.frame = self.loginButton.bounds;
+    blueRegLayer.colors = [NSArray arrayWithObjects:
+                        (id)[[UIColor colorWithRed:42.0f / 255.0f green:92.0f / 255.0f blue:252.0f / 255.0f alpha:1.0f] CGColor],
+                        (id)[[UIColor colorWithRed:11.0f / 255.0f green:51.0f / 255.0f blue:101.0f / 255.0f alpha:1.0f] CGColor],
+                        nil];
+    
+    [self.registrationButton.layer insertSublayer:blueRegLayer atIndex:0];
+    
+    CAGradientLayer *bluePlayerLayer = [CAGradientLayer layer];
+    bluePlayerLayer.frame = self.loginButton.bounds;
+    bluePlayerLayer.colors = [NSArray arrayWithObjects:
+                           (id)[[UIColor colorWithRed:42.0f / 255.0f green:92.0f / 255.0f blue:252.0f / 255.0f alpha:1.0f] CGColor],
+                           (id)[[UIColor colorWithRed:11.0f / 255.0f green:51.0f / 255.0f blue:101.0f / 255.0f alpha:1.0f] CGColor],
+                           nil];
+    [self.registerAsPlayerButton.layer insertSublayer:bluePlayerLayer atIndex:0
+     ];
     
     CALayer *btnLayer = [_loginButton layer];
     [btnLayer setMasksToBounds:YES];
@@ -133,20 +150,11 @@
     [btnLayer setBorderWidth:1.0f];
     [btnLayer setBorderColor:[[UIColor whiteColor] CGColor]];
     
-    CAGradientLayer *regLayer = [BackgroundLayer blueGradient];
-    regLayer.frame = self.registrationButton.bounds;
-    [self.registrationButton.layer insertSublayer:regLayer atIndex:0];
-    self.registrationButton.layer.cornerRadius = 10;
-    
     CALayer *btnRegLayer = [_registrationButton layer];
     [btnRegLayer setMasksToBounds:YES];
     [btnRegLayer setCornerRadius:10.0f];
     [btnRegLayer setBorderWidth:1.0f];
     [btnRegLayer setBorderColor:[[UIColor whiteColor]CGColor]];
-    
-    CAGradientLayer *playerLayer = [BackgroundLayer blueGradient];
-    playerLayer.frame = self.registerAsPlayerButton.bounds;
-    [self.registerAsPlayerButton.layer insertSublayer:playerLayer atIndex:0];
     
     CALayer *btnPlayerLayer = [_registerAsPlayerButton layer];
     [btnPlayerLayer setMasksToBounds:YES];
@@ -162,7 +170,6 @@
     
     [self.view addSubview:self.userField];
     [self.view addSubview:self.passField];
-    [self.view addSubview:self.headLabel];
     [self.view addSubview:self.loginButton];
     [self.view addSubview:self.registrationButton];
     [self.view addSubview:self.registerAsPlayerButton];

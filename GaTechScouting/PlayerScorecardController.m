@@ -6,16 +6,20 @@
 //  Copyright (c) 2014 JoffreyMann. All rights reserved.
 //
 
+#define kOFFSET_FOR_KEYBOARD 64.0
+
 #import "PlayerScorecardController.h"
 #import "Gradients.h"
 #import "EditPlayerViewController.h"
 #import "BackgroundLayer.h"
+#import <MessageUI/MessageUI.h>
 
-@interface PlayerScorecardController ()
+@interface PlayerScorecardController ()<MFMessageComposeViewControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 - (IBAction)backToSearch:(UIBarButtonItem *)sender;
+- (IBAction)composeText:(UIBarButtonItem *)sender;
 @end
 
 @implementation PlayerScorecardController
@@ -32,6 +36,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToHide:)];
+    singleTap.numberOfTapsRequired = 1;
+    singleTap.numberOfTouchesRequired = 1;
+    singleTap.delegate = self;
+    self.view.userInteractionEnabled = YES;
+    [self.view addGestureRecognizer:singleTap];
+    
     // Do any additional setup after loading the view.
     UIView *attributeView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, 320, 205)];
     
@@ -41,7 +53,9 @@
     UIImageView *playerView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 30, 100, 100)];
     PFFile *file = _player[@"PlayerImage"];
     NSData *imageData = [file getData];
-    playerView.image = [UIImage imageWithData:imageData];
+    UIImage *image = [UIImage imageWithData:imageData];
+    UIImage *finalImage = [self resizeImage:image];
+    playerView.image = finalImage;
     playerView.layer.cornerRadius = 50;
     playerView.clipsToBounds = YES;
     [attributeView addSubview:playerView];
@@ -79,35 +93,35 @@
     weightLabel.text = [NSString stringWithFormat:@"Weight: %i",weightInt];
     [attributeView addSubview:weightLabel];
     
-    UIView *hittingView = [[UIView alloc]initWithFrame:CGRectMake(0, 269, 320, 130)];
+    UIView *hittingView = [[UIView alloc]initWithFrame:CGRectMake(0, 269, 320, 80)];
     
-    UILabel *hittingLabel = [[UILabel alloc]initWithFrame:CGRectMake(110, 20, 160, 30)];
+    UILabel *hittingLabel = [[UILabel alloc]initWithFrame:CGRectMake(110, 20, 160, 25)];
     hittingLabel.textColor = [UIColor blueColor];
     hittingLabel.font = [UIFont fontWithName:@"Helvetica" size:20];
     hittingLabel.text = @"Batting Info";
     [hittingView addSubview:hittingLabel];
     
-    UILabel *hittingRatingLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 60, 75, 40)];
+    UILabel *hittingRatingLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 50, 75, 20)];
     hittingRatingLabel.textColor = [UIColor blueColor];
     hittingRatingLabel.font = [UIFont fontWithName:@"Helvetica" size:17];
     int hittingRating = [_player[@"Hitting"]intValue];
     hittingRatingLabel.text = [NSString stringWithFormat:@"Hitting:%i", hittingRating];
     [hittingView addSubview:hittingRatingLabel];
     
-    UILabel *powerLabel = [[UILabel alloc]initWithFrame:CGRectMake(122, 60, 75, 40)];
+    UILabel *powerLabel = [[UILabel alloc]initWithFrame:CGRectMake(122, 50, 75, 20)];
     powerLabel.textColor = [UIColor blueColor];
     powerLabel.font = [UIFont fontWithName:@"Helvetica" size:17];
     int powerRating = [_player[@"Power"]intValue];
     powerLabel.text = [NSString stringWithFormat:@"Power:%i", powerRating];
     [hittingView addSubview:powerLabel];
     
-    UILabel *battingLabel = [[UILabel alloc]initWithFrame:CGRectMake(235, 60, 75, 40)];
+    UILabel *battingLabel = [[UILabel alloc]initWithFrame:CGRectMake(235, 50, 75, 20)];
     battingLabel.textColor = [UIColor blueColor];
     battingLabel.font = [UIFont fontWithName:@"Helvetica" size:17];
     battingLabel.text = [NSString stringWithFormat:@"Bats:%@", _player[@"Bats"]];
     [hittingView addSubview:battingLabel];
     
-    UIView *fieldingView = [[UIView alloc]initWithFrame:CGRectMake(0, 396, 320, 192)];
+    UIView *fieldingView = [[UIView alloc]initWithFrame:CGRectMake(0, 349, 320, 300)];
     //fieldingView.backgroundColor = [UIColor blueColor];
     
     UILabel *fieldingLabel = [[UILabel alloc]initWithFrame:CGRectMake(120, 20, 160, 30)];
@@ -164,7 +178,7 @@
     _scrollView.contentSize = CGSizeMake(320, 568);
     [self.view addSubview:_scrollView];
     
-    self.view.backgroundColor = [UIColor colorWithRed:252.0f / 255.0f green:31.0f / 255.0f blue:10.0f / 255.0f alpha:1.0f];
+    self.view.backgroundColor = [UIColor colorWithRed:42.0f / 255.0f green:92.0f / 255.0f blue:252.0f / 255.0f alpha:1.0f];
     
     NSShadow *shadow = [[NSShadow alloc] init];
     shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
@@ -193,41 +207,142 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+-(UIImage *)resizeImage:(UIImage *)image
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if([segue.destinationViewController isKindOfClass:[EditPlayerViewController class]])
-    {
-        if([segue.identifier isEqualToString:@"toEditPlayer"])
+    CGRect rect = CGRectMake(0, 0, 100, 100);
+    UIGraphicsBeginImageContext(rect.size);
+    [image drawInRect:rect];
+    UIImage *transformedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    NSData *imgData = UIImagePNGRepresentation(transformedImage);
+    UIImage *finalImage = [UIImage imageWithData:imgData];
+    
+    return finalImage;
+}
+
+- (void)showSMS:(PFObject *)player {
+    
+    if(![MFMessageComposeViewController canSendText]) {
+        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your device doesn't support SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [warningAlert show];
+        return;
+    }
+    
+    //NSArray *recipents = @[@"12345678", @"72345524"];
+    NSString *message = [NSString stringWithFormat:@"Check out %@, %@", player[@"FirstName"], player[@"LastName"]];
+    
+    MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
+    messageController.messageComposeDelegate = self;
+    [messageController setRecipients:nil];
+    [messageController setBody:message];
+    
+    // Present message view controller on screen
+    [self presentViewController:messageController animated:YES completion:^{
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        [self setNeedsStatusBarAppearanceUpdate];
+        [messageController setNeedsStatusBarAppearanceUpdate];
+        
+    }];
+}
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult) result
+{
+    switch (result) {
+        case MessageComposeResultCancelled:
+            break;
+            
+        case MessageComposeResultFailed:
         {
-            EditPlayerViewController *editPlayer = segue.destinationViewController;
-//            editPlayer.firstName = _player[@"FirstName"];
-//            editPlayer.lastName = _player[@"LastName"];
-//            editPlayer.weight = [_player[@"Weight"]intValue];
-//            editPlayer.height = _player[@"height"];
-//            editPlayer.armStrength = [_player[@"ArmStrength"]intValue];
-//            editPlayer.armAccuracy = [_player[@"ArmAccuracy"]intValue];
-//            editPlayer.fielding = [_player[@"Fielding"]intValue];
-//            editPlayer.hitting = [_player[@"Hitting"]intValue];
-//            editPlayer.power = [_player[@"Power"]intValue];
-//            editPlayer.position = _player[@"Position"];
-//            editPlayer.throws = _player[@"Throws"];
-//            editPlayer.bats = _player[@"Bats"];
+            UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Failed to send SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [warningAlert show];
+            break;
         }
+            
+        case MessageComposeResultSent:
+            break;
+            
+        default:
+            break;
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)navBarWillShow {
+    // Animate the current view out of the way
+    if (self.view.frame.origin.y >= 0)
+    {
+        [self setViewMovedUp:YES];
+    }
+    else if (self.view.frame.origin.y < 0)
+    {
+        [self setViewMovedUp:NO];
     }
 }
 
-- (IBAction)editPlayer:(UIBarButtonItem *)sender
+-(void)navBarWillHide {
+    if (self.view.frame.origin.y >= 0)
+    {
+        [self setViewMovedUp:YES];
+    }
+    else if (self.view.frame.origin.y < 0)
+    {
+        [self setViewMovedUp:NO];
+    }
+}
+
+-(void)tapToHide:(UITapGestureRecognizer *)tap
 {
-    [self performSegueWithIdentifier:@"toEditPlayer" sender:self];
+    //move the main view, so that the keyboard does not hide it.
+    if  (self.view.frame.origin.y >= 0)
+    {
+        [self setViewMovedUp:YES];
+    }
+    
+    else
+    {
+        [self setViewMovedUp:NO];
+    }
+}
+
+//method to move the view up/down whenever the keyboard is shown/dismissed
+-(void)setViewMovedUp:(BOOL)movedUp
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3]; // if you want to slide up the view
+    
+    CGRect rect = self.view.frame;
+    if (movedUp)
+    {
+        // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
+        // 2. increase the size of the view so that the area behind the keyboard is covered up.
+        rect.origin.y -= kOFFSET_FOR_KEYBOARD;
+        rect.size.height += kOFFSET_FOR_KEYBOARD;
+    }
+    else
+    {
+        // revert back to the normal state.
+        rect.origin.y += kOFFSET_FOR_KEYBOARD;
+        rect.size.height -= kOFFSET_FOR_KEYBOARD;
+    }
+    self.view.frame = rect;
+    
+    [UIView commitAnimations];
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
 }
 
 - (IBAction)backToSearch:(UIBarButtonItem *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (IBAction)composeText:(UIBarButtonItem *)sender
+{
+    [self showSMS:self.player];
+}
+
 @end
