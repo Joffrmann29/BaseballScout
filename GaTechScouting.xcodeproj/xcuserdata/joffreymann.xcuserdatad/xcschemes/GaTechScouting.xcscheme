@@ -17,7 +17,7 @@
                BlueprintIdentifier = "B4E9CFFD19B662F900445493"
                BuildableName = "GaTechScouting.app"
                BlueprintName = "GaTechScouting"
-               ReferencedContainer = "container:GaTechScouting.xcodeproj">
+               ReferencedContainer = "container:Scouting.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "B4E9D01E19B662FA00445493"
                BuildableName = "GaTechScoutingTests.xctest"
                BlueprintName = "GaTechScoutingTests"
-               ReferencedContainer = "container:GaTechScouting.xcodeproj">
+               ReferencedContainer = "container:Scouting.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -45,7 +45,7 @@
             BlueprintIdentifier = "B4E9CFFD19B662F900445493"
             BuildableName = "GaTechScouting.app"
             BlueprintName = "GaTechScouting"
-            ReferencedContainer = "container:GaTechScouting.xcodeproj">
+            ReferencedContainer = "container:Scouting.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -64,7 +64,7 @@
             BlueprintIdentifier = "B4E9CFFD19B662F900445493"
             BuildableName = "GaTechScouting.app"
             BlueprintName = "GaTechScouting"
-            ReferencedContainer = "container:GaTechScouting.xcodeproj">
+            ReferencedContainer = "container:Scouting.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -82,7 +82,7 @@
             BlueprintIdentifier = "B4E9CFFD19B662F900445493"
             BuildableName = "GaTechScouting.app"
             BlueprintName = "GaTechScouting"
-            ReferencedContainer = "container:GaTechScouting.xcodeproj">
+            ReferencedContainer = "container:Scouting.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

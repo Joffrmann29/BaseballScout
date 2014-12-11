@@ -332,28 +332,13 @@ UIAlertView *errorAlert;
     cell.imageView.image = finalImage;
     cell.imageView.layer.cornerRadius = cell.frame.size.height/2;
     cell.imageView.clipsToBounds = YES;
-    cell.selectionStyle = UITableViewCellEditingStyleNone;
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = [UIColor redColor];
+    [cell setSelectedBackgroundView:bgColorView];
+    cell.textLabel.highlightedTextColor = [UIColor whiteColor];
+    cell.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
 
     return cell;
-}
-
-- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-
-- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Add your Colour.
-    UITableViewCell *cell = (UITableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-    [self setCellColor:[UIColor blackColor] ForCell:cell];  //highlight colour
-    cell.textLabel.textColor = [UIColor whiteColor];
-    cell.detailTextLabel.textColor = [UIColor whiteColor];
-    cell.tintColor = [UIColor whiteColor];
-}
-
-- (void)setCellColor:(UIColor *)color ForCell:(UITableViewCell *)cell {
-    cell.contentView.backgroundColor = color;
-    cell.backgroundColor = color;
-    cell.tintColor = color;
 }
 
 -(UIImage *)resizeImage:(UIImage *)image

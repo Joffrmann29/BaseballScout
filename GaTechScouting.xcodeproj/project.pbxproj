@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		5C8C32F863D546E5B6F840F5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D86EE9F7BE04DC28700CFE3 /* libPods.a */; };
+		B422BED31A37EF2700652A17 /* SearchPlayerAccountsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B422BED21A37EF2700652A17 /* SearchPlayerAccountsViewController.m */; };
+		B422BED61A38244000652A17 /* AddGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B422BED51A38244000652A17 /* AddGameViewController.m */; };
+		B422BED91A388BEB00652A17 /* ScoutNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B422BED81A388BEB00652A17 /* ScoutNavigationController.m */; };
+		B422BEDD1A38D84700652A17 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = B422BEDC1A38D84700652A17 /* Game.m */; };
+		B422BEE01A38D85A00652A17 /* GameHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B422BEDF1A38D85A00652A17 /* GameHandler.m */; };
+		B422BEE31A38DABB00652A17 /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B422BEE21A38DABB00652A17 /* CustomTextField.m */; };
+		B422BEE61A38DB7600652A17 /* UIHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B422BEE51A38DB7600652A17 /* UIHandler.m */; };
+		B422BEF31A390FAB00652A17 /* GameTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B422BEF21A390FAA00652A17 /* GameTableViewController.m */; };
 		B44313E51A0AE79C004D8910 /* login.png in Resources */ = {isa = PBXBuildFile; fileRef = B44313E41A0AE79C004D8910 /* login.png */; };
 		B44313E71A0AE80D004D8910 /* log_in.png in Resources */ = {isa = PBXBuildFile; fileRef = B44313E61A0AE80D004D8910 /* log_in.png */; };
 		B443ECD919B751AE0050265E /* SearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B443ECD819B751AE0050265E /* SearchTableViewController.m */; };
@@ -31,6 +39,9 @@
 		B49293E319D3A97000422C5E /* GeneralUI.m in Sources */ = {isa = PBXBuildFile; fileRef = B49293E219D3A97000422C5E /* GeneralUI.m */; };
 		B495211E19E82AD8000CCF27 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B495211D19E82AD8000CCF27 /* LoginViewController.m */; };
 		B4B099F219DD9229006CBDA5 /* EditPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4B099F119DD9229006CBDA5 /* EditPlayerViewController.m */; };
+		B4B617361A37B08C00B1524B /* ImprovedChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4B617351A37B08C00B1524B /* ImprovedChatViewController.m */; };
+		B4B617391A37BA6E00B1524B /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4B617381A37BA6E00B1524B /* NavigationController.m */; };
+		B4B6173C1A37BB0F00B1524B /* SearchNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4B6173B1A37BB0F00B1524B /* SearchNavigationController.m */; };
 		B4B85C1819BDF55200B8D3D0 /* GaTech.JPG in Resources */ = {isa = PBXBuildFile; fileRef = B4B85C1719BDF55200B8D3D0 /* GaTech.JPG */; };
 		B4BB4EB21A23AEB600F2ABA8 /* GoMobileScout iPhone6.png in Resources */ = {isa = PBXBuildFile; fileRef = B4BB4EB11A23AEB600F2ABA8 /* GoMobileScout iPhone6.png */; };
 		B4BB4EB41A23AF8700F2ABA8 /* GoMobileScout login screen.png in Resources */ = {isa = PBXBuildFile; fileRef = B4BB4EB31A23AF8700F2ABA8 /* GoMobileScout login screen.png */; };
@@ -75,7 +86,22 @@
 
 /* Begin PBXFileReference section */
 		1D86EE9F7BE04DC28700CFE3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		475A6B331DC74ECFA40F0615 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		B422BED11A37EF2700652A17 /* SearchPlayerAccountsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchPlayerAccountsViewController.h; sourceTree = "<group>"; };
+		B422BED21A37EF2700652A17 /* SearchPlayerAccountsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchPlayerAccountsViewController.m; sourceTree = "<group>"; };
+		B422BED41A38244000652A17 /* AddGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddGameViewController.h; sourceTree = "<group>"; };
+		B422BED51A38244000652A17 /* AddGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddGameViewController.m; sourceTree = "<group>"; };
+		B422BED71A388BEB00652A17 /* ScoutNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoutNavigationController.h; sourceTree = "<group>"; };
+		B422BED81A388BEB00652A17 /* ScoutNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoutNavigationController.m; sourceTree = "<group>"; };
+		B422BEDB1A38D84700652A17 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
+		B422BEDC1A38D84700652A17 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
+		B422BEDE1A38D85A00652A17 /* GameHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHandler.h; sourceTree = "<group>"; };
+		B422BEDF1A38D85A00652A17 /* GameHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameHandler.m; sourceTree = "<group>"; };
+		B422BEE11A38DABB00652A17 /* CustomTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTextField.h; sourceTree = "<group>"; };
+		B422BEE21A38DABB00652A17 /* CustomTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTextField.m; sourceTree = "<group>"; };
+		B422BEE41A38DB7600652A17 /* UIHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIHandler.h; sourceTree = "<group>"; };
+		B422BEE51A38DB7600652A17 /* UIHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIHandler.m; sourceTree = "<group>"; };
+		B422BEF11A390FAA00652A17 /* GameTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameTableViewController.h; sourceTree = "<group>"; };
+		B422BEF21A390FAA00652A17 /* GameTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameTableViewController.m; sourceTree = "<group>"; };
 		B44313E41A0AE79C004D8910 /* login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login.png; sourceTree = "<group>"; };
 		B44313E61A0AE80D004D8910 /* log_in.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = log_in.png; sourceTree = "<group>"; };
 		B443ECD719B751AE0050265E /* SearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTableViewController.h; sourceTree = "<group>"; };
@@ -112,6 +138,12 @@
 		B495211D19E82AD8000CCF27 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		B4B099F019DD9229006CBDA5 /* EditPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPlayerViewController.h; sourceTree = "<group>"; };
 		B4B099F119DD9229006CBDA5 /* EditPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPlayerViewController.m; sourceTree = "<group>"; };
+		B4B617341A37B08C00B1524B /* ImprovedChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImprovedChatViewController.h; sourceTree = "<group>"; };
+		B4B617351A37B08C00B1524B /* ImprovedChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImprovedChatViewController.m; sourceTree = "<group>"; };
+		B4B617371A37BA6E00B1524B /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
+		B4B617381A37BA6E00B1524B /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
+		B4B6173A1A37BB0F00B1524B /* SearchNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchNavigationController.h; sourceTree = "<group>"; };
+		B4B6173B1A37BB0F00B1524B /* SearchNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchNavigationController.m; sourceTree = "<group>"; };
 		B4B85C1719BDF55200B8D3D0 /* GaTech.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = GaTech.JPG; sourceTree = "<group>"; };
 		B4BB4EB11A23AEB600F2ABA8 /* GoMobileScout iPhone6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GoMobileScout iPhone6.png"; sourceTree = "<group>"; };
 		B4BB4EB31A23AF8700F2ABA8 /* GoMobileScout login screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GoMobileScout login screen.png"; sourceTree = "<group>"; };
@@ -154,6 +186,8 @@
 		B4F1F00519CA367C0075A0EA /* PlayerScorecardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerScorecardController.m; sourceTree = "<group>"; };
 		B4F2D7001A23DC490025EE40 /* logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logout.png; sourceTree = "<group>"; };
 		B4F2D7041A2420560025EE40 /* Search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Search.png; sourceTree = "<group>"; };
+		BA1BCA20F47DA33CCFCD6774 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		C73762FFB3C943DE7FCCC347 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +215,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		780168A27E31F4431CAA4F38 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BA1BCA20F47DA33CCFCD6774 /* Pods.debug.xcconfig */,
+				C73762FFB3C943DE7FCCC347 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		B422BEDA1A38D76500652A17 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B422BEDB1A38D84700652A17 /* Game.h */,
+				B422BEDC1A38D84700652A17 /* Game.m */,
+				B422BEDE1A38D85A00652A17 /* GameHandler.h */,
+				B422BEDF1A38D85A00652A17 /* GameHandler.m */,
+				B422BEE11A38DABB00652A17 /* CustomTextField.h */,
+				B422BEE21A38DABB00652A17 /* CustomTextField.m */,
+				B422BEE41A38DB7600652A17 /* UIHandler.h */,
+				B422BEE51A38DB7600652A17 /* UIHandler.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		B46B9FAA1A1B8EE3005BB35E /* PlayerManagement */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +249,13 @@
 		B47003BB1A1D057500B92DC2 /* Scout Screens */ = {
 			isa = PBXGroup;
 			children = (
+				B4C50B031A23A2FA00B8B787 /* ScoutTableViewController.h */,
+				B4C50B021A23A2FA00B8B787 /* ScoutTableViewController.m */,
+				B422BED41A38244000652A17 /* AddGameViewController.h */,
+				B422BED51A38244000652A17 /* AddGameViewController.m */,
+				B422BEF11A390FAA00652A17 /* GameTableViewController.h */,
+				B422BEF21A390FAA00652A17 /* GameTableViewController.m */,
+				B422BEDA1A38D76500652A17 /* Models */,
 			);
 			name = "Scout Screens";
 			sourceTree = "<group>";
@@ -236,6 +301,10 @@
 				B4F1F00519CA367C0075A0EA /* PlayerScorecardController.m */,
 				B443ECD719B751AE0050265E /* SearchTableViewController.h */,
 				B443ECD819B751AE0050265E /* SearchTableViewController.m */,
+				B4B617341A37B08C00B1524B /* ImprovedChatViewController.h */,
+				B4B617351A37B08C00B1524B /* ImprovedChatViewController.m */,
+				B422BED11A37EF2700652A17 /* SearchPlayerAccountsViewController.h */,
+				B422BED21A37EF2700652A17 /* SearchPlayerAccountsViewController.m */,
 			);
 			name = "Player Screens";
 			sourceTree = "<group>";
@@ -246,8 +315,6 @@
 				B4C50AFF1A23A29B00B8B787 /* EditPitcherViewController.h */,
 				B4C50AFE1A23A25F00B8B787 /* EditPitcherViewController.h */,
 				B4C50B001A23A2BF00B8B787 /* EditPitcherViewController.m */,
-				B4C50B031A23A2FA00B8B787 /* ScoutTableViewController.h */,
-				B4C50B021A23A2FA00B8B787 /* ScoutTableViewController.m */,
 				B4C50B051A23A32B00B8B787 /* SearchPitcherTableViewController.h */,
 				B4C50B061A23A34000B8B787 /* SearchPitcherTableViewController.m */,
 				B4C50B081A23A34D00B8B787 /* PitcherScorecardController.h */,
@@ -284,7 +351,7 @@
 				B4E9D02619B662FA00445493 /* GaTechScoutingTests */,
 				B4E9D00019B662F900445493 /* Frameworks */,
 				B4E9CFFF19B662F900445493 /* Products */,
-				475A6B331DC74ECFA40F0615 /* Pods.xcconfig */,
+				780168A27E31F4431CAA4F38 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -317,6 +384,12 @@
 				B4E9D01319B662F900445493 /* Main.storyboard */,
 				B485196719C106B600A27A1B /* MBProgressHUD.h */,
 				B485196819C106B600A27A1B /* MBProgressHUD.m */,
+				B4B617371A37BA6E00B1524B /* NavigationController.h */,
+				B4B617381A37BA6E00B1524B /* NavigationController.m */,
+				B4B6173A1A37BB0F00B1524B /* SearchNavigationController.h */,
+				B4B6173B1A37BB0F00B1524B /* SearchNavigationController.m */,
+				B422BED71A388BEB00652A17 /* ScoutNavigationController.h */,
+				B422BED81A388BEB00652A17 /* ScoutNavigationController.m */,
 				B495211B19E82ABA000CCF27 /* User Management */,
 				B4C80F7719DA02480018166A /* Constants */,
 				B4C80F7619DA02160018166A /* Player Cells */,
@@ -524,7 +597,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -534,26 +607,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B422BEE01A38D85A00652A17 /* GameHandler.m in Sources */,
 				B4C50B0A1A23A35600B8B787 /* PitcherScorecardController.m in Sources */,
+				B422BEE61A38DB7600652A17 /* UIHandler.m in Sources */,
+				B422BEF31A390FAB00652A17 /* GameTableViewController.m in Sources */,
+				B422BED31A37EF2700652A17 /* SearchPlayerAccountsViewController.m in Sources */,
 				B4C50B011A23A2BF00B8B787 /* EditPitcherViewController.m in Sources */,
 				B4C50B071A23A34000B8B787 /* SearchPitcherTableViewController.m in Sources */,
 				B49293DA19D3A17200422C5E /* CustomTextFieldAppearance.m in Sources */,
+				B422BEDD1A38D84700652A17 /* Game.m in Sources */,
 				B466C38219BF9C9E00051BE0 /* PlayerTableViewCell.m in Sources */,
 				B4F1F00619CA367C0075A0EA /* PlayerScorecardController.m in Sources */,
+				B422BEE31A38DABB00652A17 /* CustomTextField.m in Sources */,
 				B46B9FB31A1C0016005BB35E /* BackgroundLayer.m in Sources */,
 				B4C50B041A23A2FA00B8B787 /* ScoutTableViewController.m in Sources */,
 				B466C37F19BF9BA100051BE0 /* AddPlayerViewController.m in Sources */,
 				B466C37C19BF443500051BE0 /* CCConstants.m in Sources */,
+				B4B6173C1A37BB0F00B1524B /* SearchNavigationController.m in Sources */,
 				B485196919C106B600A27A1B /* MBProgressHUD.m in Sources */,
 				B4EBD8991A0BBD7F00A924B8 /* RegistrationViewController.m in Sources */,
 				B495211E19E82AD8000CCF27 /* LoginViewController.m in Sources */,
+				B422BED61A38244000652A17 /* AddGameViewController.m in Sources */,
+				B422BED91A388BEB00652A17 /* ScoutNavigationController.m in Sources */,
 				B4B099F219DD9229006CBDA5 /* EditPlayerViewController.m in Sources */,
 				B49293D719D3997900422C5E /* Gradients.m in Sources */,
 				B49293E319D3A97000422C5E /* GeneralUI.m in Sources */,
 				B4E9D01219B662F900445493 /* AppDelegate.m in Sources */,
+				B4B617361A37B08C00B1524B /* ImprovedChatViewController.m in Sources */,
 				B4E9D00E19B662F900445493 /* main.m in Sources */,
 				B47003BA1A1CF42A00B92DC2 /* PlayerRegistrationViewController.m in Sources */,
 				B443ECD919B751AE0050265E /* SearchTableViewController.m in Sources */,
+				B4B617391A37BA6E00B1524B /* NavigationController.m in Sources */,
 				B4C50B131A23A43900B8B787 /* AddPitcherViewController.m in Sources */,
 				B49293DD19D3A5D200422C5E /* LayerViewObjects.m in Sources */,
 			);
@@ -677,7 +761,7 @@
 		};
 		B4E9D03119B662FA00445493 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 475A6B331DC74ECFA40F0615 /* Pods.xcconfig */;
+			baseConfigurationReference = BA1BCA20F47DA33CCFCD6774 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -687,14 +771,14 @@
 				GCC_PREFIX_HEADER = "GaTechScouting/GaTechGaTechScouting-Prefix.pch";
 				INFOPLIST_FILE = "GaTechScouting/GaTechGaTechScouting-Info.plist";
 				PRODUCT_NAME = GaTechGaTechScouting;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "59c4ad7f-f0ad-4f8a-9ae1-75d37b41f5b8";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
 		B4E9D03219B662FA00445493 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 475A6B331DC74ECFA40F0615 /* Pods.xcconfig */;
+			baseConfigurationReference = C73762FFB3C943DE7FCCC347 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -704,7 +788,7 @@
 				GCC_PREFIX_HEADER = "GaTechScouting/GaTechGaTechScouting-Prefix.pch";
 				INFOPLIST_FILE = "GaTechScouting/GaTechGaTechScouting-Info.plist";
 				PRODUCT_NAME = GaTechGaTechScouting;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "59c4ad7f-f0ad-4f8a-9ae1-75d37b41f5b8";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

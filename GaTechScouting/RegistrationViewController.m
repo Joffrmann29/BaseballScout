@@ -79,7 +79,7 @@ MBProgressHUD *hud;
     [self.registrationButton addTarget:self
                                 action:@selector(addUser:)
                       forControlEvents:UIControlEventTouchUpInside];
-    [self.registrationButton setTitle:@"Create Scouting Account" forState:UIControlStateNormal];
+    [self.registrationButton setTitle:@"Account Options" forState:UIControlStateNormal];
     [self.registrationButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.registrationButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:17];
     self.registrationButton.titleLabel.textAlignment = NSTextAlignmentCenter;

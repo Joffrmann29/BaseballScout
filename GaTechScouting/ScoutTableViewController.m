@@ -10,6 +10,7 @@
 #import "MBProgressHUD.h"
 #import <MessageUI/MessageUI.h>
 #import "LoginViewController.h"
+#import "ImprovedChatViewController.h"
 
 @interface ScoutTableViewController ()<MFMailComposeViewControllerDelegate,UINavigationControllerDelegate,UIAlertViewDelegate>
 
@@ -103,14 +104,14 @@ UIAlertView *alert;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     // Configure the cell...
-    PFUser *scoutUser = self.scouts[indexPath.row];
-    NSString *scoutFirstName = scoutUser[@"FirstName"];
-    NSString *scoutLastName = scoutUser[@"LastName"];
-    NSString *groupName = scoutUser[@"Group"];
+    PFObject *scout = self.scouts[indexPath.row];
+    NSString *scoutFirstName = scout[@"FirstName"];
+    NSString *scoutLastName = scout[@"LastName"];
+    NSString *groupName = scout[@"Group"];
     
     cell.textLabel.text = [NSString stringWithFormat:@"%@, %@", scoutLastName, scoutFirstName];
     cell.detailTextLabel.text = groupName;
-    PFFile *file = scoutUser[@"UserImage"];
+    PFFile *file = scout[@"UserImage"];
     NSData *data = [file getData];
     UIImage *image = [UIImage imageWithData:data];
     UIImage *finalImage = [self resizeImage:image];
@@ -132,23 +133,20 @@ UIAlertView *alert;
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PFUser *scoutUser = self.scouts[indexPath.row];
-    NSString *scoutEmail = scoutUser[@"email"];
+    PFObject *scoutUser = self.scouts[indexPath.row];
     
-    NSArray *toRecipents = [NSArray arrayWithObject:scoutEmail];
-    
-    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-    mc.mailComposeDelegate = self;
-    [mc setSubject:nil];
-    [mc setSubject:nil];
-    [mc setMessageBody:nil isHTML:NO];
-    [mc setToRecipients:toRecipents];
+    PFFile *theImage = [[PFUser currentUser] objectForKey:@"UserImage"];
+    [theImage getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        UIImage *image = [UIImage imageWithData:data];
         
-    // Present mail view controller on screen
-    [self presentViewController:mc animated:YES completion:^{
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-        [self setNeedsStatusBarAppearanceUpdate];
-        [[UINavigationBar appearance]setTintColor:[UIColor whiteColor]];
+        //PFObject *player = [PFObject objectWithClassName:@"User"];
+        ImprovedChatViewController *ivc = [ImprovedChatViewController messagesViewController];
+        UIImage *finalImage = [self resizeImage:image];
+        ivc.player = scoutUser;
+        NSLog(@"%@",scoutUser[@"username"]);
+        ivc.matchedImage = finalImage;
+        ivc.currentImage = image;
+        [self.navigationController pushViewController:ivc animated:YES];
     }];
 }
 
@@ -252,8 +250,8 @@ UIAlertView *alert;
     CAGradientLayer * gradientBG = [CAGradientLayer layer];
     gradientBG.frame = bounds;
     gradientBG.colors = [NSArray arrayWithObjects:
-                         (id)[[UIColor colorWithRed:252.0f / 255.0f green:31.0f / 255.0f blue:10.0f / 255.0f alpha:1.0f] CGColor],
-                         (id)[[UIColor colorWithRed:101.0f / 255.0f green:17.0f / 255.0f blue:3.0f / 255.0f alpha:1.0f] CGColor],
+                         (id)[[UIColor colorWithRed:42.0f / 255.0f green:92.0f / 255.0f blue:252.0f / 255.0f alpha:1.0f] CGColor],
+                         (id)[[UIColor colorWithRed:11.0f / 255.0f green:51.0f / 255.0f blue:101.0f / 255.0f alpha:1.0f] CGColor],
                          nil];
     return gradientBG;
 }
@@ -283,5 +281,10 @@ UIAlertView *alert;
 {
     alert = [[UIAlertView alloc]initWithTitle:@"Log Out" message:@"Are you sure you want to log out? "delegate:self cancelButtonTitle:nil otherButtonTitles:@"Yes", @"No", nil];
     [alert show];
+}
+
+-(IBAction)addGame:(id)sender
+{
+    [self performSegueWithIdentifier:@"AddGame" sender:self];
 }
 @end

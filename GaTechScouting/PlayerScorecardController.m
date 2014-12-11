@@ -13,11 +13,13 @@
 #import "EditPlayerViewController.h"
 #import "BackgroundLayer.h"
 #import <MessageUI/MessageUI.h>
+#import "ImprovedChatViewController.h"
 
-@interface PlayerScorecardController ()<MFMessageComposeViewControllerDelegate, UIGestureRecognizerDelegate>
+@interface PlayerScorecardController ()<MFMessageComposeViewControllerDelegate, UIGestureRecognizerDelegate, UIActionSheetDelegate,UINavigationControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) UIImageView *imgView;
 - (IBAction)backToSearch:(UIBarButtonItem *)sender;
 - (IBAction)composeText:(UIBarButtonItem *)sender;
 @end
@@ -45,7 +47,7 @@
     [self.view addGestureRecognizer:singleTap];
     
     // Do any additional setup after loading the view.
-    UIView *attributeView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, 320, 205)];
+    UIView *attributeView = [[UIView alloc]initWithFrame:CGRectMake(0, 44, 320, 225)];
     
     CALayer *attrLayer = [self gradientBGLayerForBounds:attributeView.bounds];
     [attributeView.layer insertSublayer:attrLayer atIndex:0];
@@ -59,6 +61,7 @@
     playerView.layer.cornerRadius = 50;
     playerView.clipsToBounds = YES;
     [attributeView addSubview:playerView];
+    self.imgView = playerView;
     
     UILabel *attributeHeaderLabel = [[UILabel alloc]initWithFrame:CGRectMake(115, 20, 160, 30)];
     attributeHeaderLabel.textColor = [UIColor whiteColor];
@@ -93,7 +96,7 @@
     weightLabel.text = [NSString stringWithFormat:@"Weight: %i",weightInt];
     [attributeView addSubview:weightLabel];
     
-    UIView *hittingView = [[UIView alloc]initWithFrame:CGRectMake(0, 269, 320, 80)];
+    UIView *hittingView = [[UIView alloc]initWithFrame:CGRectMake(0, 249, 320, 100)];
     
     UILabel *hittingLabel = [[UILabel alloc]initWithFrame:CGRectMake(110, 20, 160, 25)];
     hittingLabel.textColor = [UIColor blueColor];
@@ -121,7 +124,7 @@
     battingLabel.text = [NSString stringWithFormat:@"Bats:%@", _player[@"Bats"]];
     [hittingView addSubview:battingLabel];
     
-    UIView *fieldingView = [[UIView alloc]initWithFrame:CGRectMake(0, 349, 320, 300)];
+    UIView *fieldingView = [[UIView alloc]initWithFrame:CGRectMake(0, 329, 320, 320)];
     //fieldingView.backgroundColor = [UIColor blueColor];
     
     UILabel *fieldingLabel = [[UILabel alloc]initWithFrame:CGRectMake(120, 20, 160, 30)];
@@ -178,16 +181,29 @@
     _scrollView.contentSize = CGSizeMake(320, 568);
     [self.view addSubview:_scrollView];
     
-    self.view.backgroundColor = [UIColor colorWithRed:42.0f / 255.0f green:92.0f / 255.0f blue:252.0f / 255.0f alpha:1.0f];
+//    self.view.backgroundColor = [UIColor colorWithRed:42.0f / 255.0f green:92.0f / 255.0f blue:252.0f / 255.0f alpha:1.0f];
+}
+
+-(void)showAction
+{
+    NSString *actionSheetTitle = @"Menu Options"; //Action Sheet Title
+    NSString *addPlayer = @"Create Scout User";
+    NSString *selectPhoto = @"Select Photo";
+    NSString *takePicture = @"Take Picture";
+    NSString *cancelTitle = @"Cancel Button";
     
-    NSShadow *shadow = [[NSShadow alloc] init];
-    shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
-    shadow.shadowOffset = CGSizeMake(0, 1);
-    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                           [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
-                                                           shadow, NSShadowAttributeName,
-                                                           [UIFont fontWithName:@"Arial" size:17.0], NSFontAttributeName, nil]];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                  initWithTitle:actionSheetTitle
+                                  delegate:self
+                                  cancelButtonTitle:cancelTitle
+                                  destructiveButtonTitle:addPlayer
+                                  otherButtonTitles:selectPhoto,takePicture, nil];
+    [actionSheet showInView:self.view];
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
 }
 
 - (CALayer *)gradientBGLayerForBounds:(CGRect)bounds
@@ -342,7 +358,17 @@
 
 - (IBAction)composeText:(UIBarButtonItem *)sender
 {
-    [self showSMS:self.player];
+    //[self showSMS:self.player];
+//    PFFile *theImage = [[PFUser currentUser] objectForKey:@"UserImage"];
+//    [theImage getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+//        UIImage *image = [UIImage imageWithData:data];
+//        
+//        ImprovedChatViewController *ivc = [ImprovedChatViewController messagesViewController];
+//        ivc.matchedUser = _matchedUser;
+//        ivc.matchedImage = self.imgView.image;
+//        ivc.currentImage = image;
+//        [self.navigationController pushViewController:ivc animated:YES];
+//    }];
 }
 
 @end

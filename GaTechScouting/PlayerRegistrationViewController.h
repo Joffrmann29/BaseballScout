@@ -10,4 +10,5 @@
 
 @interface PlayerRegistrationViewController : RegistrationViewController<UITextFieldDelegate, UIScrollViewDelegate>
 
+-(void)didAddPlayer;
 @end

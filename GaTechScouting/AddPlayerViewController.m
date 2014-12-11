@@ -13,6 +13,7 @@
 #import "LayerViewObjects.h"
 #import "GeneralUI.h"
 #import "BackgroundLayer.h"
+#import "PlayerRegistrationViewController.h"
 
 @interface AddPlayerViewController ()<UIPickerViewDelegate,UIPickerViewDataSource,UIScrollViewDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIGestureRecognizerDelegate>
 
@@ -89,23 +90,6 @@ MBProgressHUD *hud;
     _scroll.contentSize = CGSizeMake(320, 1000);
     _scroll.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_scroll];
-    
-    CALayer * bgGradientLayer = [self gradientBGLayerForBounds:self.navBar.bounds];
-    UIGraphicsBeginImageContext(bgGradientLayer.bounds.size);
-    [bgGradientLayer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage * bgAsImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    
-    if (bgAsImage != nil)
-    {
-        [[UINavigationBar appearance] setBackgroundImage:bgAsImage
-                                           forBarMetrics:UIBarMetricsDefault];
-    }
-    else
-    {
-        NSLog(@"Failded to create gradient bg image, user will see standard tint color gradient.");
-    }
     
     CAGradientLayer *scrollLayer = [BackgroundLayer greyGradient];
     scrollLayer.frame = self.scroll.bounds;

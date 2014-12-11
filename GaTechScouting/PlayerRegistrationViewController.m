@@ -5,7 +5,7 @@
 //  Created by Joffrey Mann on 11/19/14.
 //  Copyright (c) 2014 JoffreyMann. All rights reserved.
 //
-#define kOFFSET_FOR_KEYBOARD 80.0
+#define kOFFSET_FOR_KEYBOARD 120.0
 #import "PlayerRegistrationViewController.h"
 #import "BackgroundLayer.h"
 #import "MBProgressHUD.h"
@@ -89,9 +89,16 @@ MBProgressHUD *hud;
     
     CALayer *btnRegLayer = [_registrationButton layer];
     [btnRegLayer setMasksToBounds:YES];
-    [btnRegLayer setCornerRadius:10.0f];
+    btnRegLayer.cornerRadius = 10.0;
     [btnRegLayer setBorderWidth:1.0f];
     [btnRegLayer setBorderColor:[[UIColor whiteColor]CGColor]];
+    
+    
+    CALayer *btnLogLayer = [_backToLoginButton layer];
+    [btnLogLayer setMasksToBounds:YES];
+    btnLogLayer.cornerRadius = 10.0;
+    [btnLogLayer setBorderWidth:1.0f];
+    [btnLogLayer setBorderColor:[[UIColor whiteColor]CGColor]];
     
     CAGradientLayer *blueLayer = [CAGradientLayer layer];
     blueLayer.frame = self.backToLoginButton.bounds;
@@ -108,12 +115,6 @@ MBProgressHUD *hud;
                            (id)[[UIColor colorWithRed:11.0f / 255.0f green:51.0f / 255.0f blue:101.0f / 255.0f alpha:1.0f] CGColor],
                            nil];
     [self.registrationButton.layer insertSublayer:blueRegLayer atIndex:0];
-    
-    CALayer *btnLogLayer = [_backToLoginButton layer];
-    [btnLogLayer setMasksToBounds:YES];
-    [btnLogLayer setCornerRadius:10.0f];
-    [btnLogLayer setBorderWidth:1.0f];
-    [btnLogLayer setBorderColor:[[UIColor whiteColor]CGColor]];
     
     self.firstNameField.backgroundColor = [UIColor blackColor];
     self.lastNameField.backgroundColor = [UIColor blackColor];
@@ -165,12 +166,6 @@ MBProgressHUD *hud;
     self.emailField.textAlignment = NSTextAlignmentCenter;
     self.teamField.textAlignment = NSTextAlignmentCenter;
     
-    self.titleLabel.text = @"Create Your ScoutOnTheGo Account";
-    self.titleLabel.textColor = [UIColor darkTextColor];
-    self.titleLabel.textAlignment = NSTextAlignmentCenter;
-    self.titleLabel.shadowColor = [UIColor whiteColor];
-    self.titleLabel.numberOfLines = 0;
-    
     [self.view addSubview:self.firstNameField];
     [self.view addSubview:self.lastNameField];
     [self.view addSubview:self.userField];
@@ -182,6 +177,7 @@ MBProgressHUD *hud;
     [self.view addSubview:self.backToLoginButton];
     [self.view addSubview:self.titleLabel];
     [self.passField setSecureTextEntry:YES];
+    [self.confirmPassField setSecureTextEntry:YES];
     
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToDismissKeyboard:)];
     singleTap.numberOfTapsRequired = 1;

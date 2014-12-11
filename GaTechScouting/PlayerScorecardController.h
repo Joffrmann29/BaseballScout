@@ -11,4 +11,5 @@
 @interface PlayerScorecardController : UIViewController<NSURLConnectionDelegate,NSURLConnectionDataDelegate>
 
 @property (nonatomic, strong) PFObject *player;
+@property (strong, nonatomic) PFUser *matchedUser;
 @end
